@@ -86,6 +86,8 @@ Finite validation does not certify exact real-detector agreement.</p>
 <p>Reflection is selected first, then incident QE is sampled on the nonreflected branch.
 That gives detection probability <code>(1-R) × QE</code>.
 Incident QE already includes reflection loss; the correct mutually exclusive outcomes are detection QE, reflection R, and terminal loss 1-QE-R.</p>
+<p>The boundary test gives probability 0.16977 instead of incident QE 0.22619.
+A selected 50,000-photon DATA beam gives 10,997.99 direct PE at R=0 and 8,225.99 at R=0.25.</p>
 ''' + fig('qe_reflection', 'Figure 1. Boundary acceptance and a real SK_WAND DATA beam at 400 nm. Boundary bars show binomial standard errors; the beam panel measures prompt direct PE, not total event loss.') + '''
 <p><b>Target:</b> <code>photon_step.py</code>, <code>sensor_response.py</code>, and the DATA QE normalization in <code>simulator.py</code>.
 Use the actual encounter reflectance and keep expected-value mode consistent.</p>
@@ -134,6 +136,8 @@ valid = (disc >= 0.) & (entry > 0.) & (entry <= water_exit)
 t = np.where(valid, entry, np.inf)
 first = int(np.argmin(t)) if np.isfinite(t).any() else -1''') + '''
 <p>The saved complete-selection prototype restores all 22 problematic rays.
+Wrong or lost assignments among independently established hits total 1.07% over the standard production volume, 7.22% at an allowed top vertex, and 29.09% at 10 cm inside the barrel.
+These are isotropic ray probes, not complete-event charge biases.
 Increasing endpoint-neighbor count alone cannot guarantee the first hit.
 The accepted spherical-PMT approximation does not explain missing intersections with those same spheres.</p>
 ''' + reference('geometry/findings.md; geometry/reproduce_selection_fix.py; end_to_end/tangent_data_reproducer.py'))))
@@ -187,7 +191,7 @@ assert abs(t.mean() - tau_us) < 4*t.std(ddof=1)/np.sqrt(len(t))
 assert np.mean(t > 1000) < .02''') + '''
 <p class="note">The original output fails; the corrected output passes.
 This validates the thermal pure-water clock and tail, not all neutron energies, displacement, isotope fractions, or Gd mixtures.</p>
-''' + reference('geant4_physics/test_neutron_capture.py; thermal_tail_summary.json; astra_physics/findings.md'))))
+''' + reference('geant4_physics/test_neutron_capture.py; geant4_physics/thermal_tail_summary.json; astra_physics/findings.md'))))
     sections.append(('F7 and F8: source continuity and orientation', section('PHOTONSIM GENERATION', 'Preserve endpoints and isotropy', '''
 <h2>F7. Pion truth splitting rewinds the trajectory</h2>
 <p>A completed pion step is followed by a replacement at an earlier stored position and time, but with post-step momentum.
@@ -198,7 +202,7 @@ G4ThreeVector kinkPosition = track->GetPosition();
 G4double kinkTime = track->GetGlobalTime();''') + '''
 <p>The isolated fixed sample has zero gap for all 59 replacements.
 The changed histories need not produce the same replacement count.
-Use <code>test_pion_endpoint_continuity</code> on freshly generated output.</p>
+Use <code>test_pion_replacement_preserves_endpoint</code> on freshly generated output.</p>
 <h2>F8. Uniform axes and angles do not give isotropy</h2>
 ''' + fig('genie_isotropy', 'Figure 5. Actual GENIE neutrino directions before and after the coherent uniform-SO(3) correction; 20,000 events per sample. The uniform density is an independent expectation, not a fitted distribution.') + '''
 <p><b>Target:</b> isotropic GENIE branch of <code>src/PrimaryGeneratorAction.cc</code>.
@@ -208,9 +212,10 @@ Retain the existing uniform axis and draw the angle with Haar density proportion
 } while (G4UniformRand() >
          std::pow(std::sin(fGenieRotAngle / 2.0), 2));''') + '''
 <p>Apply the same accepted rotation to every momentum in the event.
-The fixed forward fraction is 0.4971 and mean cos(θ) is -0.003401.
+The original forward fraction is 0.70395 and mean cos(θ) is 0.33213.
+The fixed values are 0.4971 and -0.003401.
 Apply this only when isotropy is requested; preserve deliberate beam or supernova anisotropy.</p>
-''' + reference('geant4_physics/findings.md; typeset/patches_photonsim/02_pion_endpoint.patch; 03_genie_haar_rotation.patch'))))
+''' + reference('geant4_physics/findings.md; typeset/patches_photonsim/02_pion_endpoint.patch; typeset/patches_photonsim/03_genie_haar_rotation.patch'))))
 
     sections.append(('Secondary readout and optical findings', section('SMALL LOCAL CORRECTIONS', 'Timing, spectrum and timestamp validity', '''
 <h2>S1. Timing uses true count instead of sampled charge</h2>
@@ -356,6 +361,21 @@ The finite tests support specific corrections; they cannot prove 100% equivalenc
 <p class="note">Detailed source provenance, experiment seeds, allocation IDs and logs are retained in the component reports.
 The editable report is generated locally from these saved artifacts.</p>
 ''')))
+
+    excerpts = json.loads((HERE / 'regressions/code_excerpts.json').read_text())
+    tests_by_section = {
+        1: ['test_incident_qe_is_preserved_after_reflection',
+            'test_translated_photons_outside_id_make_zero_charge'],
+        3: ['test_delayed_gamma_yield_is_time_translation_invariant',
+            'test_two_readout_bursts_survive_100us'],
+    }
+    for index, names in tests_by_section.items():
+        title, body = sections[index]
+        body += '<h2>Minimal physical regressions</h2>'
+        body += '<p class="note">Use the unchanged fixtures and imports in the bundled regression suite.</p>'
+        for name in names:
+            body += code(excerpts[name]['code'])
+        sections[index] = title, body
 
     archive = fitz.Archive(str(HERE))
     archive.add(matplotlib.get_data_path() + '/fonts/ttf')

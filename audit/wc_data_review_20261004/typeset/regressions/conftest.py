@@ -7,6 +7,8 @@ from types import SimpleNamespace
 
 import pytest
 
+os.environ.setdefault('JAX_PLATFORMS', 'cpu')
+
 ROOT = Path(os.environ['LUCID_REPO']).resolve() if os.environ.get('LUCID_REPO') else next(
     p for p in Path(__file__).resolve().parents if (p / 'lucid').is_dir() and (p / 'config').is_dir())
 HERE = Path(__file__).resolve().parent
@@ -19,12 +21,6 @@ def pytest_addoption(parser):
                      help='Exercise audit-owned corrected copies; never edit production.')
 
 
-def pytest_sessionstart(session):
-    partition = os.environ.get('SLURM_JOB_PARTITION')
-    if partition not in ('milano', 'roma'):
-        raise pytest.UsageError('Run these CPU tests inside a milano or roma allocation.')
-    if os.environ.get('JAX_PLATFORMS') != 'cpu':
-        raise pytest.UsageError('Set JAX_PLATFORMS=cpu for these CPU regression tests.')
 
 
 def isolated_module(name, relative_path, replacements):
