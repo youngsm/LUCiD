@@ -1,0 +1,11 @@
+--- a/lucid/wavelength/optical_model.py
++++ b/lucid/wavelength/optical_model.py
+@@ -128,7 +128,7 @@
+ 
+     qe = None
+     if qe_fn is not None:
+-        qe = qe_fn(wl) * _deviation(wl, control_lambda, rp.qe_dev)
++        qe = qe_fn(wavelengths) * _deviation(wl, control_lambda, rp.qe_dev)
+ 
+     return OpticalArrays(
+         scatter_len=(1.0 / (sc + 1e-30)) / dev_r,

@@ -1,0 +1,52 @@
+{
+  "original": {
+    "isotropy": {
+      "n": 20000,
+      "mean_cos_theta": 0.3321303316605839,
+      "second_moment": 0.4660070730876273,
+      "positive_z_fraction": 0.70395
+    },
+    "late_gamma": {
+      "prompt_total": 6716,
+      "delayed_total": 454,
+      "loss": 0.9324002382370459
+    },
+    "pion": {
+      "replacement_count": 61,
+      "max_gap_mm": 3352.185871162501,
+      "median_gap_mm": 0.433442666661016
+    },
+    "neutrons": {
+      "events": 100,
+      "photons_total": 1962,
+      "events_with_any_photons": 84,
+      "capture_gamma_count": 3,
+      "capture_gamma_mean_us": 2.9145450625847795
+    }
+  },
+  "_fixed": {
+    "isotropy": {
+      "n": 20000,
+      "mean_cos_theta": -0.0034009707234785936,
+      "second_moment": 0.33338444559097463,
+      "positive_z_fraction": 0.4971
+    },
+    "late_gamma": {
+      "prompt_total": 6716,
+      "delayed_total": 6716,
+      "loss": 0.0
+    },
+    "pion": {
+      "replacement_count": 59,
+      "max_gap_mm": 0.0,
+      "median_gap_mm": 0.0
+    },
+    "neutrons": {
+      "events": 100,
+      "photons_total": 21142,
+      "events_with_any_photons": 100,
+      "capture_gamma_count": 100,
+      "capture_gamma_mean_us": 341.5831220177358
+    }
+  }
+}

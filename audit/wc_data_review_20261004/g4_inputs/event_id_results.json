@@ -1,0 +1,9 @@
+{
+  "tree_entry": 0,
+  "stored_event_id": 7,
+  "expected_photons": 9,
+  "public_reader_photons": 0,
+  "production_reader_photons": 0,
+  "lost_fraction": 1.0,
+  "event_id_keyed_control_photons": 9
+}

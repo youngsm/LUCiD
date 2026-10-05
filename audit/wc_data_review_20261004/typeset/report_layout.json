@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Executive summary",
+    "first_page": 1,
+    "page_count": 1
+  },
+  {
+    "title": "F1 and F3: detector response",
+    "first_page": 2,
+    "page_count": 1
+  },
+  {
+    "title": "F2: first-PMT selection",
+    "first_page": 3,
+    "page_count": 1
+  },
+  {
+    "title": "F4 and F5: delayed light",
+    "first_page": 4,
+    "page_count": 1
+  },
+  {
+    "title": "F6: thermal neutron physics",
+    "first_page": 5,
+    "page_count": 1
+  },
+  {
+    "title": "F7 and F8: source continuity and orientation",
+    "first_page": 6,
+    "page_count": 1
+  },
+  {
+    "title": "Secondary readout and optical findings",
+    "first_page": 7,
+    "page_count": 1
+  },
+  {
+    "title": "Conditional production failures",
+    "first_page": 8,
+    "page_count": 1
+  },
+  {
+    "title": "Regression suite and patch handoff",
+    "first_page": 9,
+    "page_count": 1
+  },
+  {
+    "title": "Coverage and physical limits",
+    "first_page": 10,
+    "page_count": 1
+  }
+]

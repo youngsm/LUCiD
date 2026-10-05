@@ -1,0 +1,33 @@
+{
+  "baseline_head": "82f8d249fd3fcbff1a26dd8a94465dc07e5f3839",
+  "slurm_job": "39896290",
+  "partition": "milano",
+  "gpus": 0,
+  "runtime_baseline": {
+    "failed": 7,
+    "passed": 0,
+    "seconds": 32.03,
+    "log": "baseline.log"
+  },
+  "runtime_isolated_corrections": {
+    "failed": 0,
+    "passed": 7,
+    "seconds": 31.56,
+    "log": "fixed.log"
+  },
+  "saved_source_baseline": {
+    "failed": 4,
+    "passed": 0,
+    "seconds": 2.18,
+    "log": "source-baseline.log"
+  },
+  "saved_source_corrected": {
+    "failed": 0,
+    "passed": 4,
+    "seconds": 1.04,
+    "log": "source-fixed.log"
+  },
+  "source_scope": "Saved outputs from previously executed baseline and corrected PhotonSim binaries. Rebuild and regenerate after each C++ change; these four tests do not inspect live Python code.",
+  "total_regressions": 11,
+  "production_files_changed": 0
+}

@@ -1,0 +1,16 @@
+{
+  "thermal_neutron_fixed.root": {
+    "n": 997,
+    "fraction_over_1ms": 0.05917753259779338,
+    "fraction_over_2ms": 0.01805416248746239,
+    "percentile95_us": 1126.471426679814,
+    "max_capture_time_us": 6814.4598856997945
+  },
+  "thermal_neutron_thermalelastic.root": {
+    "n": 1000,
+    "fraction_over_1ms": 0.007,
+    "fraction_over_2ms": 0.0,
+    "percentile95_us": 603.7066811887131,
+    "max_capture_time_us": 1347.825989937178
+  }
+}

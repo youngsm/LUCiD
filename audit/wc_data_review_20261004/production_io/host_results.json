@@ -1,0 +1,40 @@
+{
+  "sn_chunk_overlap": {
+    "groups": [
+      [
+        0
+      ],
+      [
+        1
+      ]
+    ],
+    "split_PE": [
+      1.0,
+      1.0
+    ],
+    "split_T": [
+      1100.0,
+      1100.0
+    ],
+    "joint_PE": [
+      2.0
+    ],
+    "joint_T": [
+      1100.0
+    ],
+    "written_n_windows": 2
+  },
+  "time_ancestry_roundtrip": {
+    "T_dtype": "float64",
+    "T": [
+      10000000080.375
+    ],
+    "PE": [
+      2.0
+    ],
+    "interaction": [
+      0,
+      1
+    ]
+  }
+}

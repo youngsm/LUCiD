@@ -1,0 +1,40 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_delayed_gamma_yield_is_time_translation_invariant ____________
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py:29: in test_delayed_gamma_yield_is_time_translation_invariant
+    assert delayed.sum() >= .95 * prompt.sum()
+E   assert np.int64(454) >= (0.95 * np.int64(6716))
+E    +  where np.int64(454) = <built-in method sum of numpy.ndarray object at 0x7fd2717f6250>()
+E    +    where <built-in method sum of numpy.ndarray object at 0x7fd2717f6250> = array([ 8, 38, 28,  1, 16,  0, 15, 14, 32,  0, 20,  4,  0, 13,  7, 28, 33,\n        0,  6, 26,  2, 24, 31, 14, 35,  0, 26,  0,  6, 27], dtype=int32).sum
+E    +  and   np.int64(6716) = <built-in method sum of numpy.ndarray object at 0x7fd27298d650>()
+E    +    where <built-in method sum of numpy.ndarray object at 0x7fd27298d650> = array([166, 119, 313, 275, 237, 295, 315, 149, 113, 246, 165, 109, 173,\n       181, 185, 237, 276, 210, 324, 163, 302, 315, 322, 351, 130, 248,\n       174, 122, 183, 318], dtype=int32).sum
+_________________ test_genie_isotropic_directions_are_uniform __________________
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py:36: in test_genie_isotropic_directions_are_uniform
+    assert abs(z.mean()) < .02
+E   assert np.float64(0.3321303316605839) < 0.02
+E    +  where np.float64(0.3321303316605839) = abs(np.float64(0.3321303316605839))
+E    +    where np.float64(0.3321303316605839) = <built-in method mean of numpy.ndarray object at 0x7fd27189b5d0>()
+E    +      where <built-in method mean of numpy.ndarray object at 0x7fd27189b5d0> = array([0.92676813, 0.82360749, 0.99244813, ..., 0.9311515 , 0.61439941,\n       0.42644032], shape=(20000,)).mean
+___________________ test_pion_replacement_preserves_endpoint ___________________
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py:55: in test_pion_replacement_preserves_endpoint
+    assert max(gaps) < 1e-6
+E   assert np.float64(3352.185871162501) < 1e-06
+E    +  where np.float64(3352.185871162501) = max([np.float64(0.7001989968029099), np.float64(2.023270012805911), np.float64(0.25577589776070886), np.float64(1.7993324502919454), np.float64(0.07019843518257844), np.float64(835.8878151183915), ...])
+_______________________ test_thermal_water_capture_clock _______________________
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py:73: in test_thermal_water_capture_clock
+    assert abs(t.mean() - tau_us) < 4. * t.std(ddof=1) / np.sqrt(len(t))
+E   AssertionError: assert np.float64(85.52363336024138) < ((4.0 * np.float64(500.6293020230585)) / np.float64(31.575306807693888))
+E    +  where np.float64(85.52363336024138) = abs((np.float64(289.9397778285876) - 204.4161444683462))
+E    +    where np.float64(289.9397778285876) = <built-in method mean of numpy.ndarray object at 0x7fd27072e4f0>()
+E    +      where <built-in method mean of numpy.ndarray object at 0x7fd27072e4f0> = array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,\n       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,\n       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,\n       3.75446099e+02]).mean
+E    +  and   np.float64(500.6293020230585) = <built-in method std of numpy.ndarray object at 0x7fd27072e4f0>(ddof=1)
+E    +    where <built-in method std of numpy.ndarray object at 0x7fd27072e4f0> = array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,\n       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,\n       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,\n       3.75446099e+02]).std
+E    +  and   np.float64(31.575306807693888) = <ufunc 'sqrt'>(997)
+E    +    where <ufunc 'sqrt'> = np.sqrt
+E    +    and   997 = len(array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,\n       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,\n       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,\n       3.75446099e+02]))
+=========================== short test summary info ============================
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_delayed_gamma_yield_is_time_translation_invariant
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_genie_isotropic_directions_are_uniform
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_pion_replacement_preserves_endpoint
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_thermal_water_capture_clock
+4 failed in 2.18s

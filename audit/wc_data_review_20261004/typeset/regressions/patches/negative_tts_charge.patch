@@ -1,0 +1,11 @@
+--- a/lucid/simulation/sensor_response.py
++++ b/lucid/simulation/sensor_response.py
+@@ -236,7 +236,7 @@
+     detector_mins = jax.ops.segment_min(qe_filtered_times, flat_indices, num_segments=num_detectors)
+ 
+     # CHARGE is gated on a valid first-arrival time (detector_mins>0 & finite).
+-    nonzero_mask = (total_charge > 1e-10) & (detector_mins > 0) & jnp.isfinite(detector_mins)
++    nonzero_mask = (total_charge > 1e-10) & jnp.isfinite(detector_mins)
+ 
+     # TIME: first-arrival of the per-photon-TTS-smeared photons (no post-hoc smear).
+     # PER-SENSOR gate: only lit sensors carry a time; empty sensors are exactly 0

@@ -1,0 +1,8 @@
+{
+  "n_sensors": 11096,
+  "n_ensembles": 256,
+  "expected_dark_one_span": 46.603199999999994,
+  "mean_split_dark": 93.984375,
+  "mean_joint_dark": 46.484375,
+  "dark_ratio": 2.0218487394957982
+}

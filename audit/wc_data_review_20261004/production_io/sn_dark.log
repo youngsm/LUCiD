@@ -1,0 +1,10 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{
+  "n_sensors": 11096,
+  "n_ensembles": 256,
+  "expected_dark_one_span": 46.603199999999994,
+  "mean_split_dark": 93.984375,
+  "mean_joint_dark": 46.484375,
+  "dark_ratio": 2.0218487394957982
+}

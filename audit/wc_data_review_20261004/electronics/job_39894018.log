@@ -1,0 +1,76 @@
+{
+  "configuration": "/sdf/group/neutrino/youngsam/sim/LUCiD/config/SK_WAND_physics_config.json",
+  "delayed_burst_cap": {
+    "input_photoelectrons": 160,
+    "uncapped_independent_trigger_windows": [
+      [
+        -200.0,
+        600.0
+      ],
+      [
+        199800.0,
+        200600.0
+      ]
+    ],
+    "production_photoelectrons": 80,
+    "production_trigger_windows": [
+      [
+        -200.0,
+        600.0
+      ]
+    ],
+    "capture_mean_lifetime_ns": 205000.0,
+    "fraction_captures_after_cap": 0.6139726608994069
+  },
+  "count_instead_of_charge_timing": [
+    {
+      "charge_range_pe": [
+        0.25,
+        0.5
+      ],
+      "samples": 125692,
+      "measured_sigma_ns": 3.4828014599881287,
+      "primary_wcsim_sigma_ns": 4.802135944366455
+    },
+    {
+      "charge_range_pe": [
+        1.0,
+        1.5
+      ],
+      "samples": 253244,
+      "measured_sigma_ns": 3.4949673780735915,
+      "primary_wcsim_sigma_ns": 3.174280881881714
+    },
+    {
+      "charge_range_pe": [
+        2.0,
+        3.0
+      ],
+      "samples": 123686,
+      "measured_sigma_ns": 3.503400722029129,
+      "primary_wcsim_sigma_ns": 2.4214189052581787
+    }
+  ],
+  "deliberate_response_approximation": {
+    "statement": "These are documented deliberate model approximations, not automatically new bugs.",
+    "wcsim_mean_raw_single_pe": 0.9985938357521627,
+    "lucid_mean_raw_single_pe": 1.0035620912250247,
+    "wcsim_sd_raw_single_pe": 1.0300174291399304,
+    "lucid_sd_raw_single_pe": 0.747634922211426,
+    "wcsim_prob_charge_gt4": 0.013448333333333333,
+    "lucid_prob_charge_gt4": 9.166666666666666e-06,
+    "wcsim_prob_charge_gt3": 0.025496666666666667,
+    "lucid_prob_charge_gt3": 0.0037616666666666666,
+    "wcsim_single_pe_acceptance": 0.7390722760809394,
+    "lucid_single_pe_acceptance": 0.76817,
+    "wcsim_mean_readout_per_pe": 0.943178600265822,
+    "lucid_mean_readout_per_pe": 0.9805269587803516,
+    "lucid_dark_rate_post_cut_khz": 3.2263140000000003,
+    "wcsim_dark_rate_post_cut_khz": 4.2433095658911055
+  },
+  "empty_event_dark": {
+    "physics_deposits": 0,
+    "production_dark_digits": 0,
+    "status": "Window is undefined for an empty event; missing free-running DAQ is a modeling limitation."
+  }
+}

@@ -1,0 +1,101 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+writer_output event_000 decomposition_diff 0.0 sensor_total 1448.99853515625 hits_total 1448.99853515625 max_row 0 max_sensor 20.99997901916504 max_hits 20.99997901916504
+true_writer_output event_000 decomposition_diff 2.6599839329719543 sensor_total 915.7674560546875 hits_total 766.999267578125 max_row 46 max_sensor 3.659982919692993 max_hits 0.9999989867210388
+true_writer_output event_001 decomposition_diff 2.482252061367035 sensor_total 973.259765625 hits_total 837.9992065429688 max_row 236 max_sensor 0.5177448391914368 max_hits 2.9999969005584717
+{
+  "writer_output": [
+    {
+      "event": 0,
+      "digits": 291,
+      "total_pe": 1448.99853515625,
+      "physics_pe": 1395.9986572265625,
+      "dark_pe": 53.0,
+      "max_reco_vs_truth_digit_charge_difference_pe": 0.0,
+      "source_primary_position_m": [
+        5.0,
+        -2.0,
+        3.0
+      ],
+      "written_vertex_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "segments": 1,
+      "first_segment_start_m": [
+        5.0,
+        -2.0,
+        3.0
+      ],
+      "written_primary_energy_MeV": [
+        1000.0
+      ],
+      "written_primary_pdg": [
+        11
+      ]
+    }
+  ],
+  "true_writer_output": [
+    {
+      "event": 0,
+      "digits": 662,
+      "total_pe": 915.7674560546875,
+      "physics_pe": 726.999267578125,
+      "dark_pe": 40.0,
+      "max_reco_vs_truth_digit_charge_difference_pe": 2.6599839329719543,
+      "source_primary_position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "written_vertex_m": [
+        2.4764039516448975,
+        10.381059646606445,
+        -7.194270610809326
+      ],
+      "segments": 1198,
+      "first_segment_start_m": [
+        2.4764039516448975,
+        10.381059646606445,
+        -7.194270610809326
+      ],
+      "written_primary_energy_MeV": [
+        100.0
+      ],
+      "written_primary_pdg": [
+        11
+      ]
+    },
+    {
+      "event": 1,
+      "digits": 641,
+      "total_pe": 973.259765625,
+      "physics_pe": 799.9992065429688,
+      "dark_pe": 38.0,
+      "max_reco_vs_truth_digit_charge_difference_pe": 2.482252061367035,
+      "source_primary_position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "written_vertex_m": [
+        3.165713310241699,
+        -1.5661190748214722,
+        7.728069305419922
+      ],
+      "segments": 1016,
+      "first_segment_start_m": [
+        3.165713310241699,
+        -1.5661190748214722,
+        7.728069305419922
+      ],
+      "written_primary_energy_MeV": [
+        100.0
+      ],
+      "written_primary_pdg": [
+        11
+      ]
+    }
+  ]
+}

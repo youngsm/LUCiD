@@ -1,0 +1,13 @@
+--- a/src/SteppingAction.cc
++++ b/src/SteppingAction.cc
+@@ -99,10 +99,6 @@
+ 
+     // Kill particles created after 10 microseconds (nuclear de-excitations, long-lived decays)
+     // These are physically correct but irrelevant for neutrino physics and contaminate timing
+-    if (time > 10000.0 * ns) {
+-      track->SetTrackStatus(fStopAndKill);
+-      return;  // Don't register or process this track
+-    }
+ 
+     const G4VProcess* creationProcess = track->GetCreatorProcess();
+     G4String processName = creationProcess ? creationProcess->GetProcessName() : "Primary";

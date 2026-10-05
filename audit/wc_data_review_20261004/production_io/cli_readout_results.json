@@ -1,0 +1,16 @@
+{
+  "direct_time": [
+    0.0
+  ],
+  "direct_charge": [
+    2.0
+  ],
+  "configured_time": [
+    0.0,
+    2000.0
+  ],
+  "configured_charge": [
+    1.0,
+    1.0
+  ]
+}

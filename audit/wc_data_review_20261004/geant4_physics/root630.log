@@ -1,0 +1,241 @@
+<<< cling interactive line includer >>>: fatal error: module file '/build/jenkins/workspace/lcg_release_pipeline/build/projects/ROOT-6.30.06/src/ROOT-6.30.06-build/lib/Vc.pcm' not found: module file not found
+<<< cling interactive line includer >>>: note: imported by module 'MathCore' in '/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/MathCore.pcm'
+input_line_4:2:2: error: unknown type name 'include'
+#include "TError.h"
+ ^
+input_line_4:2:1: error: expected unqualified-id
+#include "TError.h"
+^
+input_line_4:4:2: error: unknown type name 'define'
+#define _ClassDefInterp_(name,id,virtual_keyword, overrd) \
+ ^
+input_line_4:21:7: error: expected ';' after top level declarator
+#undef ClassDef
+      ^
+      ;
+input_line_5:1:2: error: unknown type name 'include'
+#include <cling/Interpreter/DynamicLookupRuntimeUniverse.h>
+ ^
+input_line_5:1:1: error: expected unqualified-id
+#include <cling/Interpreter/DynamicLookupRuntimeUniverse.h>
+^
+input_line_7:2:2: error: unknown type name 'line'
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_mapDict.rootmap"
+ ^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_mapDict.rootmap:2:1: error: expected unqualified-id
+namespace std {  }
+^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_mapDict.rootmap:5:2: error: unknown type name 'line'
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libforward_listDict.rootmap"
+ ^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libforward_listDict.rootmap:3:6: error: expected ';' after top level declarator
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libmultimapDict.rootmap"
+     ^
+     ;
+Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libcomplexDict.rootmap:6:2: error: unknown type name 'line'
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib/libRooUnfold.rootmap"
+ ^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib/libRooUnfold.rootmap:2:1: error: expected unqualified-id
+namespace RooUnfolding {  }
+^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib/libRooUnfold.rootmap:17:2: error: unknown type name 'line'
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/libHepMC3rootIO.rootmap"
+ ^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/libHepMC3rootIO.rootmap:2:1: error: expected unqualified-id
+namespace HepMC3 {  }
+^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/libHepMC3rootIO.rootmap:4:2: error: unknown type name 'line'
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioRootIODictDict.rootmap"
+ ^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioRootIODictDict.rootmap:2:1: error: expected unqualified-id
+namespace podio {  }
+^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioRootIODictDict.rootmap:4:2: error: unknown type name 'line'
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioDataSourceDictDict.rootmap"
+ ^
+Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioDataSourceDictDict.rootmap:3:6: error: expected ';' after top level declarator
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioDictDict.rootmap"
+     ^
+     ;
+Warning in <TInterpreter::LoadLibraryMap>: Problems in (null) declaring '
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_mapDict.rootmap"
+namespace std {  }
+
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libforward_listDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libmultimapDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_multisetDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/liblistDict.rootmap"
+namespace std { inline namespace __cxx11 {  } }
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_setDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libvectorDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libvalarrayDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libunordered_multimapDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libmultisetDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libmap2Dict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libmapDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libGenVector32.rootmap"
+namespace ROOT { namespace Math {  } }
+namespace ROOT { namespace Math { template <typename T> class Cartesian2D; } }
+namespace ROOT { namespace Math { template <typename T> class Polar2D; } }
+namespace ROOT { namespace Math { class DefaultCoordinateSystemTag; } }
+namespace ROOT { namespace Math { template <typename CoordSystem, typename Tag> class DisplacementVector2D; } }
+namespace ROOT { namespace Math { template <typename T> class Cartesian3D; } }
+namespace ROOT { namespace Math { template <typename CoordSystem, typename Tag> class PositionVector3D; } }
+namespace ROOT { namespace Math { template <typename T> class CylindricalEta3D; } }
+namespace ROOT { namespace Math { template <typename T> class Polar3D; } }
+namespace ROOT { namespace Math { template <typename T> class Cylindrical3D; } }
+namespace ROOT { namespace Math { class LocalCoordinateSystemTag; } }
+namespace ROOT { namespace Math { class GlobalCoordinateSystemTag; } }
+namespace ROOT { namespace Math { template <typename CoordSystem, typename Tag> class DisplacementVector3D; } }
+namespace ROOT { namespace Math { template <typename T> class PxPyPzE4D; } }
+namespace ROOT { namespace Math { template <typename CoordSystem> class LorentzVector; } }
+namespace ROOT { namespace Math { template <typename T> class PxPyPzM4D; } }
+namespace ROOT { namespace Math { template <typename T> class PtEtaPhiE4D; } }
+namespace ROOT { namespace Math { template <typename T> class PtEtaPhiM4D; } }
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libmultimap2Dict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libsetDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libSmatrix32.rootmap"
+namespace ROOT { namespace Math { template <typename T, unsigned int, unsigned int> class MatRepStd; } }
+namespace ROOT { namespace Math { template <typename T, unsigned int> class MatRepSym; } }
+namespace ROOT { namespace Math { template <typename T, unsigned int> class SVector; } }
+namespace ROOT { namespace Math { template <typename T, unsigned int, unsigned int, typename R> class SMatrix; } }
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libdequeDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.30.06-9050a/x86_64-centos7-gcc11-opt/lib/libcomplexDict.rootmap"
+template <> class complex<float>;
+template <> class complex<double>;
+template <typename T> class _root_std_complex;
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib/libRooUnfold.rootmap"
+namespace RooUnfolding {  }
+class TH1;
+class TH2;
+template <typename Hist, typename Hist2D> class RooUnfoldResponseT;
+namespace RooUnfolding { class RooFitHist; }
+template <typename Hist, typename Hist2D> class RooUnfoldT;
+template <typename Hist, typename Hist2D> class RooUnfoldBayesT;
+template <typename Hist, typename Hist2D> class RooUnfoldBinByBinT;
+template <typename Hist, typename Hist2D> class RooUnfoldGPT;
+template <typename Hist, typename Hist2D> class RooUnfoldIdsT;
+template <typename Hist, typename Hist2D> class RooUnfoldInvertT;
+template <typename Hist, typename Hist2D> class RooUnfoldPoissonT;
+template <typename Hist, typename Hist2D> class RooUnfoldSvdT;
+template <typename Hist, typename Hist2D> class RooUnfoldTUnfoldT;
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/libHepMC3rootIO.rootmap"
+namespace HepMC3 {  }
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioRootIODictDict.rootmap"
+namespace podio {  }
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioDataSourceDictDict.rootmap"
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioDictDict.rootmap"
+namespace podio { namespace version {  } }
+namespace podio { template <typename BasicType, typename > class UserDataCollection; }
+
+#line 2 "Forward declarations from /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib64/podioSioIODictDict.rootmap"
+' were encountered.
+cling::DynamicLibraryManager::loadLibrary(): libssl.so.10: cannot open shared object file: No such file or directory
+Failed to load module MathCore
+Failed to load module Hist
+Failed to load module ROOTBrowsable
+Failed to load module Unfold
+Failed to load module RHTTPSniff
+Failed to load module HistPainter
+Failed to load module PyMVA
+Failed to load module FitPanel
+Failed to load module ProofDraw
+Failed to load module Unuran
+Failed to load module Quadp
+Failed to load module GeomPainter
+Failed to load module Genetic
+Failed to load module Eve
+Failed to load module TreeViewer
+Failed to load module Physics
+Failed to load module ROOTTMVASofieParser
+Failed to load module EG
+Failed to load module Tree
+Failed to load module HistFactory
+Failed to load module Spectrum
+Failed to load module Matrix
+Failed to load module Html
+Failed to load module Hist
+Failed to load module GuiHtml
+Failed to load module Gpad
+Failed to load module TMVAGui
+Failed to load module Postscript
+Failed to load module ROOTEve
+Failed to load module RGL
+Failed to load module Fumili
+Failed to load module Geom
+Failed to load module RooFitMore
+Failed to load module X3d
+Failed to load module SPlot
+Failed to load module Hbook
+Failed to load module RooFit
+Failed to load module RCsg
+Failed to load module RooStats
+Failed to load module RooFitRDataFrameHelpers
+Failed to load module GeomBuilder
+Failed to load module Proof
+Failed to load module FITSIO
+Failed to load module Ged
+Failed to load module Recorder
+Failed to load module FFTW
+Failed to load module GuiBld
+Failed to load module ROOTWebDisplay
+Failed to load module RooFitCore
+Failed to load module Gui
+Failed to load module ROOTHistDraw
+Failed to load module GX11TTF
+Failed to load module ROOTTMVASofie
+Failed to load module ProofPlayer
+Failed to load module ASImage
+Failed to load module TMVAUtils
+Failed to load module MathMore
+Failed to load module RooFitXRooFit
+Failed to load module RooFitHS3
+Failed to load module Foam
+Failed to load module SpectrumPainter
+Failed to load module Minuit2
+Failed to load module MLP
+Failed to load module ROOTDataFrame
+Failed to load module GenVector
+Failed to load module ROOTBrowserv7
+Failed to load module Minuit
+Failed to load module Graf3d
+Failed to load module TMVA
+Failed to load module ROOTNTupleUtil
+Failed to load module ASImageGui
+Failed to load module Graf
+Failed to load module GX11
+Failed to load module Gdml
+Failed to load module ROOTTreeViewer
+Failed to load module ProofBench
+Failed to load module MathCore
+Failed to load module Gviz3d
+Failed to load module WebGui6
+Failed to load module ROOTHist
+Failed to load module TreePlayer
+Failed to load module ROOTGeomViewer
+Failed to load module ROOTFitPanelv7
+Failed to load module Smatrix
+Failed to load module SessionViewer
+

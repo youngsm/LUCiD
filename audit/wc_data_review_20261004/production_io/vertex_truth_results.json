@@ -1,0 +1,19 @@
+{
+  "source_primary_position_m": [
+    5.0,
+    -2.0,
+    3.0
+  ],
+  "first_step_position_m": [
+    5.0,
+    -2.0,
+    3.0
+  ],
+  "saved_interaction_vertex_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "vertex_error_m": 6.164414002968976,
+  "source_photons": 23829
+}

@@ -1,0 +1,65 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/production_io/displaced_shifted.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/production_io/displaced_output
+    Dataset:    SK_WAND_displaced_audit
+    file_index: 0
+    n_events:   1
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 19
+Run id: c260e724-9a7e-4551-8bff-f8d7abf5fad3
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/production_io/displaced_shifted.root
+  Found 1 entries
+  Using rays buckets: [2048]
+
+Generating 1 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 1 events for multithreaded I/O
+Apply smearing: True
+Apply translation: False
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/production_io/displaced_output
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 1 rays bucket(s)...
+  rays= 2,048: 2.64s
+Processing batch 1/1 (events 0 to 0)
+
+  Event 1/1 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.043s
+    Raw: photons=23,829  segments=2,769
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[2048])...
+    Simulation completed in 0.51s
+    [timing] simulate 0.507s
+    [timing] post_jax 0.004s
+    [timing] meta_contain 0.000s
+    Event total time: 0.93s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.050s
+
+
+Successfully wrote 1 batches (4 files total) to /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/production_io/displaced_output/{sensor,hits,step,labl}/
+Average event processing time: 0.926s
+LUCiD wrote 4 files under /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/production_io/displaced_output/{sensor,hits,step,labl}/
+{
+  "source_primary_position_m": [
+    5.0,
+    -2.0,
+    3.0
+  ],
+  "first_step_position_m": [
+    5.0,
+    -2.0,
+    3.0
+  ],
+  "saved_interaction_vertex_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "vertex_error_m": 6.164414002968976,
+  "source_photons": 23829
+}

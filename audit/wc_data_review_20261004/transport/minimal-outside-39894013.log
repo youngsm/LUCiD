@@ -1,0 +1,9 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/transport/test_outside_minimal.py", line 28, in <module>
+    test_photons_outside_inner_detector_cannot_make_id_photoelectrons()
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/transport/test_outside_minimal.py", line 24, in test_photons_outside_inner_detector_cannot_make_id_photoelectrons
+    assert float(charge.sum()) == 0.0, f'External photons made {float(charge.sum())} ID PE'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: External photons made 908.9999389648438 ID PE

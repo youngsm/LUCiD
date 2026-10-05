@@ -1,0 +1,70 @@
+In file included from headless_main.cc:1:
+PhotonSim_fixed/include/ActionInitialization.hh:33:10: fatal error: G4VUserActionInitialization.hh: No such file or directory
+   33 | #include "G4VUserActionInitialization.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/ActionInitialization.cc:30:
+PhotonSim_fixed/include/ActionInitialization.hh:33:10: fatal error: G4VUserActionInitialization.hh: No such file or directory
+   33 | #include "G4VUserActionInitialization.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/DataManager.cc:29:
+PhotonSim_fixed/include/DataManager.hh:32:10: fatal error: G4String.hh: No such file or directory
+   32 | #include "G4String.hh"
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/DataManagerMessenger.cc:29:
+PhotonSim_fixed/include/DataManagerMessenger.hh:32:10: fatal error: G4UImessenger.hh: No such file or directory
+   32 | #include "G4UImessenger.hh"
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/DetectorConstruction.cc:30:
+PhotonSim_fixed/include/DetectorConstruction.hh:33:10: fatal error: G4VUserDetectorConstruction.hh: No such file or directory
+   33 | #include "G4VUserDetectorConstruction.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/EventAction.cc:30:
+PhotonSim_fixed/include/EventAction.hh:33:10: fatal error: G4UserEventAction.hh: No such file or directory
+   33 | #include "G4UserEventAction.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/PhysicsList.cc:29:
+PhotonSim_fixed/include/PhysicsList.hh:32:10: fatal error: G4VModularPhysicsList.hh: No such file or directory
+   32 | #include "G4VModularPhysicsList.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/PrimaryGeneratorAction.cc:30:
+PhotonSim_fixed/include/PrimaryGeneratorAction.hh:33:10: fatal error: G4VUserPrimaryGeneratorAction.hh: No such file or directory
+   33 | #include "G4VUserPrimaryGeneratorAction.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/PrimaryGeneratorMessenger.cc:30:
+PhotonSim_fixed/include/PrimaryGeneratorMessenger.hh:33:10: fatal error: G4UImessenger.hh: No such file or directory
+   33 | #include "G4UImessenger.hh"
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/RandomSeedMessenger.cc:29:
+PhotonSim_fixed/include/RandomSeedMessenger.hh:32:10: fatal error: G4UImessenger.hh: No such file or directory
+   32 | #include "G4UImessenger.hh"
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/RooTrackerReader.cc:1:
+PhotonSim_fixed/include/RooTrackerReader.hh:4:10: fatal error: globals.hh: No such file or directory
+    4 | #include "globals.hh"
+      |          ^~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/RunAction.cc:30:
+PhotonSim_fixed/include/RunAction.hh:33:10: fatal error: G4UserRunAction.hh: No such file or directory
+   33 | #include "G4UserRunAction.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/SimpleDataManager.cc:5:
+PhotonSim_fixed/include/SimpleDataManager.hh:8:10: fatal error: G4String.hh: No such file or directory
+    8 | #include "G4String.hh"
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+In file included from PhotonSim_fixed/src/SteppingAction.cc:30:
+PhotonSim_fixed/include/SteppingAction.hh:33:10: fatal error: G4UserSteppingAction.hh: No such file or directory
+   33 | #include "G4UserSteppingAction.hh"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.

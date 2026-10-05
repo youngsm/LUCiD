@@ -1,0 +1,3 @@
+/cvmfs/sft.cern.ch/lcg/releases/binutils/2.37-355ed/x86_64-centos8/bin/ld: /lscratch/youngsam/tmp/cclIBiXb.o: undefined reference to symbol '_ZN5CLHEP9HepRandom11setTheSeedsEPKli'
+/cvmfs/sft.cern.ch/lcg/releases/binutils/2.37-355ed/x86_64-centos8/bin/ld: /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/lib/libCLHEP-2.4.7.1.so: error adding symbols: DSO missing from command line
+collect2: error: ld returned 1 exit status

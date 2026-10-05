@@ -1,0 +1,11 @@
+--- a/lucid/simulation/simulator.py
++++ b/lucid/simulation/simulator.py
+@@ -816,7 +816,7 @@
+         )
+ 
+         n_rays = photon_origins.shape[0]
+-        mask = jnp.arange(n_rays) < photon_data['N']
++        mask = (jnp.arange(n_rays) < photon_data['N']) & get_inside_detector_flag(final_origins)
+         photon_intensities = 1.0 * mask.astype(jnp.float32)
+ 
+         # Per-photon optical properties — use PhotonSim wavelengths if available

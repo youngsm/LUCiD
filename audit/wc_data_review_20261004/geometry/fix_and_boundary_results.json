@@ -1,0 +1,49 @@
+{
+  "job_id": "39894012",
+  "tested_problem_rays": 22,
+  "complete_candidates_match_independent_oracle": true,
+  "corrected_minimal_sensor": 4105,
+  "corrected_minimal_distance_m": 0.16651315987110138,
+  "outside_origin_geometry": {
+    "origin_m": [
+      18.958126068115234,
+      -0.39690399169921875,
+      0.0
+    ],
+    "direction": [
+      -0.9997808337211609,
+      0.020931236445903778,
+      -0.0
+    ],
+    "origin_inside": false,
+    "candidates": [
+      4104,
+      4105,
+      4558,
+      4557
+    ],
+    "inside_sensor": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "weights": [
+      0.0,
+      0.9999989867210388,
+      0.0,
+      0.0
+    ],
+    "times_m": [
+      1.9999995231628418,
+      1.9999995231628418,
+      2.014862537384033,
+      2.014862537384033
+    ],
+    "stop_m": [
+      16.95856475830078,
+      -0.35504150390625,
+      0.0
+    ]
+  }
+}

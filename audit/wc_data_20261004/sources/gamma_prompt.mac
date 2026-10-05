@@ -1,0 +1,9 @@
+/output/filename gamma_prompt.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/addPrimary gamma 2.2 MeV
+/gun/randomDirection false
+/gun/time 0 ns
+/run/beamOn 30

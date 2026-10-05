@@ -1,0 +1,57 @@
+{
+  "test_incident_qe_is_preserved_after_reflection": {
+    "file": "test_runtime.py",
+    "line": 18,
+    "code": "def test_incident_qe_is_preserved_after_reflection(api, transparent_sim):\n    target = np.asarray(api.geometry.sensor_points[4104])\n    outward = target.copy(); outward[2] = 0.; outward /= np.linalg.norm(outward)\n    origin = target - 5. * outward\n    n = 32768\n    data = photon_data(origin, outward, n)\n    particle = ParticleParams.from_cartesian(1000., origin, outward)\n    charge = transparent_sim(particle, jax.random.PRNGKey(412), data)[0]\n    measured = float(charge.sum()) / n\n    required = float(api.dp.response.qe)\n    tolerance = 6. * np.sqrt(required * (1. - required) / n)\n    assert abs(measured - required) < tolerance, (measured, required, tolerance)"
+  },
+  "test_tangent_ray_hits_first_pmt": {
+    "file": "test_runtime.py",
+    "line": 32,
+    "code": "def test_tangent_ray_hits_first_pmt(api):\n    origin = jnp.array([[16.858586662707683, -.352948409856257, -.4]])\n    direction = jnp.array([[0., 0., 1.]])\n    result = api.geometry.propagator(origin, direction)\n    weights = np.asarray(result['sensor_weights'])[:, 0]\n    selected = int(np.argmax(weights))\n    sensor = int(np.asarray(result['sensor_indices'])[selected, 0])\n    distance = float(np.asarray(result['times'])[selected, 0, 0])\n    assert weights.sum() > .99\n    assert sensor == 4105, (sensor, distance)\n    assert abs(distance - .16651306) < 1e-5"
+  },
+  "test_translated_photons_outside_id_make_zero_charge": {
+    "file": "test_runtime.py",
+    "line": 45,
+    "code": "def test_translated_photons_outside_id_make_zero_charge(transparent_sim):\n    n = 4096\n    data = photon_data([16.4586743, -.34457591, .6998431],\n        [-.999780918, .020931238, 0.], n, apply_translation=True,\n        translation_vector=jnp.array([.999780918, -.020931238, 0.]))\n    particle = ParticleParams.from_cartesian(1000., [0., 0., 0.], [1., 0., 0.])\n    charge = transparent_sim(particle, jax.random.PRNGKey(12341), data)[0]\n    assert float(charge.sum()) == 0., float(charge.sum())"
+  },
+  "test_two_readout_bursts_survive_100us": {
+    "file": "test_runtime.py",
+    "line": 55,
+    "code": "def test_two_readout_bursts_survive_100us(api):\n    d = api.digitizer\n    times = np.array([100., 200100.])\n    digits, hits, _ = d.digitize_and_decompose(\n        sensor_idx=np.array([0, 1]), charge=np.ones(2), t_true=times, t_reco=times,\n        particle_idx=np.zeros(2, int), segment_idx=np.array([0, 1]),\n        emission_process=np.zeros(2, int), n_sensors=2, model=api.model,\n        rng=np.random.default_rng(2), dark_rate_khz=0., apply_resolution=False)\n    assert len(digits['T']) == 2, digits['T']\n    assert np.array_equal(digits['T'], times)\n    assert float(hits['PE'].sum()) == 2."
+  },
+  "test_qe_uses_unmodified_photon_wavelength": {
+    "file": "test_runtime.py",
+    "line": 68,
+    "code": "def test_qe_uses_unmodified_photon_wavelength(api):\n    wavelengths = jnp.array([275., 674.])\n    qe = load_qe_curve(api.qe_path)\n    medium = make_medium('water', jnp.linspace(300., 648.22, 200), api.material)\n    assert bool(jnp.all(qe(wavelengths) == 0.))\n    actual = api.optical.evaluate_optical_model(\n        api.dp, wavelengths, medium, 2, qe_fn=qe).qe\n    assert bool(jnp.all(actual == 0.)), actual"
+  },
+  "test_time_jitter_follows_sampled_charge": {
+    "file": "test_runtime.py",
+    "line": 78,
+    "code": "def test_time_jitter_follows_sampled_charge(api):\n    q, t = api.digitizer.apply_readout_resolution(\n        np.ones(300000), np.full(300000, 100.), api.model, np.random.default_rng(142))\n    for lower, upper in [(.25, .5), (1., 1.5), (2., 3.)]:\n        mask = (q >= lower) & (q < upper)\n        assert mask.sum() > 1000\n        sigma = np.maximum(.58, .33 + np.sqrt(10. / np.maximum(q[mask], .5)))\n        required_rms = float(np.sqrt(np.mean(sigma**2)))\n        measured_rms = float(t[mask].std())\n        assert abs(measured_rms - required_rms) < .10, (lower, upper, measured_rms, required_rms)"
+  },
+  "test_tts_charge_is_time_translation_invariant": {
+    "file": "test_runtime.py",
+    "line": 90,
+    "code": "def test_tts_charge_is_time_translation_invariant(api):\n    n = 4096\n    args = (jnp.ones(n), jnp.arange(n), jnp.full(n, .1), n)\n    kwargs = dict(qe=1., qe_corrections=jnp.ones(n),\n                  rng_key=jax.random.PRNGKey(123), tts=3.)\n    charge, _ = api.response.make_hits_data(*args, **kwargs)\n    shifted, _ = api.response.make_hits_data(args[0], args[1], args[2] + 100., n, **kwargs)\n    assert float(shifted.sum()) == n\n    assert np.array_equal(np.asarray(charge), np.asarray(shifted))"
+  },
+  "test_delayed_gamma_yield_is_time_translation_invariant": {
+    "file": "test_photonsim_outputs.py",
+    "line": 23,
+    "code": "def test_delayed_gamma_yield_is_time_translation_invariant(source_outputs):\n    name = 'NOpticalPhotons'\n    prompt = optical_arrays(source_outputs, 'gamma_prompt', [name])[name]\n    delayed = optical_arrays(source_outputs, 'gamma_delayed', [name])[name]\n    assert len(prompt) == len(delayed) == 30\n    assert prompt.sum() > 0\n    assert delayed.sum() >= .95 * prompt.sum()"
+  },
+  "test_genie_isotropic_directions_are_uniform": {
+    "file": "test_photonsim_outputs.py",
+    "line": 32,
+    "code": "def test_genie_isotropic_directions_are_uniform(source_outputs):\n    a = optical_arrays(source_outputs, 'genie_isotropic', ['TrackInfo_DirZ'])\n    z = np.array([v[0] for v in a['TrackInfo_DirZ']])\n    assert len(z) == 20000\n    assert abs(z.mean()) < .02\n    assert abs(np.mean(z > 0.) - .5) < .02\n    assert abs(np.mean(z*z) - 1./3.) < .02"
+  },
+  "test_pion_replacement_preserves_endpoint": {
+    "file": "test_photonsim_outputs.py",
+    "line": 41,
+    "code": "def test_pion_replacement_preserves_endpoint(source_outputs):\n    branches = ['TrackInfo_ParentTrackID', 'TrackInfo_CreatorProcess', 'Segment_TrackID']\n    branches += [f'TrackInfo_Pos{k}' for k in 'XYZ'] + [f'Segment_End{k}' for k in 'XYZ']\n    a = optical_arrays(source_outputs, 'pion_deflection', branches)\n    gaps = []\n    for e in range(len(a['TrackInfo_ParentTrackID'])):\n        for i, process in enumerate(a['TrackInfo_CreatorProcess'][e]):\n            if str(process).startswith('Deflection_'):\n                parent = a['TrackInfo_ParentTrackID'][e][i]\n                j = np.flatnonzero(a['Segment_TrackID'][e] == parent)[-1]\n                old = np.array([a[f'Segment_End{k}'][e][j] for k in 'XYZ'])\n                new = np.array([a[f'TrackInfo_Pos{k}'][e][i] for k in 'XYZ'])\n                gaps.append(np.linalg.norm(new-old))\n    assert gaps\n    assert max(gaps) < 1e-6"
+  },
+  "test_thermal_water_capture_clock": {
+    "file": "test_photonsim_outputs.py",
+    "line": 58,
+    "code": "def test_thermal_water_capture_clock(source_outputs):\n    directory, _ = source_outputs\n    filename = os.environ.get('PHOTONSIM_THERMAL_ROOT', 'thermal_neutron_fixed.root')\n    with uproot.open(directory / filename) as f:\n        a = f['OpticalPhotons'].arrays(\n            ['TrackInfo_PDG', 'TrackInfo_CreatorProcess', 'TrackInfo_Time'], library='np')\n    times = []\n    for pdg, process, t in zip(a['TrackInfo_PDG'], a['TrackInfo_CreatorProcess'], a['TrackInfo_Time']):\n        capture = (pdg == 22) & np.array([str(p).startswith('nCapture') for p in process])\n        if capture.any():\n            times.append(t[capture].min() / 1000.)\n    assert len(a['TrackInfo_PDG']) == 1000 and len(times) >= 990\n    t = np.array(times)\n    n_h = 2. * 6.02214076e23 * 1e6 / 18.01528\n    tau_us = 1e6 / (n_h * .3326e-28 * 2200.)\n    assert abs(t.mean() - tau_us) < 4. * t.std(ddof=1) / np.sqrt(len(t))\n    assert np.mean(t > 1000.) < .02"
+  }
+}

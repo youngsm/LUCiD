@@ -1,0 +1,12 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/water_optics/reproduce.py", line 157, in <module>
+    main()
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/water_optics/reproduce.py", line 55, in main
+    first_hit_time_ns=float(times[charge > 0].min()),
+                            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/numpy/_core/_methods.py", line 45, in _amin
+    return umr_minimum(a, axis, None, out, keepdims, initial, where)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: zero-size array to reduction operation minimum which has no identity

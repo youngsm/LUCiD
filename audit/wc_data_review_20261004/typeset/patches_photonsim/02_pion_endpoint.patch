@@ -1,0 +1,9 @@
+--- a/src/SteppingAction.cc
++++ b/src/SteppingAction.cc
+@@ -148,4 +148,4 @@
+             // the TRUE kink point.
+-            G4ThreeVector kinkPosition = info->preMomentumPos;
+-            G4double kinkTime = info->preMomentumTime;
++            G4ThreeVector kinkPosition = track->GetPosition();
++            G4double kinkTime = track->GetGlobalTime();
+             G4ThreeVector postStepMomentum = track->GetMomentum();  // Deflected momentum

@@ -1,0 +1,36 @@
+{
+  "patches": {
+    "diagnostic_no_time_cap.patch": {
+      "returncode": 0,
+      "stderr": ""
+    },
+    "geometry_reference.patch": {
+      "returncode": 0,
+      "stderr": ""
+    },
+    "incident_qe.patch": {
+      "returncode": 0,
+      "stderr": ""
+    },
+    "negative_tts_charge.patch": {
+      "returncode": 0,
+      "stderr": ""
+    },
+    "outside_origin.patch": {
+      "returncode": 0,
+      "stderr": ""
+    },
+    "sampled_charge_timing.patch": {
+      "returncode": 0,
+      "stderr": ""
+    },
+    "unmodified_wavelength_qe.patch": {
+      "returncode": 0,
+      "stderr": ""
+    }
+  },
+  "missing_links": [],
+  "parsed_python_files": 5,
+  "collected_tests": 11,
+  "production_diff": ""
+}

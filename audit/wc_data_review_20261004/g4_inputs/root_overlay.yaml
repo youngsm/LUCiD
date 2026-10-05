@@ -1,0 +1,8 @@
+{
+ 'version': 0,
+ 'roots': [{
+   'type': 'file',
+   'name': '/build/jenkins/workspace/lcg_release_pipeline/build/projects/ROOT-6.32.02/src/ROOT-6.32.02-build/lib/Vc.pcm',
+   'external-contents': '/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.32.02-51ebb/x86_64-el8-gcc11-opt/lib/Vc.pcm'
+ }]
+}

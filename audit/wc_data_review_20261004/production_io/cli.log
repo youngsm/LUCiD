@@ -1,0 +1,59 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+
+Detector geometry: cylinder / water, 11096 sensors
+
+Setting up event simulator with baked-in detector params
+  Physics config: config/SK_WAND_physics_config.json
+  Wall reflection rate: 0.050
+  Sensor reflection rate: 0.250
+  QE (scalar): 0.226
+
+Generating dataset:
+  Source ROOT: audit/wc_data_review_20261004/production_io/subthreshold.root
+  Output root: audit/wc_data_review_20261004/production_io/cli_output
+  Dataset name: SK_WAND_direct_cli_audit
+  Number of events: 1
+  Master seed: 19
+  Apply smearing: True
+  Apply translation: False
+Using provided master seed: 19
+Run id: e8fac230-a4de-41d9-b740-0c565e8e9b79
+Loading ROOT file: audit/wc_data_review_20261004/production_io/subthreshold.root
+  Found 1 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 1 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 100 events for multithreaded I/O
+Apply smearing: True
+Apply translation: False
+Digitizer model: basic (dark_rate_khz=0.0)
+Apply rotation: False
+Saving events to directory: audit/wc_data_review_20261004/production_io/cli_output
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 3.25s
+  rays= 2,048: 3.17s
+  rays= 8,192: 3.29s
+  rays=32,768: 3.63s
+Processing batch 1/1 (events 0 to 0)
+
+  Event 1/1 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.033s
+    Raw: photons=0  segments=8
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.00s
+    [timing] simulate 0.001s
+    [timing] post_jax 0.000s
+    [timing] meta_contain 0.000s
+    Event total time: 0.46s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.038s
+
+
+Successfully wrote 1 batches (4 files total) to audit/wc_data_review_20261004/production_io/cli_output/{sensor,hits,step,labl}/
+Average event processing time: 0.462s
+
+Wrote 4 files under audit/wc_data_review_20261004/production_io/cli_output/{sensor,hits,step,labl}/

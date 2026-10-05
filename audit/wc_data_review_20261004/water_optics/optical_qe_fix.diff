@@ -1,0 +1,11 @@
+--- lucid/wavelength/optical_model.py	2026-10-04 20:23:50.005313177 -0700
++++ audit/wc_data_review_20261004/water_optics/optical_model_fixed.py	2026-10-04 23:03:59.822535024 -0700
+@@ -128,7 +128,7 @@
+ 
+     qe = None
+     if qe_fn is not None:
+-        qe = qe_fn(wl) * _deviation(wl, control_lambda, rp.qe_dev)
++        qe = qe_fn(jnp.asarray(wavelengths)) * _deviation(wl, control_lambda, rp.qe_dev)
+ 
+     return OpticalArrays(
+         scatter_len=(1.0 / (sc + 1e-30)) / dev_r,

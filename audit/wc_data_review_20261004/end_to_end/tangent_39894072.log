@@ -1,0 +1,19 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{
+  "expected_sensor": 4105,
+  "expected_time_ns": 7.738719170425137,
+  "expected_entry_m": 0.1665128552933028,
+  "observed_sensor": [
+    458
+  ],
+  "observed_time_ns": [
+    85.35840606689453
+  ],
+  "observed_pe": 0.9999989867210388
+}
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/end_to_end/tangent_data_reproducer.py", line 47, in <module>
+    assert len(out[6][keep]) == 1 and out[6][keep][0] == true_sensor, observed
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'expected_sensor': 4105, 'expected_time_ns': 7.738719170425137, 'expected_entry_m': 0.1665128552933028, 'observed_sensor': [458], 'observed_time_ns': [85.35840606689453], 'observed_pe': 0.9999989867210388}

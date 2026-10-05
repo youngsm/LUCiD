@@ -1,0 +1,8 @@
+/output/filename subthreshold.root
+/run/initialize
+/random/setSeeds 5147 83453
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/addPrimary e- 0.1 MeV
+/gun/direction 0 0 1
+/run/beamOn 1

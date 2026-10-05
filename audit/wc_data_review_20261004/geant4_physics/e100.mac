@@ -1,0 +1,8 @@
+/output/filename e100.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/addPrimary e- 100 MeV
+/gun/randomDirection false
+/run/beamOn 20

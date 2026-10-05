@@ -1,0 +1,16 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{"n_incident": 300000, "qe_at_400_nm": 0.2261907458305359, "sensor_reflectance": 0.25, "fraction_nonreflected": 0.7503799796104431, "measured_direct_detection_probability": 0.16977, "current_formula": 0.16964305937290192, "required_incident_probability": 0.2261907458305359, "relative_direct_pe_loss": 0.24943878947552878}
+[{"occupancy": 1, "input_pe": 20000, "realistic_kept_pe": 10244.0, "realistic_shifted_by_100_ns_kept_pe": 20000.0, "per_segment_kept_pe": 20000.0, "fraction_sensor_charge_erased": 0.4878000020980835}, {"occupancy": 10, "input_pe": 200000, "realistic_kept_pe": 240.0, "realistic_shifted_by_100_ns_kept_pe": 200000.0, "per_segment_kept_pe": 200000.0, "fraction_sensor_charge_erased": 0.9987999796867371}]
+{"beam": {"K": 1, "sensor_reflectance": 0.0, "input_photons": 50000, "total_detected_pe": 10844.98828125, "direct_detected_pe": 10844.98828125, "direct_probability": 0.216899765625, "pmt_id": 4105, "origin_m": [16.928570681292268, -0.3544135860928696, -0.0]}}
+{"beam": {"K": 1, "sensor_reflectance": 0.25, "input_photons": 50000, "total_detected_pe": 10844.98828125, "direct_detected_pe": 10844.98828125, "direct_probability": 0.216899765625, "pmt_id": 4105, "origin_m": [16.928570681292268, -0.3544135860928696, -0.0]}}
+{"beam": {"K": 12, "sensor_reflectance": 0.0, "input_photons": 50000, "total_detected_pe": 11220.98828125, "direct_detected_pe": 10845.98828125, "direct_probability": 0.216919765625, "pmt_id": 4105, "origin_m": [16.928570681292268, -0.3544135860928696, -0.0]}}
+{"beam": {"K": 12, "sensor_reflectance": 0.25, "input_photons": 50000, "total_detected_pe": 11174.98828125, "direct_detected_pe": 10845.98828125, "direct_probability": 0.216919765625, "pmt_id": 4105, "origin_m": [16.928570681292268, -0.3544135860928696, -0.0]}}
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/pmt_detection/reproduce.py", line 138, in <module>
+    report["beam"] = test_sk_wand_data_pencil_beam()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/pmt_detection/reproduce.py", line 102, in test_sk_wand_data_pencil_beam
+    assert abs(ratio - 0.75) < 0.02
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

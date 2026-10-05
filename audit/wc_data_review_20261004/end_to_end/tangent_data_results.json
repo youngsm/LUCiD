@@ -1,0 +1,12 @@
+{
+  "expected_sensor": 4105,
+  "expected_time_ns": 7.738719170425137,
+  "expected_entry_m": 0.1665128552933028,
+  "observed_sensor": [
+    458
+  ],
+  "observed_time_ns": [
+    85.35840606689453
+  ],
+  "observed_pe": 0.9999989867210388
+}

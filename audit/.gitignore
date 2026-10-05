@@ -1,0 +1,19 @@
+# Local audit build and runtime artifacts
+/wc_data_20261004/sources/build_headless/
+/wc_data_review_20261004/geant4_physics/PhotonSim/
+/wc_data_review_20261004/geant4_physics/PhotonSim_fixed/
+/wc_data_review_20261004/geant4_physics/PhotonSim_HP/
+/wc_data_review_20261004/geant4_physics/PhotonSim_HPT/
+/wc_data_review_20261004/geant4_physics/PhotonSim_thermalelastic/
+/wc_data_review_20261004/geant4_physics/PhotonSim*_audit
+/wc_data_review_20261004/geant4_physics/material_properties
+/wc_data_review_20261004/geant4_physics/root630_support/
+/wc_data_review_20261004/geant4_physics/rootfs/
+/wc_data_review_20261004/g4_inputs/make_reader_fixture
+/wc_data_review_20261004/photon_sources/PhotonSim_measured
+
+# Files larger than 1 MiB remain local
+/wc_data_review_20261004/geant4_physics/genie_isotropic.log
+/wc_data_review_20261004/geant4_physics/genie_isotropic_fixed.log
+/wc_data_review_20261004/photon_sources/mu1000_worst_placement.npz
+/wc_data_review_20261004/photon_sources/mu3000_worst_placement.npz

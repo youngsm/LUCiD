@@ -1,0 +1,8 @@
+/output/filename thermal_neutron_thermalelastic.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/addPrimary neutron 0.025 eV
+/gun/randomDirection false
+/run/beamOn 1000

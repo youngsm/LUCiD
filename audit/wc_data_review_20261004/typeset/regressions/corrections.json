@@ -1,0 +1,51 @@
+[
+  {
+    "issue": "incident_qe",
+    "patch": "patches/incident_qe.patch",
+    "scope": "Scalar SK_WAND DATA correction only; angular reflection must use the actual per-encounter reflectance and validate QE+R <= 1.",
+    "correction": "qe_per_photon = qe_per_photon / (1.0 - detector_params.reflection.sensor_reflection_rate)\n\n        # Per-photon segment id for the per_segment production hit mode",
+    "production_file": "lucid/simulation/simulator.py"
+  },
+  {
+    "issue": "outside_origin",
+    "patch": "patches/outside_origin.patch",
+    "scope": "Mask after all origin transformations.",
+    "correction": "mask = (jnp.arange(n_rays) < photon_data['N']) & get_inside_detector_flag(final_origins)",
+    "production_file": "lucid/simulation/simulator.py"
+  },
+  {
+    "issue": "geometry_reference",
+    "patch": "patches/geometry_reference.patch",
+    "scope": "Reference implementation only, verified on one tangent ray here. Full enumeration is memory-expensive; production should traverse the complete ray segment with a BVH or grid.",
+    "correction": "d = photon_directions / jnp.linalg.norm(photon_directions, axis=1, keepdims=True)\n        delta = sensor_positions[None, :, :] - photon_origins[:, None, :]\n        along = jnp.sum(delta * d[:, None, :], axis=-1)\n        perpendicular = delta - along[:, :, None] * d[:, None, :]\n        disc = sensor_radius**2 - jnp.sum(perpendicular**2, axis=-1)\n        entry = along - jnp.sqrt(jnp.maximum(disc, 0.0))\n        valid = (disc > 0.0) & (entry > 0.0) & (entry <= t_geometry[:, None])\n        bounded = jnp.where(valid, entry, jnp.inf)\n        first = jnp.argmin(bounded, axis=1)\n        first = jnp.where(jnp.isfinite(jnp.min(bounded, axis=1)), first, -1)\n        potential_sensors = jax.lax.stop_gradient(first[:, None])",
+    "production_file": "lucid/propagation/shared.py"
+  },
+  {
+    "issue": "diagnostic_no_time_cap",
+    "patch": "patches/diagnostic_no_time_cap.patch",
+    "scope": "Diagnostic only. A production fix needs explicit acquisition windows and bounded dark-noise sampling.",
+    "correction": "_MAX_DIGIT_TIME_NS = np.inf",
+    "production_file": "lucid/simulation/digitizer.py"
+  },
+  {
+    "issue": "sampled_charge_timing",
+    "patch": "patches/sampled_charge_timing.patch",
+    "scope": "Verified for SK_WAND ski response. Review other digitizer prescriptions before generalizing.",
+    "correction": "t = _sample_time_jitter(digit_time, np.maximum(pe_reco, 0.5), model, rng)",
+    "production_file": "lucid/simulation/digitizer.py"
+  },
+  {
+    "issue": "unmodified_wavelength_qe",
+    "patch": "patches/unmodified_wavelength_qe.patch",
+    "scope": "QE uses original wavelength; medium coefficient interpolation retains its independent clamp.",
+    "correction": "qe = qe_fn(wavelengths) *",
+    "production_file": "lucid/wavelength/optical_model.py"
+  },
+  {
+    "issue": "negative_tts_charge",
+    "patch": "patches/negative_tts_charge.patch",
+    "scope": "Dormant in selected per_segment/TTS=0 setup; retain physically valid jittered negative timestamps in realistic mode.",
+    "correction": "(total_charge > 1e-10) & jnp.isfinite(detector_mins)",
+    "production_file": "lucid/simulation/sensor_response.py"
+  }
+]

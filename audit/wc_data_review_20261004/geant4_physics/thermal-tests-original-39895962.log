@@ -1,0 +1,28 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________________ test_thermal_water_capture_clock _______________________
+
+capture_times_us = array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,
+       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,
+       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,
+       3.75446099e+02])
+
+    def test_thermal_water_capture_clock(capture_times_us):
+        t=capture_times_us
+        n_h=2*6.02214076e23*1e6/18.01528
+        tau_us=1e6/(n_h*.3326e-28*2200)
+>       assert abs(t.mean()-tau_us)<4*t.std(ddof=1)/np.sqrt(len(t))
+E       AssertionError: assert np.float64(85.52363336024138) < ((4 * np.float64(500.6293020230585)) / np.float64(31.575306807693888))
+E        +  where np.float64(85.52363336024138) = abs((np.float64(289.9397778285876) - 204.4161444683462))
+E        +    where np.float64(289.9397778285876) = <built-in method mean of numpy.ndarray object at 0x7faa3f0b58f0>()
+E        +      where <built-in method mean of numpy.ndarray object at 0x7faa3f0b58f0> = array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,\n       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,\n       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,\n       3.75446099e+02]).mean
+E        +  and   np.float64(500.6293020230585) = <built-in method std of numpy.ndarray object at 0x7faa3f0b58f0>(ddof=1)
+E        +    where <built-in method std of numpy.ndarray object at 0x7faa3f0b58f0> = array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,\n       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,\n       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,\n       3.75446099e+02]).std
+E        +  and   np.float64(31.575306807693888) = <ufunc 'sqrt'>(997)
+E        +    where <ufunc 'sqrt'> = np.sqrt
+E        +    and   997 = len(array([4.52505801e+02, 4.53414201e+01, 2.26381735e+02, 3.65124336e+00,\n       5.32422741e+01, 2.09375234e+01, 1.018138...916e+01, 5.04876797e+02,\n       2.89060414e+02, 3.94429356e+01, 5.93041630e+02, 2.99914759e+01,\n       3.75446099e+02]))
+
+test_neutron_capture.py:24: AssertionError
+=========================== short test summary info ============================
+FAILED test_neutron_capture.py::test_thermal_water_capture_clock - AssertionE...
+1 failed in 1.60s

@@ -1,0 +1,25 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{
+  "status": "PASS",
+  "input_photons": 9,
+  "kernel_flat_deposits": 10,
+  "derived_particles": 5,
+  "meaningful_tracks": 10,
+  "delayed_daughter_photon_time_ns": 2300.010009765625,
+  "contracts": [
+    "mm-to-m positions",
+    "ns time retention",
+    "MeV energy retention",
+    "chunk ordering",
+    "photon-segment mapping",
+    "delayed daughter ownership",
+    "shower inheritance",
+    "pi0 gamma separation",
+    "meaningful ancestor retention",
+    "group offsets",
+    "kernel-flat source mapping",
+    "charge conservation",
+    "empty events"
+  ]
+}

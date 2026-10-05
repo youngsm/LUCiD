@@ -1,0 +1,13 @@
+{
+  "partition": "milano",
+  "job_id": "39896290",
+  "source_commit": "ff73224a669fdc3598dc2993a8763223b11a3e5b",
+  "patches": [
+    "01_remove_late_track_cut.patch",
+    "02_pion_endpoint.patch",
+    "03_genie_haar_rotation.patch",
+    "04_thermal_neutron_elastic.patch"
+  ],
+  "git_apply_check": true,
+  "composed_sources_match_experiment_variants": true
+}

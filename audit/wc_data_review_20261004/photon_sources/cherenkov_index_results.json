@@ -1,0 +1,172 @@
+{
+  "slurm_job_id": "39894010",
+  "partition": "milano",
+  "emission_band_nm": [
+    274.90953089401387,
+    673.8271653978275
+  ],
+  "wavelength_rows": [
+    {
+      "wavelength_nm": 300.0,
+      "source_n": 1.3430147716549474,
+      "measured_n": 1.3592060384061295,
+      "SK_WCSim_n": 1.3594209128484094,
+      "source_threshold_MeV": 52.627001060888496,
+      "measured_threshold_MeV": 50.34517206518367,
+      "source_beta1_angle_deg": 41.87580890204338,
+      "measured_beta1_angle_deg": 42.63160272213237
+    },
+    {
+      "wavelength_nm": 350.0,
+      "source_n": 1.3400178197742223,
+      "measured_n": 1.3494796819066712,
+      "SK_WCSim_n": 1.349933859471062,
+      "source_threshold_MeV": 53.069820856196635,
+      "measured_threshold_MeV": 51.69405899014907,
+      "source_beta1_angle_deg": 41.73267124701632,
+      "measured_beta1_angle_deg": 42.181081814172316
+    },
+    {
+      "wavelength_nm": 400.0,
+      "source_n": 1.3379988381200882,
+      "measured_n": 1.3435566805385404,
+      "SK_WCSim_n": 1.344185518655342,
+      "source_threshold_MeV": 53.371938419222246,
+      "measured_threshold_MeV": 52.547639735377174,
+      "source_beta1_angle_deg": 41.63565343753905,
+      "measured_beta1_angle_deg": 41.90158042380276
+    },
+    {
+      "wavelength_nm": 500.0,
+      "source_n": 1.3349992291918633,
+      "measured_n": 1.3367959769138469,
+      "SK_WCSim_n": 1.337526978711615,
+      "source_threshold_MeV": 53.826560852401805,
+      "measured_threshold_MeV": 53.55341016978296,
+      "source_beta1_angle_deg": 41.49062749115022,
+      "measured_beta1_angle_deg": 41.577625008589806
+    },
+    {
+      "wavelength_nm": 600.0,
+      "source_n": 1.3339843622053045,
+      "measured_n": 1.3330233913471425,
+      "SK_WCSim_n": 1.3336075755109327,
+      "source_threshold_MeV": 53.98195943964567,
+      "measured_threshold_MeV": 54.129853488351706,
+      "source_beta1_angle_deg": 41.44131838310983,
+      "measured_beta1_angle_deg": 41.39451426697898
+    }
+  ],
+  "yield_rows": [
+    {
+      "kinetic_MeV": 50,
+      "beta": 0.7343382216037736,
+      "source_photons_per_m": 0.0,
+      "measured_photons_per_m": 32.374219199999146,
+      "SK_WCSim_photons_per_m": 34.555040458497416,
+      "source_QE_weighted_per_m": 0.0,
+      "measured_QE_weighted_per_m": 0.0,
+      "SK_WCSim_QE_weighted_per_m": 0.0,
+      "QE_weighted_loss_fraction": null
+    },
+    {
+      "kinetic_MeV": 52,
+      "beta": 0.7422049874880066,
+      "source_photons_per_m": 0.0,
+      "measured_photons_per_m": 544.1847857645157,
+      "SK_WCSim_photons_per_m": 563.2201130272551,
+      "source_QE_weighted_per_m": 0.0,
+      "measured_QE_weighted_per_m": 16.258935731109958,
+      "SK_WCSim_QE_weighted_per_m": 18.388496614098568,
+      "QE_weighted_loss_fraction": 1.0
+    },
+    {
+      "kinetic_MeV": 54,
+      "beta": 0.7496999968750836,
+      "source_photons_per_m": 709.5373196044118,
+      "measured_photons_per_m": 1776.7781113136916,
+      "SK_WCSim_photons_per_m": 1841.163880280687,
+      "source_QE_weighted_per_m": 70.76219633230646,
+      "measured_QE_weighted_per_m": 164.8744886538122,
+      "SK_WCSim_QE_weighted_per_m": 174.29540552073172,
+      "QE_weighted_loss_fraction": 0.5708117313353056
+    },
+    {
+      "kinetic_MeV": 55,
+      "beta": 0.7533160411511775,
+      "source_photons_per_m": 1643.648366224894,
+      "measured_photons_per_m": 2680.6086753377567,
+      "SK_WCSim_photons_per_m": 2752.6331618273243,
+      "source_QE_weighted_per_m": 174.42072338830576,
+      "measured_QE_weighted_per_m": 267.5476389634737,
+      "SK_WCSim_QE_weighted_per_m": 276.9332111004291,
+      "QE_weighted_loss_fraction": 0.3480760134380474
+    },
+    {
+      "kinetic_MeV": 56,
+      "beta": 0.7568483879506072,
+      "source_photons_per_m": 2547.859083217721,
+      "measured_photons_per_m": 3575.1626215044116,
+      "SK_WCSim_photons_per_m": 3646.5163745495174,
+      "source_QE_weighted_per_m": 274.254717537295,
+      "measured_QE_weighted_per_m": 366.51438171088614,
+      "SK_WCSim_QE_weighted_per_m": 375.8125500018094,
+      "QE_weighted_loss_fraction": 0.2517218116869624
+    },
+    {
+      "kinetic_MeV": 58,
+      "beta": 0.7636730138553677,
+      "source_photons_per_m": 4259.4225529595515,
+      "measured_photons_per_m": 5268.446971267757,
+      "SK_WCSim_photons_per_m": 5338.531105583619,
+      "source_QE_weighted_per_m": 463.22860848177163,
+      "measured_QE_weighted_per_m": 553.8466687790476,
+      "SK_WCSim_QE_weighted_per_m": 562.9793919727474,
+      "QE_weighted_loss_fraction": 0.16361579008327898
+    },
+    {
+      "kinetic_MeV": 60,
+      "beta": 0.7701947090738969,
+      "source_photons_per_m": 5852.682899077057,
+      "measured_photons_per_m": 6844.691648648166,
+      "SK_WCSim_photons_per_m": 6913.593920174974,
+      "source_QE_weighted_per_m": 639.1406399174414,
+      "measured_QE_weighted_per_m": 728.2305638607904,
+      "SK_WCSim_QE_weighted_per_m": 737.2092775085248,
+      "QE_weighted_loss_fraction": 0.1223375238070612
+    },
+    {
+      "kinetic_MeV": 70,
+      "beta": 0.7988733884254959,
+      "source_photons_per_m": 12402.033799607845,
+      "measured_photons_per_m": 13324.096927524584,
+      "SK_WCSim_photons_per_m": 13388.140963458787,
+      "source_QE_weighted_per_m": 1362.2551166599844,
+      "measured_QE_weighted_per_m": 1445.0633922649974,
+      "SK_WCSim_QE_weighted_per_m": 1453.4090250976496,
+      "QE_weighted_loss_fraction": 0.0573042511825167
+    },
+    {
+      "kinetic_MeV": 100,
+      "beta": 0.8579359051546189,
+      "source_photons_per_m": 23880.217319066156,
+      "measured_photons_per_m": 24679.695981144243,
+      "SK_WCSim_photons_per_m": 24735.22562831541,
+      "source_QE_weighted_per_m": 2629.5624873729057,
+      "measured_QE_weighted_per_m": 2701.3617464315194,
+      "SK_WCSim_QE_weighted_per_m": 2708.597862017573,
+      "QE_weighted_loss_fraction": 0.026578913080952615
+    },
+    {
+      "kinetic_MeV": 1000,
+      "beta": 0.9954235275799608,
+      "source_photons_per_m": 43131.16235069005,
+      "measured_photons_per_m": 43725.045170047,
+      "SK_WCSim_photons_per_m": 43766.29468048946,
+      "source_QE_weighted_per_m": 4755.0612207228,
+      "measured_QE_weighted_per_m": 4808.396410791081,
+      "SK_WCSim_QE_weighted_per_m": 4813.771669605703,
+      "QE_weighted_loss_fraction": 0.011092095058673923
+    }
+  ]
+}

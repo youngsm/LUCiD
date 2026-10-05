@@ -1,0 +1,337 @@
+{
+  "job_id": "39894012",
+  "metrics": [
+    {
+      "label": "standard_production_vertex_volume_isotropic",
+      "rays": 20000,
+      "true_hits": 9825,
+      "unbounded_hits": 10908,
+      "found_hits": 9789,
+      "missed": 36,
+      "wrong_first": 69,
+      "false_hits": 0,
+      "missing_first_candidate": 104,
+      "missed_with_candidate": 1,
+      "positive_weight_no_geometry": 1,
+      "positive_weight_no_oracle": 0,
+      "lost_fraction_true_hits": 0.00366412213740458,
+      "wrong_fraction_true_hits": 0.007022900763358778,
+      "correct_stop_max_error_m": 0.004120184985460185,
+      "found_normal_max_error": 0.0038620958766370727
+    },
+    {
+      "label": "standard_production_top_vertex_isotropic",
+      "rays": 20000,
+      "true_hits": 10472,
+      "unbounded_hits": 11551,
+      "found_hits": 10245,
+      "missed": 227,
+      "wrong_first": 529,
+      "false_hits": 0,
+      "missing_first_candidate": 756,
+      "missed_with_candidate": 0,
+      "positive_weight_no_geometry": 0,
+      "positive_weight_no_oracle": 0,
+      "lost_fraction_true_hits": 0.0216768525592055,
+      "wrong_fraction_true_hits": 0.050515660809778457,
+      "correct_stop_max_error_m": 0.006983909576547376,
+      "found_normal_max_error": 0.003926766211580598
+    }
+  ],
+  "examples": [
+    [
+      {
+        "origin": [
+          -11.643240218498,
+          3.91319916909062,
+          16.242043420915873
+        ],
+        "direction": [
+          0.5597801755918967,
+          -0.8079485998027277,
+          0.1840250393047566
+        ],
+        "expected_sensor": 8976,
+        "expected_distance": 9.721968144369882,
+        "found_sensor": 8977,
+        "found_distance": 10.256125329759586,
+        "cylinder_exit": 10.58099320369931,
+        "candidates": [
+          8934,
+          8935,
+          8977,
+          8978
+        ],
+        "weights": [
+          0.0,
+          0.0,
+          0.9999989867210388,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          -11.078440895472438,
+          -10.249617119310974,
+          -1.8438155389298536
+        ],
+        "direction": [
+          -0.18629630235289865,
+          0.0596769158000994,
+          0.9806795365715678
+        ],
+        "expected_sensor": 1551,
+        "expected_distance": 15.36818204009986,
+        "found_sensor": -1,
+        "found_distance": 16.880521583799897,
+        "cylinder_exit": 16.880516848304136,
+        "candidates": [
+          1096,
+          1099,
+          1098,
+          1100
+        ],
+        "weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          0.6526162656536825,
+          -5.960650558506802,
+          15.091889703989327
+        ],
+        "direction": [
+          0.857391845221325,
+          0.4551609588824256,
+          0.24022432278435582
+        ],
+        "expected_sensor": 7931,
+        "expected_distance": 12.011586191064588,
+        "found_sensor": 7898,
+        "found_distance": 12.603003209647719,
+        "cylinder_exit": 12.893454631157697,
+        "candidates": [
+          7897,
+          7898,
+          7866,
+          7867
+        ],
+        "weights": [
+          0.0,
+          0.9999989867210388,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          -14.032575049216492,
+          -0.11739736746015296,
+          -6.972114460045233
+        ],
+        "direction": [
+          -0.05412583126551438,
+          -0.4604344105872148,
+          0.8860420689431293
+        ],
+        "expected_sensor": 2474,
+        "expected_distance": 16.372771468868272,
+        "found_sensor": -1,
+        "found_distance": 17.11337452979114,
+        "cylinder_exit": 17.113373026383293,
+        "candidates": [
+          2470,
+          2473,
+          2469,
+          2472
+        ],
+        "weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          12.84985611750745,
+          2.4434168472606483,
+          -1.9301410999195512
+        ],
+        "direction": [
+          0.354343929514229,
+          -0.1259831904416102,
+          -0.9265897772707015
+        ],
+        "expected_sensor": 7290,
+        "expected_distance": 10.82131601330098,
+        "found_sensor": 7291,
+        "found_distance": 11.257733522881301,
+        "cylinder_exit": 11.523875011424225,
+        "candidates": [
+          7291,
+          7292,
+          7294,
+          7295
+        ],
+        "weights": [
+          0.9999989867210388,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    [
+      {
+        "origin": [
+          0.0,
+          0.0,
+          16.370289999999002
+        ],
+        "direction": [
+          0.9803557967428819,
+          -0.16177094718609372,
+          0.1128391440907958
+        ],
+        "expected_sensor": 7792,
+        "expected_distance": 14.624980658676282,
+        "found_sensor": 7773,
+        "found_distance": 15.265516165244224,
+        "cylinder_exit": 16.119593300418938,
+        "candidates": [
+          7760,
+          7759,
+          7761,
+          7773
+        ],
+        "weights": [
+          1.013278392747452e-06,
+          0.0,
+          0.0,
+          0.9999989867210388
+        ]
+      },
+      {
+        "origin": [
+          0.0,
+          0.0,
+          16.370289999999002
+        ],
+        "direction": [
+          -0.6022096980154524,
+          -0.7764737918210413,
+          0.18555842807911432
+        ],
+        "expected_sensor": 8937,
+        "expected_distance": 8.60711057011953,
+        "found_sensor": 8981,
+        "found_distance": 9.563765745185592,
+        "cylinder_exit": 9.802417114330627,
+        "candidates": [
+          8981,
+          9023,
+          8980,
+          8982
+        ],
+        "weights": [
+          0.9999989867210388,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          0.0,
+          0.0,
+          16.370289999999002
+        ],
+        "direction": [
+          0.3311900395999893,
+          0.932558258802288,
+          0.14369499507429787
+        ],
+        "expected_sensor": 8320,
+        "expected_distance": 11.549958868935654,
+        "found_sensor": 8319,
+        "found_distance": 12.351017946395457,
+        "cylinder_exit": 12.658207825335332,
+        "candidates": [
+          8275,
+          8319,
+          8274,
+          8318
+        ],
+        "weights": [
+          0.0,
+          0.9999989867210388,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          0.0,
+          0.0,
+          16.370289999999002
+        ],
+        "direction": [
+          -0.9637770159238953,
+          0.21444309702586142,
+          0.15858127794537627
+        ],
+        "expected_sensor": 9206,
+        "expected_distance": 10.583004524072242,
+        "found_sensor": 9241,
+        "found_distance": 11.129546001179657,
+        "cylinder_exit": 11.469961238031713,
+        "candidates": [
+          9241,
+          9274,
+          9242,
+          9240
+        ],
+        "weights": [
+          0.9999989867210388,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "origin": [
+          0.0,
+          0.0,
+          16.370289999999002
+        ],
+        "direction": [
+          -0.35730121937130754,
+          -0.9227657760604792,
+          0.14435775409474333
+        ],
+        "expected_sensor": 8854,
+        "expected_distance": 11.003655948398965,
+        "found_sensor": 8900,
+        "found_distance": 12.426068289190692,
+        "cylinder_exit": 12.600092890869059,
+        "candidates": [
+          8856,
+          8900,
+          8901,
+          8857
+        ],
+        "weights": [
+          0.0,
+          0.9999989867210388,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  ]
+}

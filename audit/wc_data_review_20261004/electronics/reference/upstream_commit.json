@@ -1,0 +1,113 @@
+{
+  "sha": "7a15837bd8be5cf26a1989083e50d1c4400e13e5",
+  "node_id": "C_kwDOAVmZndoAKDdhMTU4MzdiZDhiZTVjZjI2YTE5ODkwODNlNTBkMWM0NDAwZTEzZTU",
+  "commit": {
+    "author": {
+      "name": "Tom Dealtry",
+      "email": "t.dealtry@lancaster.ac.uk",
+      "date": "2026-09-03T07:56:25Z"
+    },
+    "committer": {
+      "name": "Tom Dealtry",
+      "email": "t.dealtry@lancaster.ac.uk",
+      "date": "2026-09-03T07:56:25Z"
+    },
+    "message": "Ready for v1.12.36",
+    "tree": {
+      "sha": "7659dc512184114241b297b79c9ce91031119a50",
+      "url": "https://api.github.com/repos/WCSim/WCSim/git/trees/7659dc512184114241b297b79c9ce91031119a50"
+    },
+    "url": "https://api.github.com/repos/WCSim/WCSim/git/commits/7a15837bd8be5cf26a1989083e50d1c4400e13e5",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/WCSim/WCSim/commits/7a15837bd8be5cf26a1989083e50d1c4400e13e5",
+  "html_url": "https://github.com/WCSim/WCSim/commit/7a15837bd8be5cf26a1989083e50d1c4400e13e5",
+  "comments_url": "https://api.github.com/repos/WCSim/WCSim/commits/7a15837bd8be5cf26a1989083e50d1c4400e13e5/comments",
+  "author": {
+    "login": "tdealtry",
+    "id": 11757479,
+    "node_id": "MDQ6VXNlcjExNzU3NDc5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11757479?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/tdealtry",
+    "html_url": "https://github.com/tdealtry",
+    "followers_url": "https://api.github.com/users/tdealtry/followers",
+    "following_url": "https://api.github.com/users/tdealtry/following{/other_user}",
+    "gists_url": "https://api.github.com/users/tdealtry/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/tdealtry/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/tdealtry/subscriptions",
+    "organizations_url": "https://api.github.com/users/tdealtry/orgs",
+    "repos_url": "https://api.github.com/users/tdealtry/repos",
+    "events_url": "https://api.github.com/users/tdealtry/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/tdealtry/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "tdealtry",
+    "id": 11757479,
+    "node_id": "MDQ6VXNlcjExNzU3NDc5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11757479?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/tdealtry",
+    "html_url": "https://github.com/tdealtry",
+    "followers_url": "https://api.github.com/users/tdealtry/followers",
+    "following_url": "https://api.github.com/users/tdealtry/following{/other_user}",
+    "gists_url": "https://api.github.com/users/tdealtry/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/tdealtry/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/tdealtry/subscriptions",
+    "organizations_url": "https://api.github.com/users/tdealtry/orgs",
+    "repos_url": "https://api.github.com/users/tdealtry/repos",
+    "events_url": "https://api.github.com/users/tdealtry/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/tdealtry/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "70b5128ed64ceddc8afecb7d2ccc6a9c8de742b7",
+      "url": "https://api.github.com/repos/WCSim/WCSim/commits/70b5128ed64ceddc8afecb7d2ccc6a9c8de742b7",
+      "html_url": "https://github.com/WCSim/WCSim/commit/70b5128ed64ceddc8afecb7d2ccc6a9c8de742b7"
+    }
+  ],
+  "stats": {
+    "total": 12,
+    "additions": 11,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "838847c5b8f773995a868672eb1bf951182a4487",
+      "filename": "CMakeLists.txt",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/WCSim/WCSim/blob/7a15837bd8be5cf26a1989083e50d1c4400e13e5/CMakeLists.txt",
+      "raw_url": "https://github.com/WCSim/WCSim/raw/7a15837bd8be5cf26a1989083e50d1c4400e13e5/CMakeLists.txt",
+      "contents_url": "https://api.github.com/repos/WCSim/WCSim/contents/CMakeLists.txt?ref=7a15837bd8be5cf26a1989083e50d1c4400e13e5",
+      "patch": "@@ -18,7 +18,7 @@ if (${WCSim_WCSimRoot_only})\n     set(PROJECT_NAME WCSimRoot)\n endif ()\n \n-set(PROJECT_VERSION 1.12.34)\n+set(PROJECT_VERSION 1.12.36)\n \n project(${PROJECT_NAME} VERSION ${PROJECT_VERSION})\n "
+    },
+    {
+      "sha": "24f5f81a660df84589f5ef597bfc33a6f7e4d831",
+      "filename": "RELEASENOTES.md",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 0,
+      "changes": 10,
+      "blob_url": "https://github.com/WCSim/WCSim/blob/7a15837bd8be5cf26a1989083e50d1c4400e13e5/RELEASENOTES.md",
+      "raw_url": "https://github.com/WCSim/WCSim/raw/7a15837bd8be5cf26a1989083e50d1c4400e13e5/RELEASENOTES.md",
+      "contents_url": "https://api.github.com/repos/WCSim/WCSim/contents/RELEASENOTES.md?ref=7a15837bd8be5cf26a1989083e50d1c4400e13e5",
+      "patch": "@@ -5,6 +5,16 @@ This file contains the release notes for each version of WCSim. Release notes ca\n Recent updates\n *************************************************************\n \n+*************************************************************\n+03/09/2026: Notes for v1.12.36\n+*************************************************************\n+New release after #565 for HK MC production\n+\n+Note: v1.12.35 is a tag-only release, without the update to the release notes or WCSim version number\n+\n+Bug fix\n+* Pull request #565 @mscott201: Fix passthrough of nRooTracker truth variables\n+\n *************************************************************\n 11/06/2026: Notes for v1.12.34\n *************************************************************"
+    }
+  ]
+}

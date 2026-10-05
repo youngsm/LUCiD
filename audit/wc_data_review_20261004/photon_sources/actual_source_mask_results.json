@@ -1,0 +1,25 @@
+{
+  "slurm_job_id": "39894010",
+  "partition": "milano",
+  "source_energy_MeV": 1000,
+  "source_event": 16,
+  "placement": 17,
+  "source_photons": 203162,
+  "outside_source_photons": 110320,
+  "vertex_m": [
+    -5.386608600616455,
+    0.8363549709320068,
+    16.297012329101562
+  ],
+  "all_source_PE": 5027.99755859375,
+  "veto_exterior_PE": 4930.99755859375,
+  "outside_source_PE": 96.99991607666016,
+  "relative_extra_PE_vs_veto": 0.019671475973649155,
+  "inside_records_bitwise_identical": true,
+  "all_sensors_hit": 543,
+  "veto_sensors_hit": 506,
+  "sensors_lost_after_veto": 37,
+  "jointly_hit_sensors": 506,
+  "changed_first_times": 0,
+  "largest_earlier_first_time_from_exterior_ns": -0.0
+}

@@ -1,0 +1,10 @@
+/output/filename mu54.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/addPrimary mu- 54 MeV
+/gun/randomDirection false
+/process/inactivate Decay mu-
+/process/inactivate muMinusCaptureAtRest mu-
+/run/beamOn 100

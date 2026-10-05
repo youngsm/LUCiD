@@ -1,0 +1,78 @@
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+________________ test_incident_qe_is_preserved_after_reflection ________________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:29: in test_incident_qe_is_preserved_after_reflection
+    assert abs(measured - required) < tolerance, (measured, required, tolerance)
+E   AssertionError: (0.1681518405675888, 0.2261907458305359, np.float64(0.013866940715147626))
+E   assert 0.05803890526294708 < np.float64(0.013866940715147626)
+E    +  where 0.05803890526294708 = abs((0.1681518405675888 - 0.2261907458305359))
+_______________________ test_tangent_ray_hits_first_pmt ________________________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:41: in test_tangent_ray_hits_first_pmt
+    assert sensor == 4105, (sensor, distance)
+E   AssertionError: (458, 17.662574768066406)
+E   assert 458 == 4105
+_____________ test_translated_photons_outside_id_make_zero_charge ______________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:52: in test_translated_photons_outside_id_make_zero_charge
+    assert float(charge.sum()) == 0., float(charge.sum())
+E   AssertionError: 923.9999389648438
+E   assert 923.9999389648438 == 0.0
+E    +  where 923.9999389648438 = float(Array(923.99994, dtype=float32))
+E    +    where Array(923.99994, dtype=float32) = _sum()
+E    +      where _sum = Array([0., 0., 0., ..., 0., 0., 0.], dtype=float32).sum
+____________________ test_two_readout_bursts_survive_100us _____________________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:63: in test_two_readout_bursts_survive_100us
+    assert len(digits['T']) == 2, digits['T']
+E   AssertionError: array([100.])
+E   assert 1 == 2
+E    +  where 1 = len(array([100.]))
+__________________ test_qe_uses_unmodified_photon_wavelength ___________________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:75: in test_qe_uses_unmodified_photon_wavelength
+    assert bool(jnp.all(actual == 0.)), actual
+E   AssertionError: Array([0.00550125, 0.002312  ], dtype=float32)
+E   assert False
+E    +  where False = bool(Array(False, dtype=bool))
+E    +    where Array(False, dtype=bool) = <function all at 0x7ff8b6215e40>(Array([0.00550125, 0.002312  ], dtype=float32) == 0.0)
+E    +      where <function all at 0x7ff8b6215e40> = jnp.all
+___________________ test_time_jitter_follows_sampled_charge ____________________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:87: in test_time_jitter_follows_sampled_charge
+    assert abs(measured_rms - required_rms) < .10, (lower, upper, measured_rms, required_rms)
+E   AssertionError: (0.25, 0.5, 3.4898502780949223, 4.802136421203613)
+E   assert 1.312286143108691 < 0.1
+E    +  where 1.312286143108691 = abs((3.4898502780949223 - 4.802136421203613))
+________________ test_tts_charge_is_time_translation_invariant _________________
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py:98: in test_tts_charge_is_time_translation_invariant
+    assert np.array_equal(np.asarray(charge), np.asarray(shifted))
+E   assert False
+E    +  where False = <function array_equal at 0x7ff8ce3970b0>(array([0., 0., 0., ..., 0., 0., 0.], shape=(4096,), dtype=float32), array([1., 1., 1., ..., 1., 1., 1.], shape=(4096,), dtype=float32))
+E    +    where <function array_equal at 0x7ff8ce3970b0> = np.array_equal
+E    +    and   array([0., 0., 0., ..., 0., 0., 0.], shape=(4096,), dtype=float32) = <built-in function asarray>(Array([0., 0., 0., ..., 0., 0., 0.], dtype=float32))
+E    +      where <built-in function asarray> = np.asarray
+E    +    and   array([1., 1., 1., ..., 1., 1., 1.], shape=(4096,), dtype=float32) = <built-in function asarray>(Array([1., 1., 1., ..., 1., 1., 1.], dtype=float32))
+E    +      where <built-in function asarray> = np.asarray
+=============================== warnings summary ===============================
+audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92
+  /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+    warnings.warn(
+
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+  /sdf/group/neutrino/youngsam/sim/LUCiD/lucid/propagation/cylinder.py:528: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+    @partial(jax.jit, static_argnums=(2, 3, 4, 5, 6), device=jax.devices('cpu')[0])
+
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+  /sdf/group/neutrino/youngsam/sim/LUCiD/lucid/propagation/sphere.py:324: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+    @partial(jax.jit, static_argnums=(2, 3, 4), device=jax.devices('cpu')[0])
+
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+  /sdf/group/neutrino/youngsam/sim/LUCiD/lucid/overlap.py:274: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+    @partial(jax.jit, device=jax.devices('cpu')[0])
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_tangent_ray_hits_first_pmt
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_translated_photons_outside_id_make_zero_charge
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_two_readout_bursts_survive_100us
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_qe_uses_unmodified_photon_wavelength
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_time_jitter_follows_sampled_charge
+FAILED audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_tts_charge_is_time_translation_invariant
+7 failed, 4 warnings in 32.03s

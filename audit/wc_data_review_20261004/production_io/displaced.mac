@@ -1,0 +1,9 @@
+/output/filename displaced.root
+/run/initialize
+/random/setSeeds 7147 93453
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/particle e-
+/gun/energy 100 MeV
+/gun/direction 0 0 1
+/run/beamOn 1

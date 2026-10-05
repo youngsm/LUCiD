@@ -1,0 +1,11 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{"label": "minimal_tangent_barrel", "rays": 1, "true_hits": 1, "unbounded_hits": 1, "found_hits": 1, "missed": 0, "wrong_first": 1, "false_hits": 0, "missing_first_candidate": 1, "missed_with_candidate": 0, "positive_weight_no_geometry": 0, "positive_weight_no_oracle": 0, "lost_fraction_true_hits": 0.0, "wrong_fraction_true_hits": 1.0, "correct_stop_max_error_m": null, "found_normal_max_error": 5.966055336888533e-05}
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/geometry/reproduce_geometry.py", line 159, in <module>
+    main()
+  File "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/geometry/reproduce_geometry.py", line 127, in main
+    assert row['true_hits'] == 1 and row['found_hits'] == 0, sample
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [{'origin': [16.858586662707683, -0.352948409856257, -0.4], 'direction': [0.0, 0.0, 1.0], 'expected_sensor': 4105, 'expected_distance': 0.16651338532130752, 'found_sensor': 458, 'found_distance': 17.66257514953613, 'cylinder_exit': 18.58921111111, 'candidates': [7757, 458, 461, 7758], 'weights': [0.0, 0.9999989867210388, 0.0, 0.0]}]

@@ -1,0 +1,11 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/photon_sources/mu52_measured.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/addPrimary mu- 52 MeV
+/gun/randomDirection false
+/particle/select mu-
+/process/inactivate Decay mu-
+/process/inactivate muMinusCaptureAtRest mu-
+/run/beamOn 100

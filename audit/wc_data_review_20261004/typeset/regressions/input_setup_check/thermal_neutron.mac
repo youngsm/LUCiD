@@ -1,0 +1,8 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/typeset/regressions/input_setup_check/thermal_neutron.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/randomDirection false
+/gun/addPrimary neutron 0.025 eV
+/run/beamOn 1000

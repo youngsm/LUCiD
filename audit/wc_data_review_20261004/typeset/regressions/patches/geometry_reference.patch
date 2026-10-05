@@ -1,0 +1,21 @@
+--- a/lucid/propagation/shared.py
++++ b/lucid/propagation/shared.py
+@@ -269,7 +269,17 @@
+         idx = detector.point_to_grid_cell(grid_info)
+ 
+         # c. Look up candidate sensors (stop_gradient: geometry is static)
+-        potential_sensors = jax.lax.stop_gradient(inverted_sensor_map[idx])
++        d = photon_directions / jnp.linalg.norm(photon_directions, axis=1, keepdims=True)
++        delta = sensor_positions[None, :, :] - photon_origins[:, None, :]
++        along = jnp.sum(delta * d[:, None, :], axis=-1)
++        perpendicular = delta - along[:, :, None] * d[:, None, :]
++        disc = sensor_radius**2 - jnp.sum(perpendicular**2, axis=-1)
++        entry = along - jnp.sqrt(jnp.maximum(disc, 0.0))
++        valid = (disc > 0.0) & (entry > 0.0) & (entry <= t_geometry[:, None])
++        bounded = jnp.where(valid, entry, jnp.inf)
++        first = jnp.argmin(bounded, axis=1)
++        first = jnp.where(jnp.isfinite(jnp.min(bounded, axis=1)), first, -1)
++        potential_sensors = jax.lax.stop_gradient(first[:, None])
+ 
+         # d. Compute sensor intersections (shared, vmapped over sensor slots)
+         def compute_for_slot(slot_sensors):

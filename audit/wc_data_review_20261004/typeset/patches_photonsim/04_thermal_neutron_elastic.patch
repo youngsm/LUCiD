@@ -1,0 +1,20 @@
+--- a/src/PhysicsList.cc
++++ b/src/PhysicsList.cc
+@@ -33,7 +33,7 @@
+ #include "G4EmStandardPhysics_option4.hh"
+ #include "G4OpticalPhysics.hh"
+ #include "G4RadioactiveDecayPhysics.hh"
+-#include "G4HadronElasticPhysics.hh"
++#include "G4HadronElasticPhysicsHPT.hh"
+ #include "G4HadronPhysicsQGSP_BERT.hh"
+ #include "G4StoppingPhysics.hh"
+ #include "G4IonPhysics.hh"
+@@ -59,7 +59,7 @@
+   RegisterPhysics(new G4EmStandardPhysics_option4(0));
+ 
+   // Hadron physics for more complete particle interactions
+-  RegisterPhysics(new G4HadronElasticPhysics(0));
++  RegisterPhysics(new G4HadronElasticPhysicsHPT(0));
+   RegisterPhysics(new G4StoppingPhysics(0));
+   RegisterPhysics(new G4IonPhysics(0));
+   RegisterPhysics(new G4HadronPhysicsQGSP_BERT(0));

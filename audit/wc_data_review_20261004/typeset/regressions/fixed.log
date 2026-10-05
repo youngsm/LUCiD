@@ -1,0 +1,20 @@
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92
+  /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+    warnings.warn(
+
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+  /sdf/group/neutrino/youngsam/sim/LUCiD/lucid/propagation/cylinder.py:528: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+    @partial(jax.jit, static_argnums=(2, 3, 4, 5, 6), device=jax.devices('cpu')[0])
+
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+  /sdf/group/neutrino/youngsam/sim/LUCiD/lucid/propagation/sphere.py:324: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+    @partial(jax.jit, static_argnums=(2, 3, 4), device=jax.devices('cpu')[0])
+
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+  /sdf/group/neutrino/youngsam/sim/LUCiD/lucid/overlap.py:274: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+    @partial(jax.jit, device=jax.devices('cpu')[0])
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+7 passed, 4 warnings in 31.56s

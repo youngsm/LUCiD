@@ -1,0 +1,19 @@
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_delayed_gamma_yield_is_time_translation_invariant
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_genie_isotropic_directions_are_uniform
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_pion_replacement_preserves_endpoint
+audit/wc_data_review_20261004/typeset/regressions/test_photonsim_outputs.py::test_thermal_water_capture_clock
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_incident_qe_is_preserved_after_reflection
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_tangent_ray_hits_first_pmt
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_translated_photons_outside_id_make_zero_charge
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_two_readout_bursts_survive_100us
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_qe_uses_unmodified_photon_wavelength
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_time_jitter_follows_sampled_charge
+audit/wc_data_review_20261004/typeset/regressions/test_runtime.py::test_tts_charge_is_time_translation_invariant
+
+=============================== warnings summary ===============================
+audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92
+  /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 tests collected in 2.05s

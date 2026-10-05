@@ -1,0 +1,106 @@
+{
+  "slurm_job_id": "39893246",
+  "partition": "milano",
+  "sensor_radius_m": 0.254,
+  "detector_radius_m": 16.96228024518598,
+  "minimal": {
+    "origin_m": [
+      16.85858666653626,
+      -0.3529484099364114,
+      -0.4
+    ],
+    "direction": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "expected_first_sensor": 4105,
+    "expected_entry_m": 0.16651338368120602,
+    "returned_candidates": [
+      7757,
+      458,
+      461,
+      7758
+    ],
+    "returned_stop_m": 17.662575149536142,
+    "expected_sensor_in_candidates": false,
+    "charge_weight_sum": 0.9999989867210388
+  },
+  "population_metrics": [
+    {
+      "origin_radius_m": 0.0,
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "total_rays": 12000,
+      "exact_hit_rays": 5482,
+      "propagator_hit_rays": 5188,
+      "missing_any_hit": 294,
+      "wrong_first_sensor": 0,
+      "lost_fraction_of_true_hits": 0.05363006202116016,
+      "wrong_fraction_of_true_hits": 0.0
+    },
+    {
+      "origin_radius_m": 8.0,
+      "origin_m": [
+        8.0,
+        0.0,
+        0.0
+      ],
+      "total_rays": 12000,
+      "exact_hit_rays": 5731,
+      "propagator_hit_rays": 5311,
+      "missing_any_hit": 420,
+      "wrong_first_sensor": 0,
+      "lost_fraction_of_true_hits": 0.07328563950444948,
+      "wrong_fraction_of_true_hits": 0.0
+    },
+    {
+      "origin_radius_m": 15.0,
+      "origin_m": [
+        15.0,
+        0.0,
+        0.0
+      ],
+      "total_rays": 12000,
+      "exact_hit_rays": 7480,
+      "propagator_hit_rays": 6405,
+      "missing_any_hit": 1075,
+      "wrong_first_sensor": 111,
+      "lost_fraction_of_true_hits": 0.14371657754010694,
+      "wrong_fraction_of_true_hits": 0.014839572192513369
+    },
+    {
+      "origin_radius_m": 16.5,
+      "origin_m": [
+        16.5,
+        0.0,
+        0.0
+      ],
+      "total_rays": 12000,
+      "exact_hit_rays": 7954,
+      "propagator_hit_rays": 6890,
+      "missing_any_hit": 1064,
+      "wrong_first_sensor": 759,
+      "lost_fraction_of_true_hits": 0.13376917274327382,
+      "wrong_fraction_of_true_hits": 0.09542368619562484
+    },
+    {
+      "origin_radius_m": 16.86228024518598,
+      "origin_m": [
+        16.86228024518598,
+        0.0,
+        0.0
+      ],
+      "total_rays": 12000,
+      "exact_hit_rays": 7497,
+      "propagator_hit_rays": 5704,
+      "missing_any_hit": 1793,
+      "wrong_first_sensor": 1379,
+      "lost_fraction_of_true_hits": 0.2391623315993064,
+      "wrong_fraction_of_true_hits": 0.1839402427637722
+    }
+  ]
+}

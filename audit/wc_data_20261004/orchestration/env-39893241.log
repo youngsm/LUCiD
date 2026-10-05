@@ -1,0 +1,5 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+0.11.0 2.4.3 0.12.8 [CpuDevice(id=0)]
+LUCiD import OK

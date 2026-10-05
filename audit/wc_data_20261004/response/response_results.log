@@ -1,0 +1,22 @@
+srun: No OS_VER constraint specified. Defaulting to OS_VER:8.10|OS_VER:9.6 for partition 'milano'
+srun: job 39893207 queued and waiting for resources
+srun: job 39893207 has been allocated resources
+warning: Ignoring dangling temporary directory: `/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/~orch-2.5.0.dist-info`
+{
+  "1": {
+    "input_detected_pe": 20000,
+    "realistic_output_pe": 10244.0,
+    "per_segment_output_pe": 20000.0,
+    "fraction_all_sensor_charge_deleted": 0.4878,
+    "time_shifted_repeated_realistic_output_pe": 20000.0,
+    "negative_times_survive_per_segment": 9756
+  },
+  "10": {
+    "input_detected_pe": 200000,
+    "realistic_output_pe": 240.0,
+    "per_segment_output_pe": 200000.0,
+    "fraction_all_sensor_charge_deleted": 0.9988,
+    "time_shifted_repeated_realistic_output_pe": 200000.0,
+    "negative_times_survive_per_segment": 19976
+  }
+}

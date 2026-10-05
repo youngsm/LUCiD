@@ -1,0 +1,63 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____________ test_late_gamma_yield_is_time_translation_invariant ______________
+
+suffix = ''
+
+    def test_late_gamma_yield_is_time_translation_invariant(suffix):
+        prompt=counts('gamma_prompt',suffix)
+        delayed=counts('gamma_delayed',suffix)
+        assert len(prompt)==len(delayed)==30
+>       assert delayed.sum() >= .95*prompt.sum()
+E       assert np.int64(454) >= (0.95 * np.int64(6716))
+E        +  where np.int64(454) = <built-in method sum of numpy.ndarray object at 0x7feac9c52010>()
+E        +    where <built-in method sum of numpy.ndarray object at 0x7feac9c52010> = array([ 8, 38, 28,  1, 16,  0, 15, 14, 32,  0, 20,  4,  0, 13,  7, 28, 33,\n        0,  6, 26,  2, 24, 31, 14, 35,  0, 26,  0,  6, 27], dtype=int32).sum
+E        +  and   np.int64(6716) = <built-in method sum of numpy.ndarray object at 0x7feacade5410>()
+E        +    where <built-in method sum of numpy.ndarray object at 0x7feacade5410> = array([166, 119, 313, 275, 237, 295, 315, 149, 113, 246, 165, 109, 173,\n       181, 185, 237, 276, 210, 324, 163, 302, 315, 322, 351, 130, 248,\n       174, 122, 183, 318], dtype=int32).sum
+
+test_source_physics.py:21: AssertionError
+____________ test_genie_isotropic_directions_are_uniform_on_sphere _____________
+
+suffix = ''
+
+    def test_genie_isotropic_directions_are_uniform_on_sphere(suffix):
+        with uproot.open(BASE / f'genie_isotropic{suffix}.root') as f:
+            z=np.array([v[0] for v in f['OpticalPhotons']['TrackInfo_DirZ'].array(library='np')])
+        assert len(z)==20000
+>       assert abs(z.mean())<.02
+E       assert np.float64(0.3321303316605839) < 0.02
+E        +  where np.float64(0.3321303316605839) = abs(np.float64(0.3321303316605839))
+E        +    where np.float64(0.3321303316605839) = <built-in method mean of numpy.ndarray object at 0x7feac9cfb1b0>()
+E        +      where <built-in method mean of numpy.ndarray object at 0x7feac9cfb1b0> = array([0.92676813, 0.82360749, 0.99244813, ..., 0.9311515 , 0.61439941,\n       0.42644032], shape=(20000,)).mean
+
+test_source_physics.py:27: AssertionError
+___________________ test_pion_deflection_preserves_position ____________________
+
+suffix = ''
+
+    def test_pion_deflection_preserves_position(suffix):
+        with uproot.open(BASE / f'pion_deflection{suffix}.root') as f:
+            t=f['OpticalPhotons']
+            a=t.arrays(['TrackInfo_ParentTrackID','TrackInfo_CreatorProcess',
+                'TrackInfo_PosX','TrackInfo_PosY','TrackInfo_PosZ',
+                'Segment_TrackID','Segment_EndX','Segment_EndY','Segment_EndZ'],library='np')
+            gaps=[]
+            for e in range(t.num_entries):
+                for i,p in enumerate(a['TrackInfo_CreatorProcess'][e]):
+                    if str(p).startswith('Deflection_'):
+                        parent=a['TrackInfo_ParentTrackID'][e][i]
+                        j=np.flatnonzero(a['Segment_TrackID'][e]==parent)[-1]
+                        old=np.array([a[f'Segment_End{k}'][e][j] for k in 'XYZ'])
+                        new=np.array([a[f'TrackInfo_Pos{k}'][e][i] for k in 'XYZ'])
+                        gaps.append(np.linalg.norm(new-old))
+            assert gaps
+>           assert max(gaps)<1e-6
+E           assert np.float64(3352.185871162501) < 1e-06
+E            +  where np.float64(3352.185871162501) = max([np.float64(0.7001989968029099), np.float64(2.023270012805911), np.float64(0.25577589776070886), np.float64(1.7993324502919454), np.float64(0.07019843518257844), np.float64(835.8878151183915), ...])
+
+test_source_physics.py:47: AssertionError
+=========================== short test summary info ============================
+FAILED test_source_physics.py::test_late_gamma_yield_is_time_translation_invariant
+FAILED test_source_physics.py::test_genie_isotropic_directions_are_uniform_on_sphere
+FAILED test_source_physics.py::test_pion_deflection_preserves_position - asse...
+3 failed in 2.11s

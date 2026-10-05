@@ -1,0 +1,11 @@
+--- a/lucid/simulation/digitizer.py
++++ b/lucid/simulation/digitizer.py
+@@ -399,7 +399,7 @@
+     else:
+         sigma = charge_resolution_sigma(pe_true, model.get("charge_res", "sk_like"))
+         pe_reco = np.clip(pe_true + rng.normal(size=pe_true.shape) * sigma, 0.0, None)
+-    t = _sample_time_jitter(digit_time, pe_true, model, rng)
++    t = _sample_time_jitter(digit_time, np.maximum(pe_reco, 0.5), model, rng)
+     return pe_reco.astype(np.float32), t.astype(_T_DTYPE)
+ 
+ 

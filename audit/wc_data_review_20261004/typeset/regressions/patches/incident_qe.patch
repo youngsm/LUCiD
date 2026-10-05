@@ -1,0 +1,11 @@
+--- a/lucid/simulation/simulator.py
++++ b/lucid/simulation/simulator.py
+@@ -829,6 +829,8 @@
+         else:
+             qe_per_photon = jnp.full(n_rays, detector_params.response.qe)
+ 
++        qe_per_photon = qe_per_photon / (1.0 - detector_params.reflection.sensor_reflection_rate)
++
+         # Per-photon segment id for the per_segment production hit mode (int32, padded
+         # with -1). None for recon data (pad_photon_data) → other hit modes ignore it.
+         _segment_idx = photon_data.get('photon_segment_index', None)

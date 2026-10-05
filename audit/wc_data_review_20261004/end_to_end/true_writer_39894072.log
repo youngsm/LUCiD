@@ -1,0 +1,61 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+G4 read 0 photons 21225 primary_energy 100.0 tracks 563
+G4 read 1 photons 22143 primary_energy 100.0 tracks 545
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  audit/wc_data_review_20261004/geant4_physics/e100tiny.root
+    Output dir: audit/wc_data_review_20261004/end_to_end/true_writer_output
+    Dataset:    wc_audit_true_e100
+    file_index: 0
+    n_events:   2
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 984
+Run id: 90f00f85-29e2-4e17-a3a5-a8b9bd793b35
+Loading ROOT file: audit/wc_data_review_20261004/geant4_physics/e100tiny.root
+  Found 2 entries
+  Using rays buckets: [8192]
+
+Generating 2 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 2 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: audit/wc_data_review_20261004/end_to_end/true_writer_output
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 1 rays bucket(s)...
+  rays= 8,192: 3.73s
+Processing batch 1/1 (events 0 to 1)
+
+  Event 1/2 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.052s
+    Raw: photons=21,225  segments=3,402
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[8192])...
+    Simulation completed in 0.30s
+    [timing] simulate 0.296s
+    [timing] post_jax 0.004s
+    [timing] meta_contain 0.000s
+    Event total time: 0.77s
+
+  Event 2/2 (index 1):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.043s
+    Raw: photons=22,143  segments=3,237
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[8192])...
+    Simulation completed in 0.29s
+    [timing] simulate 0.289s
+    [timing] post_jax 0.004s
+    [timing] meta_contain 0.000s
+    Event total time: 0.34s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.077s
+
+
+Successfully wrote 1 batches (4 files total) to audit/wc_data_review_20261004/end_to_end/true_writer_output/{sensor,hits,step,labl}/
+Average event processing time: 0.555s
+LUCiD wrote 4 files under audit/wc_data_review_20261004/end_to_end/true_writer_output/{sensor,hits,step,labl}/
+Structural verifier (True, ["OK sensor size=     47450 dataset_name='wc_audit_true_e100' file_index=0 n_events=2 complete=True", "OK hits   size=     74266 dataset_name='wc_audit_true_e100' file_index=0 n_events=2 complete=True", "OK step   size=    227620 dataset_name='wc_audit_true_e100' file_index=0 n_events=2 complete=True", "OK labl   size=    212048 dataset_name='wc_audit_true_e100' file_index=0 n_events=2 complete=True", 'OK invariants (digit_idx FK, per_window CSR) on 2 sampled events'])

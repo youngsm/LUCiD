@@ -1,0 +1,60 @@
+{
+  "geometry": {
+    "sensors": 11096,
+    "radius_m": 16.96228024518598,
+    "height_m": 36.37842222222,
+    "pmt_radius_m": 0.254
+  },
+  "deterministic_meter_boundary": {
+    "photons": 65,
+    "sum_pe": 64.99993133544922,
+    "positive_records": 65,
+    "wrong_sensor_records": 0,
+    "max_time_error_ns": 0.0009427191828024206,
+    "sample_pe_weight": 0.9999989867210388,
+    "input_origin_m": [
+      5.0,
+      -2.0,
+      3.0
+    ]
+  },
+  "deterministic_controls": {
+    "padding": {
+      "charge_equal": true,
+      "time_equal": true,
+      "sum_pe": 64.99993133544922,
+      "positive_records": 65
+    },
+    "chunking": {
+      "charge_equal": true,
+      "time_equal": true,
+      "sum_pe": 64.99993133544922,
+      "positive_records": 65
+    },
+    "irrelevant_segment_labels": {
+      "charge_equal": true,
+      "time_equal": true,
+      "sum_pe": 64.99993133544922,
+      "positive_records": 65
+    }
+  },
+  "isotropic_geometry_oracle": {
+    "photons": 8192,
+    "oracle_hits": 3472,
+    "observed_hits": 3472,
+    "false_negatives": 0,
+    "false_positives": 0,
+    "wrong_sensor": 0
+  },
+  "actual_direct_optics": {
+    "photons": 32768,
+    "target_sensor": 5200,
+    "travel_m": 0.746,
+    "qe_at_400": 0.2261907429400749,
+    "expected_single_qe_pe": 5524.586740832215,
+    "expected_double_qe_pe": 1249.6103793457257,
+    "observed_pe": 5484.99951171875,
+    "z_score_single_qe": -0.5841164196710545
+  },
+  "elapsed_s": 27.836292335996404
+}

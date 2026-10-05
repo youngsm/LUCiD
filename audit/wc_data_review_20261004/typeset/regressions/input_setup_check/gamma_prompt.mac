@@ -1,0 +1,9 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/typeset/regressions/input_setup_check/gamma_prompt.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/gun/clearPrimaries
+/gun/randomDirection false
+/gun/addPrimary gamma 2.2 MeV
+/gun/time 0 ns
+/run/beamOn 30

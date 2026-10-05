@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "input_photons": 9,
+  "kernel_flat_deposits": 10,
+  "derived_particles": 5,
+  "meaningful_tracks": 10,
+  "delayed_daughter_photon_time_ns": 2300.010009765625,
+  "contracts": [
+    "mm-to-m positions",
+    "ns time retention",
+    "MeV energy retention",
+    "chunk ordering",
+    "photon-segment mapping",
+    "delayed daughter ownership",
+    "shower inheritance",
+    "pi0 gamma separation",
+    "meaningful ancestor retention",
+    "group offsets",
+    "kernel-flat source mapping",
+    "charge conservation",
+    "empty events"
+  ]
+}

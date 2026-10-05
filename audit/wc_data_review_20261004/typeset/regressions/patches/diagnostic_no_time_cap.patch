@@ -1,0 +1,11 @@
+--- a/lucid/simulation/digitizer.py
++++ b/lucid/simulation/digitizer.py
+@@ -106,7 +106,7 @@
+ # Readout time cap (ns): deposits later than this are dropped before windowing.
+ # Late nuclear-channel light (n-capture, de-excitation) reaches ms–s; no real
+ # detector records it. Matches the legacy sensor-writer ``t < 1e5`` convention.
+-_MAX_DIGIT_TIME_NS = 1e5
++_MAX_DIGIT_TIME_NS = np.inf
+ # Times are float64 throughout hit-making: a supernova interaction sits at an
+ # absolute t0 of ~1e9-1e10 ns, where float32 (ULP ~64-1024 ns) collapses distinct
+ # digit/dark times to identical values — spuriously piling dark hits into a

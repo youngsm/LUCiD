@@ -1,0 +1,68 @@
+srun: No OS_VER constraint specified. Defaulting to OS_VER:8.10|OS_VER:9.6 for partition 'milano'
+warning: Ignoring dangling temporary directory: `/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/~orch-2.5.0.dist-info`
+{
+  "capture_cap": {
+    "input_pe": 2,
+    "windowing_only_pe": 2.0,
+    "production_digits": [
+      0
+    ],
+    "production_pe": 1.0,
+    "capture_retention_100us_exp_tau205us": 0.38602733910059306,
+    "capture_retention_535us_exp_tau205us": 0.9264475187949626
+  },
+  "sk_defaults": {
+    "SK_like": {
+      "model": "basic",
+      "charge_mean_pe": 1.0000004768371582,
+      "charge_sigma_pe": 0.012008230201900005,
+      "time_sigma_ns": 0.0,
+      "fraction_below_0p25pe": 0.0,
+      "dark_rate_khz": 0.0,
+      "integration_window_ns": null
+    },
+    "SK": {
+      "model": "basic",
+      "charge_mean_pe": 1.0000004768371582,
+      "charge_sigma_pe": 0.012008230201900005,
+      "time_sigma_ns": 0.0,
+      "fraction_below_0p25pe": 0.0,
+      "dark_rate_khz": 0.0,
+      "integration_window_ns": null
+    },
+    "SK_WAND": {
+      "model": "ski",
+      "charge_mean_pe": 1.0019410848617554,
+      "charge_sigma_pe": 0.7469885945320129,
+      "time_sigma_ns": 3.4957015720061433,
+      "fraction_below_0p25pe": 0.23235,
+      "dark_rate_khz": 4.2,
+      "integration_window_ns": 200.0
+    }
+  },
+  "missing_after_trigger": {
+    "input_prompt_detected_pe": 80,
+    "input_capture_detected_pe": 7,
+    "gates_ns": [
+      [
+        -200.0,
+        600.0
+      ]
+    ],
+    "capture_detected_pe_kept": 0,
+    "source_skiv_she_threshold": 58,
+    "source_skiv_aft_end_ns": 535000
+  },
+  "timing_charge_correlation": {
+    "low_charge_0p25_to_0p5": {
+      "n": 62518,
+      "measured_sigma_ns": 3.494364932190398,
+      "wcsim_charge_dependent_rms_ns": 4.802135944366455
+    },
+    "high_charge_2_to_3": {
+      "n": 61605,
+      "measured_sigma_ns": 3.4762475439805858,
+      "wcsim_charge_dependent_rms_ns": 2.4220759868621826
+    }
+  }
+}
