@@ -1,0 +1,92 @@
+--- original/DataManager.hh
++++ prototype/DataManager.hh
+@@ -112,7 +112,7 @@
+                          G4double time, G4double wavelength,
+                          G4double polX, G4double polY, G4double polZ,
+                          const G4String& process,
+-                         G4int immediateParentTrackID);
++                         G4int immediateParentTrackID, G4int emissionStepIndex = -1);
+ 
+     // Histogram-only — fills `dEdxHist_Distance`. The legacy Edep_*
+     // ROOT branches are gone; LUCiD reads the histogram alone via
+@@ -236,6 +236,7 @@
+     // creation. Used only inside EndEvent to look up the emitting segment;
+     // not written to ROOT.
+     std::vector<G4int> fPhotonImmediateParentTrackID;
++    std::vector<G4int> fPhotonEmissionStepIndex;
+ 
+     // Transient retained-across-event copy of photon emission times. The
+     // streamed `fPhotonTime` vector gets flushed every fPhotonChunkSize
+--- original/DataManager.cc
++++ prototype/DataManager.cc
+@@ -1,3 +1,5 @@
++#include <cstdlib>
++#include <stdexcept>
+ //
+ // ********************************************************************
+ // * License and Disclaimer                                           *
+@@ -459,6 +461,15 @@
+     const auto& segs = segsIt->second.segments;
+     if (segs.empty()) continue;
+ 
++    // Audit A/B switch: exact emission-step fix versus untouched time search.
++    if (std::getenv("AUDIT_EXACT_STEP")) {
++      const int exact = fPhotonEmissionStepIndex[p];
++      if (exact < 0 || exact >= static_cast<int>(segs.size()))
++        throw std::runtime_error("Invalid exact emission-step tag");
++      fPhoton_SegmentIndex[p] = baseIt->second + exact;
++      continue;
++    }
++
+     // fPhotonTimeRetained[p] is in ns (set in AddOpticalPhoton via time/ns).
+     // segs[i].time is also in ns (set in AddTrackSegment via time/ns).
+     G4double pt = fPhotonTimeRetained[p];
+@@ -507,7 +518,7 @@
+                                   G4double time, G4double wavelength,
+                                   G4double polX, G4double polY, G4double polZ,
+                                   const G4String& process,
+-                                  G4int immediateParentTrackID)
++                                  G4int immediateParentTrackID, G4int emissionStepIndex)
+ {
+   // Calculate distance from origin (mm). Always needed: fPhotonHist_Distance
+   // is unconditional, AngleDistanceNorm is gated on smax.
+@@ -562,6 +573,7 @@
+     // Retained-across-event arrays needed by the segment-index compute
+     // at EndEvent.
+     fPhotonImmediateParentTrackID.push_back(immediateParentTrackID);
++    fPhotonEmissionStepIndex.push_back(emissionStepIndex);
+     fPhotonTimeRetained.push_back(time / ns);
+ 
+     // Auto-flush when the chunk is full (skipped when streaming is off
+@@ -739,6 +751,7 @@
+   fPhotonProcess.clear();
+   fPhoton_SegmentIndex.clear();
+   fPhotonImmediateParentTrackID.clear();
++  fPhotonEmissionStepIndex.clear();
+   fPhotonTimeRetained.clear();
+   fEventPhotonCount = 0;
+   fPhotonsInChunk = 0;
+--- original/SteppingAction.cc
++++ prototype/SteppingAction.cc
+@@ -1,3 +1,4 @@
++#include "EmissionStepInfo.hh"
+ //
+ // ********************************************************************
+ // * License and Disclaimer                                           *
+@@ -74,6 +75,7 @@
+ 
+ void SteppingAction::UserSteppingAction(const G4Step* step)
+ {
++  TagEmissionStep(step);
+   // Get the track and particle information
+   G4Track* track = step->GetTrack();
+   G4ParticleDefinition* particle = track->GetDefinition();
+@@ -209,7 +211,7 @@
+                                    time, wavelength,
+                                    polarization.x(), polarization.y(), polarization.z(),
+                                    processName,
+-                                   parentID);
++                                   parentID, ReadAndRecordEmissionStep(track));
+ 
+       // If this is a Cerenkov photon, increment the count for the parent track
+       if (processName == "Cerenkov") {

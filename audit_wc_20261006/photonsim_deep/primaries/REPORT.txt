@@ -1,0 +1,256 @@
+PRIMARY GENERATION / CONFIG SEMANTICS — expanded PhotonSim audit
+
+Scope and result
+---------------
+No additional major physical defect was found in primary injection for the
+supplied SK_WAND GeV particle-bomb/single-particle configurations. Input fallback
+and supported-ion omission were reproduced in the GENIE input path, which the user explicitly confirmed
+is also production scope. Neither is activated by the supplied GeV configs;
+that inventory fact does not make GENIE off-production. Their existence must
+not be presented as a measured effect on bomb production. A third reproduced
+GENIE defect discards populated primary polarization; its isolated repair and
+interaction with spin-aware transport are documented below. A heterogeneous-gun scalar-truth defect
+was also reproduced outside the canonical single-particle/bomb setup.
+
+This audit exercises generation before particle transport. It does not establish
+that all downstream interactions are physically exact. Transport, optical
+emission, spin dynamics after injection, detector effects, and data writing have separate lanes.
+
+Execution and exact implementation
+----------------------------------
+Slurm job 39971299: milano, sdfmilan272, 2 CPUs, 8 GB, 22 s, COMPLETED 0:0.
+No imports, builds, simulations, or numerical analysis were run on the login
+node. Source version: preserved PhotonSim v1.0.2, commit
+9232a7dae46ae36d9c81dd5f1b4e9f7653803514, at
+audit_wc_20261006/photonsim_physics/upstream/.
+
+primary_probe.cc links the unchanged upstream PrimaryGeneratorAction,
+PrimaryGeneratorMessenger, RooTrackerReader, DetectorConstruction and PhysicsList
+against Geant4 11.3.0 / CLHEP 2.4.7.1. It initializes real particle definitions
+and runs GeneratePrimaries on real G4Events without transporting them. The
+command text comes from LUCiD's real generate_macro; output/storage/beamOn lines
+are excluded because the harness inspects injected primary events directly.
+The optional preload-ion switch invokes real G4IonTable::GetIon before reading
+the fixture, solely to establish the proposed ion lookup remedy.
+
+Reproduction: from the repository root, `sbatch
+audit_wc_20261006/photonsim_deep/primaries/run.sbatch`. This script prepares
+fixtures, builds the probe, runs all cases inside the established Geant4 runtime
+wrapper, and executes analyze.py. All commands run on milano. Job log,
+results.json, the TSV primary records, generated *.commands, *.full.mac and
+ROOT fixtures are retained beside this report. run.sbatch lists the complete
+runtime/environment paths; no production files were modified.
+
+Production primary checks that passed
+------------------------------------
+* Actual GeV/01_pbomb.json: 20,000 events, 59,806 primaries. Multiplicity counts
+  for 1 through 5 were [4012, 4069, 4009, 3921, 3989]. All eight configured
+  species were present with counts [7379,7419,7613,7502,7406,7547,7451,7489]
+  in PDG order [11,-11,13,-13,211,-211,111,22]. Energies were within each
+  species' configured kinetic-energy range. Pooled normalized energy mean
+  0.5021457 (uniform expectation 0.5); direction component means
+  [-0.0049751,0.0018434,0.0007503], squared means
+  [0.3350110,0.3328441,0.3321449] (isotropic expectation 1/3 each).
+  fTrueEnergy exactly equalled the sum of fired kinetic energies. All source
+  primaries had the same zero position/time, as needed before LUCiD's common
+  event translation/time shift. These moments are statistical checks, not proof
+  that every possible correlation is absent; the source additionally draws
+  fresh random values separately for multiplicity, candidate, KE and direction.
+* The first ten bomb events were bit-identical on a fresh process with the same
+  two explicit seeds. Changing seed1 changed the event sequence. Actual runtime
+  reported MixMaxRng. static_review.txt records why two-element setTheSeeds
+  arrays are valid for this exact installed engine; no unterminated-array bug.
+* Synthetic, on-shell GENIE fixture: 20,000 events with correlated muon, proton,
+  charged pion and photon. Status-0 incoming neutrino was not fired; all four
+  status-1 particles were. Entry sequence was exactly 0..19999. Every pairwise
+  momentum dot product was preserved under the common random rotation, maximum
+  absolute discrepancy 6.985e-10 MeV^2. Signed triple products preserved
+  chirality. This directly rejects independent per-particle rotations and unit
+  mistakes in this route. KE matched sqrt(p^2+m^2)-m to 5.817e-5 MeV using
+  independent tabulated masses (not necessarily identical to this Geant4 build's
+  masses), comfortably within the predeclared 1e-4 MeV tolerance.
+* The generated GeV config inventory has no GENIE primary_source, uses individual
+  photon storage throughout, and does not request disabling decays. Non-bomb
+  GeV configs contain one primary, so the multi-gun truth issue below does not
+  affect them. run_job's comments incorrectly describe one event per GENIE
+  primary, but the actual count helper and C++ reader use one rootracker entry
+  per G4 event; the comment alone is not a bug.
+
+Confirmed conditional defect A: bad GENIE input becomes 5 MeV electrons
+---------------------------------------------------------------------
+Source: PrimaryGeneratorAction.cc:381-390 resets the reader after Open fails;
+GeneratePrimaries then falls through to the default electron gun initialized
+at lines 59-71. RooTrackerReader.cc:42-48 correctly detects a missing tree, but
+that failure is swallowed by the caller. This is not a Geant4 UI parser error:
+every ApplyCommand returned success in the probe.
+
+Minimal fixture creation (already executed by prepare.py):
+    with uproot.recreate('wrong_tree.gtrac.root') as f:
+        f['unrelated_tree'] = {'x': np.array([1], dtype=np.int32)}
+Minimal generation commands after initialization:
+    /gun/clearPrimaries
+    /gun/genieInput /absolute/path/to/wrong_tree.gtrac.root
+Then GeneratePrimaries on one G4Event produces PDG 11 with KE 5 MeV, despite
+there being no requested physics event in the file. The missing-file case has
+the same result. Executed commands are in wrong_tree.commands / missing.commands;
+primary outputs wrong_tree.tsv / missing.tsv; logs show the open failure.
+
+Production-facing reproduction subsequently completed in milano job 39972545:
+repro_run_job_wrong_tree.py invokes the actual `python -m
+lucid.production.run_job --skip-genie --skip-lucid --detector SK_WAND`, with
+the real macro generator, pre-PhotonSim checks, subprocess and output existence
+check. PhotonSim is the unchanged physics-source v1.0.2 build with the audit
+headless main; that main even checks UI command status, so ignoring command
+failure is not required for this defect. Both an existing wrong-tree file with
+no cached count and one with a count marker were accepted. Each runner exited
+0 and persisted two 5 MeV primary electrons, creating [1021,1160] Cherenkov
+photons, with RooTrackerEntryID=-1 and incoming neutrino PDG=0. Thus the incorrect
+fallback becomes real ROOT physics output through the production interface.
+LUCiD optical propagation/digitization was intentionally skipped in this test.
+Artifacts: run_production_validation.sbatch, production_wrong_tree_results.json,
+wrong_tree_without_marker/run_job.log and wrong_tree_with_marker/run_job.log.
+
+Impact: potentially complete replacement of a requested GENIE dataset with
+default electrons when the input is unreadable or has the wrong tree. The
+production --skip-genie route verifies file existence only (run_job.py:520-532),
+so the existing wrong-tree fixture satisfies that guard. This is an in-scope GENIE
+input-integrity failure, not a measured normal SK_WAND bomb-production bias.
+
+Minimal suggested fix: replace reset-and-continue with a fatal Geant4 exception
+when the explicitly requested input cannot be opened. Also require successful
+SetBranchAddress for all four required branches before Open returns true:
+    if (!fGenieReader->Open(path))
+        G4Exception("PrimaryGeneratorAction::SetGenieInput", "BadGenieInput",
+                    FatalException, "Cannot load requested rooTracker input");
+The fatal-exception patch was proposed, not compiled/applied. Fail before any
+event is generated; an empty or invalid requested source must not activate a
+different fallback source.
+
+Confirmed conditional defect B: valid nuclear primaries silently omitted
+-----------------------------------------------------------------------
+Source: PrimaryGeneratorAction.cc:137-145 uses only FindParticle(PDG) and skips
+null results. Dynamic ions need G4IonTable materialization even when Geant4
+supports them. The comment claiming this is unavoidable is false in the
+executed oxygen example.
+
+Minimal fixture, one gRooTracker entry (prepare.py creates it):
+    StdHepPdg    = [14, 11, 1000080160]
+    StdHepStatus = [0, 1, 1]
+    momentum_GeV= [(0,0,2), (0,0,.1), (0,0,.2)]
+with corresponding on-shell StdHepP4 energies. Inject this via ion.commands.
+Actual ion.tsv contains only the electron, KE 99.4903067 MeV. Before injection
+FindParticle(1000080160) was null. The same unchanged generator/fixture after
+    G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(1000080160);
+injects both electron and O16, with O16 KE 1.3426646 MeV. See ion_preload.tsv;
+its log confirms that G4 created the ion. This is an executed minimal remedy
+for this specific supported nuclear PDG, not a general transport validation.
+
+Impact: missing nuclear energy deposition and any subsequent secondaries in
+GENIE events containing such final states. This test did not quantify a
+Cherenkov photon loss; the selected slow oxygen nucleus is sub-threshold, and
+no supplied GeV bomb configuration uses this input mode. Do not call this a
+large observed SK_WAND response bias.
+
+Production reachability was independently checked in pinned GENIE 3.04 source:
+the coherent-pion generator emits the recoil target ion as status 1. However,
+ion registration can depend on earlier transported events, and no actual
+production GENIE event sample was available to measure omission frequency or
+light impact. The synthetic 0.2 GeV/c oxygen fixture establishes lookup behavior,
+not representative coherent-scattering kinematics. See genie_status_review.txt.
+Do not extend this finding to all status-15 remnants: the configured cascade
+normally exports a hadronic-blob pseudo-particle, not an ordinary propagatable
+ion. Explicit GENIE oxygen-deexcitation photons are status 1 and survive the
+reader filter; importing old remnant ions indiscriminately risks double counting.
+
+Minimal suggested general fix, with G4IonTable.hh included:
+    auto* pdef = particleTable->FindParticle(p.pdg);
+    if (!pdef && p.pdg >= 1000000000)
+        pdef = particleTable->GetIonTable()->GetIon(p.pdg);
+    if (!pdef) { /* fail with PDG/entry context, not silent omission */ }
+Validate nuclear-PDG/isomer support explicitly; the tested positive O16 PDG is
+supported. Anti-ions or unsupported excitation encodings need separate handling.
+
+Confirmed defect C: populated GENIE primary polarization is discarded
+--------------------------------------------------------------------
+Pinned GENIE 3.04 QE/MEC/RES/DIS production chains assign outgoing muon
+polarization and ordinary gntpc exports it in StdHepPolz. In the inspected
+upstream convention mu- has P=-p_hat, mu+ has P=+p_hat; this is a dimensionless
+unit vector, with zero for unset entries. PhotonSim RooTrackerReader never
+reads StdHepPolz and PrimaryGeneratorAction never assigns primary spin.
+Geant4 therefore initializes every imported primary with polarization zero.
+genie_polarization_review.txt provides exact source paths, lines and versions.
+
+Executed minimal reproduction: milano job 39973136 completed on sdfmilan140,
+exit 0:0 in 1 min 47 s. It used the unchanged reader
+and primary generator plus a probe reading G4PrimaryParticle::GetPolX/Y/Z.
+The synthetic ordinary-rootracker-shaped fixture alternates 128 mu- and 128
+mu+ primaries, each with p=(100,200,300) MeV/c and the corresponding populated
+polarization. Every original injected muon had spin magnitude zero.
+An isolated minimal Reader/Generator repair preserves all 256 unit spins
+with maximum |P dot p_hat - expected helicity| = 6.661338147750939e-16 after
+the real isotropic event rotation. Before/after momenta are bit-identical.
+Beam-direction injection preserves the exact input vector, unset proton spin
+stays zero, and a file with no optional polarization branch still gives zero.
+The fixture establishes export-field preservation, not the rate or full
+kinematics of an actual GENIE interaction sample.
+
+Reproduce from the repository root:
+    sbatch audit_wc_20261006/photonsim_deep/primaries/run_spin.sbatch
+Files: prepare_spin.py (fixture and isolated repair), spin_probe.cc,
+analyze_spin.py (independent vector/helicity assertions), spin_results.json,
+spin_baseline.tsv, spin_repaired.tsv, spin_beam_repaired.tsv and
+spin_missing_repaired.tsv. All compilation/imports/execution were on milano.
+The tested fix is reviewable as spin_preserving_fix.diff; production source
+was not edited. The full isolated files are under spin_patch/.
+
+Minimal repair: carry optional StdHepPolz[StdHepN][3] through GenieParticle,
+rotate its dimensionless vector with exactly the same per-event matrix as
+momentum, and call primary->SetPolarization(spin). The prototype defaults a
+missing field to zero and resets branch-availability state on reopen. A
+production patch should additionally reject malformed/nonfinite polarization
+and required branch errors, rather than silently accepting invalid input.
+
+Physical impact and limits: this erases generator-provided spin/angular
+correlations, but the default PhotonSim spin-insensitive decay implementation
+already hides the observable effect. This reader repair is necessary alongside
+the separate spin-aware transport repair; do not count two independent measured
+light biases. No detector-level GENIE light change was measured here. Spin-aware
+transport must also handle depolarization when muons stop in water, rather than
+assuming the imported initial unit polarization survives unchanged. Further,
+GENIE's supplied unit longitudinal helicity is itself an upstream approximation,
+not an exact finite-mass charged-current polarization calculation. This test
+preserves the supplied state; it does not certify that upstream state or all
+subsequent spin dynamics as exact.
+
+Confirmed off-canonical scalar-truth defect
+-----------------------------------------
+Three heterogeneous gun primaries mu-(500 MeV), e+(25 MeV), gamma(10 MeV) all
+fire with the requested KEs. However fTrueEnergy is 10 MeV rather than 535 MeV
+because PrimaryGeneratorAction.cc:273 overwrites it each iteration. The bomb
+and GENIE branches already sum KEs correctly. Minimal commands are
+    /gun/clearPrimaries
+    /gun/addPrimary mu- 500 MeV
+    /gun/addPrimary e+ 25 MeV
+    /gun/addPrimary gamma 10 MeV
+Executed multigun.tsv demonstrates it. Suggested fix: reset fTrueEnergy before
+the heterogeneous-list loop and increment by each successfully fired KE. This
+does not change transported particles or photon yields; present supplied GeV
+non-bomb configs contain one primary. Treat as low-priority metadata, not a
+new major physical simulation defect.
+
+Source-reviewed integrity risks, not executable findings
+-------------------------------------------------------
+Original upstream PhotonSim.cc:108 ignores ApplyCommand failure and ends with
+quick_exit(0). run_job accepts an existing output path after a zero exit. A
+macro failure before beamOn on a rerun can therefore permit stale ROOT reuse.
+The audit headless binary checks command status, so it must not be used to
+claim reproduction of the original main's exit behavior. No exact-original
+main failure test was run here. Suggested fix: propagate command failure to a
+nonzero exit and require fresh output for a requested regeneration. See the
+separate static_review.txt for exact scope.
+
+RooTrackerReader uses fixed 4096-particle arrays and clamps StdHepN only after
+GetEntry; malformed larger input and missing-branch behavior were not executed.
+These remain input-validation concerns, not established normal-production
+physical defects. Rootracker position/time and multiple-source reopening issues
+are outside the current accepted production scope and were not promoted.

@@ -1,0 +1,158 @@
+SK_WAND geometry / surface propagation audit (HEAD 20df309)
+
+Scope inspected
+  config/SK_WAND_geom_config.json; config/sk_geometry.npz
+  lucid/geometry/{detector,cylinder,detector_geometry}.py
+  lucid/propagation/{base,shared,cylinder,geometry}.py
+  lucid/simulation/{photon_step,reflection,optics,simulator}.py (geometry glue)
+  lucid/production/run_job.py production configuration
+
+Production route is Cylinder.intersect_ray -> propagation/cylinder.py:
+batch_intersect_cylinder_with_grid, not propagation/geometry.py. A source
+comment incorrectly says the former is not the active path. Surface normals
+are chosen from the intersection part flags, so the tiny cap-normal tolerance
+in the unused unified helper is not a production finding.
+
+Confirmed bug: float32 PMT entry calculation can cause a reflected photon
+to immediately intersect the same PMT again.
+
+Mechanism
+  propagation/base.py computes the sphere discriminant as b*b - 4*a*c.
+  At SK distances the O(1000 m^2) terms cancel down to O(0.1 m^2), losing
+  enough precision to put the returned PMT entry point about 1 mm inside its
+  modeled surface. photon_step.py nudges only 0.1 mm outward. If the originating
+  PMT is a candidate on the next leg, base.py accepts its forward exit as a
+  fresh sensor encounter. The _ahead gate suppresses charge for that old PMT,
+  but does not suppress its geometry flag. The subsequent photon step applies
+  another sensor reflect/absorb decision; reflected light can be lost or its
+  direction changed. This is a numerical issue within the accepted sphere
+  approximation, not a claim that spherical PMTs themselves are a bug.
+
+Executed evidence, all on milano CPUs (no GPU used)
+  39967521: check_geometry.py / results.json.
+    200,000 targeted rays into real SK PMTs; 172,953 valid modeled PMT hits.
+    24,691 post-reflection origins still inside PMT (max 1.026 mm depth).
+    The isolated PMT kernel falsely self-intersects 24,711 rays (14.29%).
+    All these same-PMT false intersections have zero deposit weight.
+    This kernel rate is NOT the production rate: endpoint candidate selection
+    often excludes the originating PMT after reflection.
+  39967612: check_full_propagator.py / full_propagator_results.json.
+    Uses actual SK_WAND map, temperature=0, deposit_leg_bound=True.
+    179,869 initial PMT hits in 200,000 targeted rays.
+    Specular reflection: old PMT is in next map 52,283 times, with 7,662 false
+    same-PMT intersections (4.26% per initial PMT reflection).
+    Diffuse reflection: 22,205 old-PMT map appearances, 3,132 self-intersections
+    (1.74%). For SK fspec=0.9 the weighted conditional rate is about 4.01%.
+    With sensor R=0.25 this is about 1.00% of incident PMT encounters in this
+    targeted-ray ensemble, before subsequent absorption/reflection sampling.
+    No photon origin escaped the cylinder after the PMT reflection nudge.
+
+Severity qualification
+  This affects reflected/late light. The figures above are conditional
+  geometry rates in a controlled targeted-ray ensemble, not a measured event
+  charge deficit, and not a QE-scale error.
+
+Further executed validation
+  39967691: repro_reflection_selfhit.py, actual photon_iteration_sample fused
+  by outer jax.jit with both real SK propagations. On JAX 0.11.0, seed 0
+  gives a false same-PMT intersection just 87.29 um from the reflected origin,
+  carrying zero charge. The two-line stable-discriminant replacement below
+  removes this self-intersection for all 32 tested seeds. --fixed substitutes
+  the function in memory and never edits production source.
+  That particular ray is JAX0.11-specific; see the pinned-runtime reproduction
+  below for the practical regression with production JAX0.4.38.
+
+  39969444: full K=12 DATA mode with exact SK_WAND config and per_segment QE
+  response, for 200,000 synthetic photons x 3 paired seeds. Source: isotropic
+  photons at uniformly sampled fiducial-cylinder positions, 1/lambda^2 spectrum
+  over 300--650 nm; this is a controlled optical ensemble, not a Geant4 sample.
+  Stable-fix minus baseline:
+    total PE:       -4 +/- 22.5 out of 39,726 (no significant total-charge bias)
+    PE after150ns: +23 +/- 19.7 out of 3,636
+    PE after300ns: +21 +/-  9.75 out of 220 (suggestive, about 2.2 sigma)
+  Uncertainties are paired sqrt(sum((fixed-baseline)^2)) over photon draws.
+  This initial three-seed tail hint did NOT survive the larger run below.
+
+  39969881: check_fused_reflections.py fuses the actual sampled photon step
+  between both full SK propagator calls on 200,000 targeted rays. With actual
+  SK reflection rates/fractions and disabled scatter/absorption to isolate
+  reflection geometry, the baseline has 1,820 false same-PMT intersections
+  among 44,806 sampled PMT reflections (4.062%). The stable-discriminant fix
+  has zero among 44,822 reflections. Thus outer-JIT fusion does not remove the
+  issue; it does not merely arise from separately staged numerical kernels.
+
+  39969707: extended 30-seed paired K=12 DATA comparison, 6,000,000 photon
+  draws (same 200,000 source ensemble, independent optical RNG keys), JAX0.11.
+  The decisive aggregate result in charge_bias_summary.json is:
+    total PE:       -295 +/- 72.3 out of 396,553.6 = -0.0744% (about 4.1 sigma)
+    PE after150ns:   -84 +/- 63.9 out of  35,899.0 = -0.234% (not significant)
+    PE after300ns:   +16 +/- 34.0 out of   2,129.0 = +0.752% (not significant)
+  Fixed minus baseline. The full discriminant correction also changes a small
+  number of initial encounter classifications/normals, so its total-charge
+  change should not be interpreted as only removing self-absorption. For this
+  controlled ensemble the bug is demonstrably LOW impact in total charge;
+  there is no supported several-percent late-tail bias. It is a secondary
+  numerical-correctness finding, not a headline QE-scale simulation bug.
+
+Production-version crosscheck (JAX0.4.38)
+  The initial container failed before Python due to a squashfs mount error.
+  optical_transport built a fresh environment with JAX/jaxlib0.4.38,
+  flax0.10.2, optax0.2.4, and numpy1.26.4, explicitly importing the current
+  checkout. The old JAX0.11 hardcoded ray does NOT self-hit under JAX0.4.38;
+  this is expected sensitivity of a floating-point problem to compilation.
+
+  Population job39970105 (milano) confirms the same bug on pinned JAX0.4.38:
+  1,780 false same-PMT encounters among 44,896 sampled PMT reflections (3.9647%).
+  Stable-discriminant fix: zero among 44,906 reflected rays. Artifact:
+  ../runtime_jax0438/fused_results_jax0.4.38.json.
+
+  Minimal-example search39970166 (milano) found a scalar-JIT counterexample:
+    PMT1027, seed1
+    origin = [-11.555176734924316, -8.132349967956543, -15.8067045211792]
+    direction = [0.32635268568992615, -0.2600875198841095, 0.9087620377540588]
+  False same-PMT encounter after 0.285418 mm. The identical ray/key under the
+  in-memory stable-discriminant fix has no false self-hit. Saved exact inputs:
+  minimal_example_jax0.4.38.json. Extracted reproducible script:
+  repro_reflection_selfhit_pinned.py (with --fixed for the suggested fix).
+  sbatch pinned_regression.sbatch runs both under the pinned environment.
+  Standalone extracted-script job39970270 completed0:0 on milano:
+  baseline same-PMT self-hit at0.000285418m; fixed no self-hit and next real
+  intersection0.703493m away. This is the recommended minimal reproducer.
+
+  The population and scalar bug reproduction are thus supported on both tested
+  JAX versions. The six-million-photon total/late charge comparison remains
+  explicitly a JAX0.11.0 CPU measurement, not a production-version calibration.
+
+Minimal suggested fix (not applied to production)
+  Replace the cancellation-prone discriminant with a perpendicular-offset
+  calculation using the same normalized ray and projection:
+
+    perp = oc - (jnp.sum(oc * ray_d, axis=1) / a)[:, None] * ray_d
+    discriminant = 4 * a * (sensor_radius**2 - jnp.sum(perp**2, axis=1))
+
+  This retains the existing stable root selection while making the small
+  half-chord quantity local to the PMT. A complete closest-point/half-chord
+  root formulation is another option. Do not just enlarge the global nudge:
+  that masks the entry error and introduces a larger artificial optical path.
+
+Other independently checked invariants
+  200,000 interior isotropic cylinder rays compared to independent float64
+  analytic roots: zero missed intersections, zero wrong wall/cap classifications,
+  max distance error 47.93 um; 99.9th percentile error 7.84 um.
+  SK_WAND loads 11,096 PMTs: 7,752 barrel, 1,672 on each cap.
+  R=16.962280245 m, H=36.378422222 m, PMT radius=0.254 m.
+  Minimum PMT center separation 0.697731664 m (> two PMT radii).
+  Largest measured-position projection to cylinder is 28.725 mm.
+  Actual production uses K=12, temperature=0 (hard overlap), and the leg-bound
+  switch is True. First-hit weighting and first geometry stop select earliest
+  PMT with slot tie-break; a physical ray deposits at most one PMT per leg.
+  Cylinder outward normals and negative PMT radial normals have the correct
+  convention for the shared specular formula and cosine reflection sampler.
+
+Coverage limits
+  No claim of exact real-detector agreement or exhaustive proof follows from
+  these analytic/random checks. Real optical calibration is another audit area.
+  Endpoint search and spherical PMTs are accepted approximations, not findings.
+  Unused single-ray output squeezing and unified box/cap helpers are outside
+  SK_WAND batch production. Outside-emission suppression and raw input units
+  were traced to simulator/source glue but are assigned to other audit agents.

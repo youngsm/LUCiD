@@ -1,0 +1,30 @@
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Accumulable registered as "accumulable_0"
+Accumulable registered as "accumulable_1"
+Output filename set to: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_e100.root
+Checking overlaps for volume Detector:0 (G4Box) ... OK! 
+### Birks coefficients used in run time
+Individual photon storage: disabled
+ROOT file /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_e100.root created for optical photon data
+1D wavelength histogram created: 800 bins from 0-800 nm
+
+### Starting run with 10 events ###
+Progress: [>                                       ] 0.0% (0/10) Elapsed: 0s     Progress: [====>                                   ] 10.0% (1/10) Elapsed: 0s ETA: 0s     Progress: [========>                               ] 20.0% (2/10) Elapsed: 0s ETA: 0s     Progress: [============>                           ] 30.0% (3/10) Elapsed: 0s ETA: 0s     Progress: [================>                       ] 40.0% (4/10) Elapsed: 0s ETA: 0s     Progress: [====================>                   ] 50.0% (5/10) Elapsed: 0s ETA: 0s     Progress: [========================>               ] 60.0% (6/10) Elapsed: 0s ETA: 0s     Progress: [============================>           ] 70.0% (7/10) Elapsed: 1s ETA: 0s     Progress: [================================>       ] 80.0% (8/10) Elapsed: 1s ETA: 0s     Progress: [====================================>   ] 90.0% (9/10) Elapsed: 1s ETA: 0s     
+
+--------------------End of Global Run-----------------------
+ The run consists of 10 e- of 100 MeV
+------------------------------------------------------------
+
+OpticalPhotonsRaw written with 0 chunk entries
+Photon wavelength histogram written with 214595.0 entries
+Photon distance (s) histogram written with 214595.0 entries
+ROOT file closed with 10 events

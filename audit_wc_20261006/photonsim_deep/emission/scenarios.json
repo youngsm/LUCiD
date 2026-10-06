@@ -1,0 +1,60 @@
+{
+  "electron": {
+    "particles": [
+      {
+        "type": "e-",
+        "energy_MeV": 100
+      }
+    ],
+    "n": 3
+  },
+  "muon": {
+    "particles": [
+      {
+        "type": "mu-",
+        "energy_MeV": 1000
+      }
+    ],
+    "n": 2
+  },
+  "pion": {
+    "particles": [
+      {
+        "type": "pi+",
+        "energy_MeV": 1000
+      }
+    ],
+    "n": 3
+  },
+  "positron": {
+    "particles": [
+      {
+        "type": "e+",
+        "energy_MeV": 2
+      }
+    ],
+    "n": 3
+  },
+  "gamma": {
+    "particles": [
+      {
+        "type": "gamma",
+        "energy_MeV": 2.2
+      }
+    ],
+    "n": 3
+  },
+  "dark": {
+    "particles": [
+      {
+        "type": "e-",
+        "energy_MeV": 0.01
+      }
+    ],
+    "n": 2
+  },
+  "bomb": {
+    "production_config": "lucid/production/configs/GeV/01_pbomb.json",
+    "n": 3
+  }
+}

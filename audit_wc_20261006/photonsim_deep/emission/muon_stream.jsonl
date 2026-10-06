@@ -1,0 +1,2 @@
+{"event":0,"created":215387,"recorded":215387,"unrecorded":0,"duplicate_classifications":0,"max_creation_vs_record_delta":[0,0,0,0,0,0,1.1368683772161603e-13,0],"max_polarization_change":0,"first_step_processes":{"OpAbsorption":215387},"creator_processes":{"Cerenkov":215387}}
+{"event":1,"created":217190,"recorded":217190,"unrecorded":0,"duplicate_classifications":0,"max_creation_vs_record_delta":[0,0,0,0,0,0,1.8189894035458565e-12,0],"max_polarization_change":0,"first_step_processes":{"OpAbsorption":217190},"creator_processes":{"Cerenkov":217190}}

@@ -1,0 +1,17 @@
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Checking overlaps for volume Detector:0 (G4Box) ... OK! 
+### Birks coefficients used in run time
+AUDIT_ENGINE MixMaxRng
+AUDIT_O16_PRESENT_BEFORE 0
+Error in <TFile::TFile>: file /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/does_not_exist.gtrac.root does not exist
+RooTrackerReader: cannot open /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/does_not_exist.gtrac.root
+PrimaryGeneratorAction: failed to open GENIE input /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/does_not_exist.gtrac.root

@@ -1,0 +1,54 @@
+Partition=milano Job=39969829 Host=sdfmilan271
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/electron.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron
+    Dataset:    wc_actual_audit_electron
+    file_index: 0
+    n_events:   5
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: 9ba39646-0bed-4757-a415-9f60bb1cdca6
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/electron.root
+  Found 5 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 5 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 5 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 3.07s
+  rays= 2,048: 2.87s
+  rays= 8,192: 3.13s
+  rays=32,768: 3.13s
+Processing batch 1/1 (events 0 to 4)
+
+  Event 1/5 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.192s
+    Raw: photons=22,420  segments=2,943
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.37s
+    [timing] simulate 0.368s
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/check_actual_production.py", line 81, in <module>
+    _run_lucid(root_file=root_file, output_dir=output_dir, config=config,
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/production/run_job.py", line 377, in _run_lucid
+    saved_files = generate_events_from_photonsim_particles(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/sources/event_generation.py", line 583, in generate_events_from_photonsim_particles
+    deposits = gather_photon_deposits(process_outputs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/check_actual_production.py", line 36, in inspect_gather
+    assert np.all(pe['charge'] == 1), 'Finite-time data-mode photons must deposit one PE each'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Finite-time data-mode photons must deposit one PE each

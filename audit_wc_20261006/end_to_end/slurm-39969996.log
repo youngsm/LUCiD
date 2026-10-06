@@ -1,0 +1,537 @@
+Partition=milano Job=39969996 Host=sdfmilan272
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/electron.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron
+    Dataset:    wc_actual_audit_electron
+    file_index: 0
+    n_events:   5
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: 717a8298-dc56-423b-9d69-d9e5791d8722
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/electron.root
+  Found 5 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 5 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 5 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 3.40s
+  rays= 2,048: 3.89s
+  rays= 8,192: 4.57s
+  rays=32,768: 4.56s
+Processing batch 1/1 (events 0 to 4)
+
+  Event 1/5 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.080s
+    Raw: photons=22,420  segments=2,943
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.65s
+    [timing] simulate 0.650s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.006s
+    [timing] meta_contain 0.000s
+    Event total time: 1.35s
+
+  Event 2/5 (index 1):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.067s
+    Raw: photons=21,140  segments=3,286
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.57s
+    [timing] simulate 0.574s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.005s
+    [timing] meta_contain 0.000s
+    Event total time: 0.66s
+
+  Event 3/5 (index 2):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.066s
+    Raw: photons=21,863  segments=3,255
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.57s
+    [timing] simulate 0.571s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.006s
+    [timing] meta_contain 0.000s
+    Event total time: 0.65s
+
+  Event 4/5 (index 3):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.067s
+    Raw: photons=22,743  segments=3,048
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.74s
+    [timing] simulate 0.742s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.007s
+    [timing] meta_contain 0.000s
+    Event total time: 0.82s
+
+  Event 5/5 (index 4):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.059s
+    Raw: photons=22,257  segments=2,952
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.58s
+    [timing] simulate 0.578s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.006s
+    [timing] meta_contain 0.000s
+    Event total time: 0.65s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.322s
+
+
+Successfully wrote 1 batches (4 files total) to /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron/{sensor,hits,step,labl}/
+Average event processing time: 0.825s
+LUCiD wrote 4 files under /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron/{sensor,hits,step,labl}/
+AUDIT_CASE electron {"events_requested": 5, "events_kept": 5, "elapsed_s": 34.93499729398172, "summary": {"mean_emitted_photons": 22084.6, "mean_detected_before_digitizer": 1220.7987629890442, "mean_retained_physics_pe": 1032.1989013671875, "mean_reconstructed_charge_pe": 1235.24609375, "mean_reco_pe_per_primary_MeV": 12.352460670471192, "max_digit_truth_pe": 23.999975204467773, "max_pmt_total_pe_before_digitizer": 23.99997568130493}, "events": [{"source_event_idx": 0, "emitted_photons": 22420, "max_photon_distance_from_g4_segment_m": 7.154691195264426e-05, "max_emission_radius_m": 1.4101011753082275, "primary_ke_MeV": 100.0, "detected_before_digitizer": 1172.9988114237785, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 41.24615478515625, "last_detected_ns": 441.315673828125, "max_pmt_total_pe_before_digitizer": 5.999993920326233, "infinite_time_rows_dropped_by_digitizer": 12, "infinite_time_total_charge_dropped_by_digitizer": 1.2159340712969424e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [2.681387424468994, -7.416531562805176, -0.6068677306175232], "digit_count": 807, "retained_physics_pe": 984.9989013671875, "retained_dark_pe": 25.0, "total_reconstructed_charge_pe": 1204.988525390625, "max_digit_truth_pe": 5.999993801116943, "max_digit_charge_pe": 6.4527506828308105, "max_particle_vs_segment_charge_difference": 1.7881393432617188e-07, "min_segment_causal_slack_ns": 0.0008856764175391163, "physics_first_time_ns": 41.24615478515625, "physics_last_time_ns": 394.0940246582031, "reco_pe_per_primary_MeV": 12.049884796142578, "contained": true}, {"source_event_idx": 1, "emitted_photons": 21140, "max_photon_distance_from_g4_segment_m": 2.6596696745772396e-05, "max_emission_radius_m": 1.0519520044326782, "primary_ke_MeV": 100.0, "detected_before_digitizer": 1145.9988387823105, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 51.407989501953125, "last_detected_ns": 465.5592041015625, "max_pmt_total_pe_before_digitizer": 4.999994933605194, "infinite_time_rows_dropped_by_digitizer": 18, "infinite_time_total_charge_dropped_by_digitizer": 1.8239011069454136e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.1860150247812271, -5.4994635581970215, -6.900486469268799], "digit_count": 800, "retained_physics_pe": 941.9990234375, "retained_dark_pe": 44.0, "total_reconstructed_charge_pe": 1181.6728515625, "max_digit_truth_pe": 4.99999475479126, "max_digit_charge_pe": 7.413755416870117, "max_particle_vs_segment_charge_difference": 1.7881393432617188e-07, "min_segment_causal_slack_ns": 0.0036387530203114693, "physics_first_time_ns": 51.70554733276367, "physics_last_time_ns": 401.59286499023443, "reco_pe_per_primary_MeV": 11.816728591918945, "contained": true}, {"source_event_idx": 2, "emitted_photons": 21863, "max_photon_distance_from_g4_segment_m": 5.359366484540453e-05, "max_emission_radius_m": 0.8201448917388916, "primary_ke_MeV": 100.0, "detected_before_digitizer": 1104.998880326748, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 59.00271987915039, "last_detected_ns": 395.4340515136719, "max_pmt_total_pe_before_digitizer": 4.999994933605194, "infinite_time_rows_dropped_by_digitizer": 3, "infinite_time_total_charge_dropped_by_digitizer": 3.039835178242356e-06, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.5828959941864014, -3.903231382369995, 0.23502707481384277], "digit_count": 745, "retained_physics_pe": 909.9990234375, "retained_dark_pe": 41.0, "total_reconstructed_charge_pe": 1126.468017578125, "max_digit_truth_pe": 4.99999475479126, "max_digit_charge_pe": 7.622350692749023, "max_particle_vs_segment_charge_difference": 1.7881393432617188e-07, "min_segment_causal_slack_ns": 0.0019499942724365837, "physics_first_time_ns": 59.00271987915039, "physics_last_time_ns": 395.4340515136719, "reco_pe_per_primary_MeV": 11.264679908752441, "contained": true}, {"source_event_idx": 3, "emitted_photons": 22743, "max_photon_distance_from_g4_segment_m": 0.0001119535179472579, "max_emission_radius_m": 0.7281144261360168, "primary_ke_MeV": 100.0, "detected_before_digitizer": 1325.9986563920975, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 18.85704231262207, "last_detected_ns": 424.532958984375, "max_pmt_total_pe_before_digitizer": 23.99997568130493, "infinite_time_rows_dropped_by_digitizer": 21, "infinite_time_total_charge_dropped_by_digitizer": 2.1278846247696492e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-9.615463256835938, -8.345178604125977, -8.250814437866211], "digit_count": 746, "retained_physics_pe": 1141.998779296875, "retained_dark_pe": 39.0, "total_reconstructed_charge_pe": 1351.447509765625, "max_digit_truth_pe": 23.999975204467773, "max_digit_charge_pe": 23.522003173828125, "max_particle_vs_segment_charge_difference": 5.960464477539062e-07, "min_segment_causal_slack_ns": 0.0026020477967847455, "physics_first_time_ns": 18.85704231262207, "physics_last_time_ns": 424.532958984375, "reco_pe_per_primary_MeV": 13.514474868774414, "contained": true}, {"source_event_idx": 4, "emitted_photons": 22257, "max_photon_distance_from_g4_segment_m": 0.0002123725475357647, "max_emission_radius_m": 0.6431632041931152, "primary_ke_MeV": 100.0, "detected_before_digitizer": 1353.9986280202866, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 17.323993682861328, "last_detected_ns": 440.1720275878906, "max_pmt_total_pe_before_digitizer": 20.999978721141815, "infinite_time_rows_dropped_by_digitizer": 20, "infinite_time_total_charge_dropped_by_digitizer": 2.026556785494904e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-2.332766056060791, -12.823835372924805, -2.2478692531585693], "digit_count": 732, "retained_physics_pe": 1181.998779296875, "retained_dark_pe": 34.0, "total_reconstructed_charge_pe": 1311.653564453125, "max_digit_truth_pe": 20.99997901916504, "max_digit_charge_pe": 21.732175827026367, "max_particle_vs_segment_charge_difference": 3.5762786865234375e-07, "min_segment_causal_slack_ns": 0.0028366824250554146, "physics_first_time_ns": 17.323993682861328, "physics_last_time_ns": 440.1720275878907, "reco_pe_per_primary_MeV": 13.116535186767578, "contained": true}]}
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/muon.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/muon
+    Dataset:    wc_actual_audit_muon
+    file_index: 0
+    n_events:   5
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: f0244466-7f60-4c06-83ee-c89f8f5ca66d
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/muon.root
+  Found 5 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 5 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 5 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/muon
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 4.12s
+  rays= 2,048: 3.68s
+  rays= 8,192: 3.87s
+  rays=32,768: 4.49s
+Processing batch 1/1 (events 0 to 4)
+
+  Event 1/5 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.204s
+    Raw: photons=215,387  segments=25,064
+    [timing] preprocess 0.002s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 5.22s
+    [timing] simulate 5.221s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.032s
+    [timing] meta_contain 0.001s
+    Event total time: 5.49s
+
+  Event 2/5 (index 1):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.205s
+    Raw: photons=217,190  segments=26,629
+    [timing] preprocess 0.002s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 4.67s
+    [timing] simulate 4.668s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.045s
+    [timing] meta_contain 0.001s
+    Event total time: 4.95s
+
+  Event 3/5 (index 2):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.311s
+    Raw: photons=210,624  segments=26,203
+    [timing] preprocess 0.002s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 4.98s
+    [timing] simulate 4.977s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.038s
+    [timing] meta_contain 0.001s
+    Event total time: 5.40s
+
+  Event 4/5 (index 3):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.196s
+    Raw: photons=211,689  segments=26,525
+    [timing] preprocess 0.002s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 5.07s
+    [timing] simulate 5.070s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.041s
+    [timing] meta_contain 0.001s
+    Event total time: 5.32s
+
+  Event 5/5 (index 4):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.136s
+    Raw: photons=206,804  segments=24,376
+    [timing] preprocess 0.002s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 4.82s
+    [timing] simulate 4.819s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.034s
+    [timing] meta_contain 0.001s
+    Event total time: 5.00s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.277s
+
+
+Successfully wrote 1 batches (4 files total) to /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/muon/{sensor,hits,step,labl}/
+Average event processing time: 5.231s
+LUCiD wrote 4 files under /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/muon/{sensor,hits,step,labl}/
+AUDIT_CASE muon {"events_requested": 5, "events_kept": 5, "elapsed_s": 53.61843502998818, "summary": {"mean_emitted_photons": 212338.8, "mean_detected_before_digitizer": 11858.58798393011, "mean_retained_physics_pe": 11312.58828125, "mean_reconstructed_charge_pe": 11873.2748046875, "mean_reco_pe_per_primary_MeV": 11.873274803161621, "max_digit_truth_pe": 124.99987030029297, "max_pmt_total_pe_before_digitizer": 124.99987334012985}, "events": [{"source_event_idx": 0, "emitted_photons": 215387, "max_photon_distance_from_g4_segment_m": 0.00015618839809267287, "max_emission_radius_m": 5.028555393218994, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 11652.988192260265, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 43.458038330078125, "last_detected_ns": 925.7014770507812, "max_pmt_total_pe_before_digitizer": 43.99995541572571, "infinite_time_rows_dropped_by_digitizer": 92, "infinite_time_total_charge_dropped_by_digitizer": 9.322161213276559e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [2.681387424468994, -7.416531562805176, -0.6068677306175232], "digit_count": 2969, "retained_physics_pe": 11219.98828125, "retained_dark_pe": 52.0, "total_reconstructed_charge_pe": 11659.2529296875, "max_digit_truth_pe": 43.99995422363281, "max_digit_charge_pe": 52.942752838134766, "max_particle_vs_segment_charge_difference": 1.3709068298339844e-06, "min_segment_causal_slack_ns": 0.002062326025480843, "physics_first_time_ns": 43.458038330078125, "physics_last_time_ns": 897.226806640625, "reco_pe_per_primary_MeV": 11.659253120422363, "contained": true}, {"source_event_idx": 1, "emitted_photons": 217190, "max_photon_distance_from_g4_segment_m": 7.683059162376495e-05, "max_emission_radius_m": 4.77116584777832, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 11363.988485097885, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 51.71221923828125, "last_detected_ns": 9150.5966796875, "max_pmt_total_pe_before_digitizer": 31.999967575073242, "infinite_time_rows_dropped_by_digitizer": 97, "infinite_time_total_charge_dropped_by_digitizer": 9.828800409650285e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.1860150247812271, -5.4994635581970215, -6.900486469268799], "digit_count": 3762, "retained_physics_pe": 10661.9892578125, "retained_dark_pe": 81.0, "total_reconstructed_charge_pe": 11369.4423828125, "max_digit_truth_pe": 31.999967575073242, "max_digit_charge_pe": 37.12506103515625, "max_particle_vs_segment_charge_difference": 8.344650268554688e-07, "min_segment_causal_slack_ns": 0.0015233771912903649, "physics_first_time_ns": 54.24839782714844, "physics_last_time_ns": 9150.5966796875, "reco_pe_per_primary_MeV": 11.369441986083984, "contained": true}, {"source_event_idx": 2, "emitted_photons": 210624, "max_photon_distance_from_g4_segment_m": 0.00015372173342182813, "max_emission_radius_m": 4.600662708282471, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 10457.989403128624, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 59.114593505859375, "last_detected_ns": 4948.63330078125, "max_pmt_total_pe_before_digitizer": 30.999968588352203, "infinite_time_rows_dropped_by_digitizer": 87, "infinite_time_total_charge_dropped_by_digitizer": 8.815522016902833e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.5828959941864014, -3.903231382369995, 0.23502707481384277], "digit_count": 3235, "retained_physics_pe": 9888.9892578125, "retained_dark_pe": 67.0, "total_reconstructed_charge_pe": 10386.18359375, "max_digit_truth_pe": 30.999969482421875, "max_digit_charge_pe": 32.922706604003906, "max_particle_vs_segment_charge_difference": 8.940696716308594e-07, "min_segment_causal_slack_ns": 0.0013584418015426536, "physics_first_time_ns": 59.114593505859375, "physics_last_time_ns": 4948.63330078125, "reco_pe_per_primary_MeV": 10.386183738708496, "contained": true}, {"source_event_idx": 3, "emitted_photons": 211689, "max_photon_distance_from_g4_segment_m": 0.00017137791693669008, "max_emission_radius_m": 4.542369365692139, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 12980.986846625805, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 19.129152297973633, "last_detected_ns": 1087.1668701171875, "max_pmt_total_pe_before_digitizer": 54.999944269657135, "infinite_time_rows_dropped_by_digitizer": 165, "infinite_time_total_charge_dropped_by_digitizer": 0.00016719093480332958, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-9.615463256835938, -8.345178604125977, -8.250814437866211], "digit_count": 3544, "retained_physics_pe": 12407.9873046875, "retained_dark_pe": 76.0, "total_reconstructed_charge_pe": 13248.0439453125, "max_digit_truth_pe": 54.999942779541016, "max_digit_charge_pe": 54.80288314819336, "max_particle_vs_segment_charge_difference": 1.8477439880371094e-06, "min_segment_causal_slack_ns": 0.0018037850310577141, "physics_first_time_ns": 19.129152297973633, "physics_last_time_ns": 1087.1668701171875, "reco_pe_per_primary_MeV": 13.24804401397705, "contained": true}, {"source_event_idx": 4, "emitted_photons": 206804, "max_photon_distance_from_g4_segment_m": 6.174571602596679e-05, "max_emission_radius_m": 5.254236221313477, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 12836.986992537975, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 18.438255310058594, "last_detected_ns": 3543.451171875, "max_pmt_total_pe_before_digitizer": 124.99987334012985, "infinite_time_rows_dropped_by_digitizer": 115, "infinite_time_total_charge_dropped_by_digitizer": 0.00011652701516595698, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-2.332766056060791, -12.823835372924805, -2.2478692531585693], "digit_count": 2672, "retained_physics_pe": 12383.9873046875, "retained_dark_pe": 41.0, "total_reconstructed_charge_pe": 12703.451171875, "max_digit_truth_pe": 124.99987030029297, "max_digit_charge_pe": 116.33183288574219, "max_particle_vs_segment_charge_difference": 2.9802322387695312e-06, "min_segment_causal_slack_ns": 0.0009638033154146797, "physics_first_time_ns": 18.438255310058594, "physics_last_time_ns": 464.8078918457032, "reco_pe_per_primary_MeV": 12.703451156616211, "contained": true}]}
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/pion.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/pion
+    Dataset:    wc_actual_audit_pion
+    file_index: 0
+    n_events:   10
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: 51cfa024-eaa9-40d5-b7b9-02361ff74339
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/pion.root
+  Found 20 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 10 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 10 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/pion
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 3.88s
+  rays= 2,048: 3.74s
+  rays= 8,192: 4.07s
+  rays=32,768: 4.53s
+Processing batch 1/1 (events 0 to 9)
+
+  Event 1/10 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.250s
+    Raw: photons=83,983  segments=28,166
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 2.16s
+    [timing] simulate 2.165s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.014s
+    [timing] meta_contain 0.001s
+    Event total time: 2.43s
+
+  Event 2/10 (index 1):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.175s
+    Raw: photons=105,666  segments=21,535
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 2.03s
+    [timing] simulate 2.025s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.026s
+    [timing] meta_contain 0.001s
+    Event total time: 2.23s
+
+  Event 3/10 (index 2):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.150s
+    Raw: photons=78,318  segments=21,225
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 1.78s
+    [timing] simulate 1.776s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.017s
+    [timing] meta_contain 0.001s
+    Event total time: 1.95s
+
+  Event 4/10 (index 3):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.133s
+    Raw: photons=81,909  segments=19,537
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 1.80s
+    [timing] simulate 1.799s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.017s
+    [timing] meta_contain 0.001s
+    Event total time: 1.95s
+
+  Event 5/10 (index 4):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.144s
+    Raw: photons=13,443  segments=16,792
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.64s
+    [timing] simulate 0.636s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.008s
+    [timing] meta_contain 0.000s
+    Event total time: 0.79s
+
+  Event 6/10 (index 5):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.167s
+    Raw: photons=139,219  segments=22,908
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 2.65s
+    [timing] simulate 2.647s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.024s
+    [timing] meta_contain 0.001s
+    Event total time: 2.84s
+
+  Event 7/10 (index 6):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.165s
+    Raw: photons=122,685  segments=21,614
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 2.52s
+    [timing] simulate 2.520s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.022s
+    [timing] meta_contain 0.001s
+    Event total time: 2.71s
+
+  Event 8/10 (index 7):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.167s
+    Raw: photons=93,167  segments=23,581
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 2.00s
+    [timing] simulate 2.001s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.021s
+    [timing] meta_contain 0.001s
+    Event total time: 2.19s
+
+  Event 9/10 (index 8):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.289s
+    Raw: photons=141,734  segments=28,614
+    [timing] preprocess 0.001s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 3.35s
+    [timing] simulate 3.353s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.027s
+    [timing] meta_contain 0.001s
+    Event total time: 3.68s
+
+  Event 10/10 (index 9):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.209s
+    Raw: photons=232,190  segments=33,865
+    [timing] preprocess 0.002s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 4.42s
+    [timing] simulate 4.420s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.041s
+    [timing] meta_contain 0.001s
+    Event total time: 4.68s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.449s
+
+
+Successfully wrote 1 batches (4 files total) to /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/pion/{sensor,hits,step,labl}/
+Average event processing time: 2.547s
+LUCiD wrote 4 files under /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/pion/{sensor,hits,step,labl}/
+AUDIT_CASE pion {"events_requested": 10, "events_kept": 10, "elapsed_s": 53.90034041099716, "summary": {"mean_emitted_photons": 109231.4, "mean_detected_before_digitizer": 6083.1938360214235, "mean_retained_physics_pe": 5642.894091796875, "mean_reconstructed_charge_pe": 6095.487048339844, "mean_reco_pe_per_primary_MeV": 6.09548699259758, "max_digit_truth_pe": 173.99981880187988, "max_pmt_total_pe_before_digitizer": 173.99982368946075}, "events": [{"source_event_idx": 0, "emitted_photons": 83983, "max_photon_distance_from_g4_segment_m": 0.00010355801937184454, "max_emission_radius_m": 1.8386212587356567, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 4428.995512187481, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 40.38923263549805, "last_detected_ns": 481.4700622558594, "max_pmt_total_pe_before_digitizer": 20.999978721141815, "infinite_time_rows_dropped_by_digitizer": 45, "infinite_time_total_charge_dropped_by_digitizer": 4.559752767363534e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [2.681387424468994, -7.416531562805176, -0.6068677306175232], "digit_count": 1967, "retained_physics_pe": 4061.995849609375, "retained_dark_pe": 26.0, "total_reconstructed_charge_pe": 4526.19091796875, "max_digit_truth_pe": 20.999978005886078, "max_digit_charge_pe": 19.58090591430664, "max_particle_vs_segment_charge_difference": 8.344650268554688e-07, "min_segment_causal_slack_ns": 0.002289492544150562, "physics_first_time_ns": 40.38923263549805, "physics_last_time_ns": 481.4700622558594, "reco_pe_per_primary_MeV": 4.526190757751465, "contained": true}, {"source_event_idx": 1, "emitted_photons": 105666, "max_photon_distance_from_g4_segment_m": 0.00016201139957207678, "max_emission_radius_m": 2.8814046382904053, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 5538.994387447834, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 51.751888275146484, "last_detected_ns": 3719.1982421875, "max_pmt_total_pe_before_digitizer": 22.999976694583893, "infinite_time_rows_dropped_by_digitizer": 39, "infinite_time_total_charge_dropped_by_digitizer": 3.951785731715063e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.1860150247812271, -5.4994635581970215, -6.900486469268799], "digit_count": 2346, "retained_physics_pe": 5098.99462890625, "retained_dark_pe": 82.0, "total_reconstructed_charge_pe": 5568.01171875, "max_digit_truth_pe": 22.99997615814209, "max_digit_charge_pe": 23.696434020996094, "max_particle_vs_segment_charge_difference": 8.344650268554688e-07, "min_segment_causal_slack_ns": 0.0027582457760786383, "physics_first_time_ns": 52.792362213134766, "physics_last_time_ns": 3719.1982421875, "reco_pe_per_primary_MeV": 5.56801176071167, "contained": true}, {"source_event_idx": 2, "emitted_photons": 78318, "max_photon_distance_from_g4_segment_m": 0.00014793939620887846, "max_emission_radius_m": 1.6678013801574707, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 3877.9960705041885, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 59.21392059326172, "last_detected_ns": 2174.6064453125, "max_pmt_total_pe_before_digitizer": 19.999979734420776, "infinite_time_rows_dropped_by_digitizer": 25, "infinite_time_total_charge_dropped_by_digitizer": 2.53319598186863e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.5828959941864014, -3.903231382369995, 0.23502707481384277], "digit_count": 1595, "retained_physics_pe": 3555.99609375, "retained_dark_pe": 84.0, "total_reconstructed_charge_pe": 3916.59521484375, "max_digit_truth_pe": 19.999979615211487, "max_digit_charge_pe": 24.379201889038086, "max_particle_vs_segment_charge_difference": 5.364418029785156e-07, "min_segment_causal_slack_ns": 0.0021602050726698963, "physics_first_time_ns": 59.21392059326172, "physics_last_time_ns": 1280.260498046875, "reco_pe_per_primary_MeV": 3.916595220565796, "contained": true}, {"source_event_idx": 3, "emitted_photons": 81909, "max_photon_distance_from_g4_segment_m": 0.00017832004350357456, "max_emission_radius_m": 2.6619338989257812, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 4568.995370328426, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 18.615629196166992, "last_detected_ns": 559.1607055664062, "max_pmt_total_pe_before_digitizer": 29.999969601631165, "infinite_time_rows_dropped_by_digitizer": 63, "infinite_time_total_charge_dropped_by_digitizer": 6.383653874308948e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-9.615463256835938, -8.345178604125977, -8.250814437866211], "digit_count": 2382, "retained_physics_pe": 4082.99560546875, "retained_dark_pe": 43.0, "total_reconstructed_charge_pe": 4658.6220703125, "max_digit_truth_pe": 29.999970376491547, "max_digit_charge_pe": 28.832353591918945, "max_particle_vs_segment_charge_difference": 8.344650268554688e-07, "min_segment_causal_slack_ns": 0.0013882129263436127, "physics_first_time_ns": 18.615629196166992, "physics_last_time_ns": 559.1607055664062, "reco_pe_per_primary_MeV": 4.6586222648620605, "contained": true}, {"source_event_idx": 4, "emitted_photons": 13443, "max_photon_distance_from_g4_segment_m": 4.002921000664931e-05, "max_emission_radius_m": 1.6760882139205933, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 780.9992086291313, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 16.63065528869629, "last_detected_ns": 946.6696166992188, "max_pmt_total_pe_before_digitizer": 11.999987840652466, "infinite_time_rows_dropped_by_digitizer": 8, "infinite_time_total_charge_dropped_by_digitizer": 8.106227141979616e-06, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-2.332766056060791, -12.823835372924805, -2.2478692531585693], "digit_count": 468, "retained_physics_pe": 653.999267578125, "retained_dark_pe": 54.0, "total_reconstructed_charge_pe": 782.9613037109375, "max_digit_truth_pe": 11.999987602233887, "max_digit_charge_pe": 11.495296478271484, "max_particle_vs_segment_charge_difference": 4.172325134277344e-07, "min_segment_causal_slack_ns": 0.0025887613671784493, "physics_first_time_ns": 16.63065528869629, "physics_last_time_ns": 946.6696166992188, "reco_pe_per_primary_MeV": 0.7829613089561462, "contained": true}, {"source_event_idx": 5, "emitted_photons": 139219, "max_photon_distance_from_g4_segment_m": 0.00011361243625409548, "max_emission_radius_m": 2.4726662635803223, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 8550.991335451603, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 13.956096649169922, "last_detected_ns": 591.59619140625, "max_pmt_total_pe_before_digitizer": 173.99982368946075, "infinite_time_rows_dropped_by_digitizer": 137, "infinite_time_total_charge_dropped_by_digitizer": 0.00013881913980640093, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [10.836867332458496, -8.36745548248291, -4.220026969909668], "digit_count": 1878, "retained_physics_pe": 8173.99169921875, "retained_dark_pe": 43.0, "total_reconstructed_charge_pe": 8521.296875, "max_digit_truth_pe": 173.99981880187988, "max_digit_charge_pe": 173.27366638183594, "max_particle_vs_segment_charge_difference": 6.139278411865234e-06, "min_segment_causal_slack_ns": 0.0004701018879700314, "physics_first_time_ns": 13.956096649169922, "physics_last_time_ns": 591.59619140625, "reco_pe_per_primary_MeV": 8.521296501159668, "contained": true}, {"source_event_idx": 6, "emitted_photons": 122685, "max_photon_distance_from_g4_segment_m": 0.00012675535015805803, "max_emission_radius_m": 2.591121196746826, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 6837.993071198463, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 37.88340759277344, "last_detected_ns": 651.622802734375, "max_pmt_total_pe_before_digitizer": 36.999962508678436, "infinite_time_rows_dropped_by_digitizer": 75, "infinite_time_total_charge_dropped_by_digitizer": 7.59958794560589e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-8.716983795166016, -0.5483884811401367, -4.3459391593933105], "digit_count": 2809, "retained_physics_pe": 6302.9931640625, "retained_dark_pe": 34.0, "total_reconstructed_charge_pe": 6800.26025390625, "max_digit_truth_pe": 36.999961853027344, "max_digit_charge_pe": 34.49201965332031, "max_particle_vs_segment_charge_difference": 1.0132789611816406e-06, "min_segment_causal_slack_ns": 0.0017756254318754827, "physics_first_time_ns": 37.88340759277344, "physics_last_time_ns": 650.1649169921875, "reco_pe_per_primary_MeV": 6.800260066986084, "contained": true}, {"source_event_idx": 7, "emitted_photons": 93167, "max_photon_distance_from_g4_segment_m": 0.00011999986823226294, "max_emission_radius_m": 2.2232635021209717, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 5502.994423925877, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 15.851741790771484, "last_detected_ns": 1464.8314208984375, "max_pmt_total_pe_before_digitizer": 35.9999635219574, "infinite_time_rows_dropped_by_digitizer": 70, "infinite_time_total_charge_dropped_by_digitizer": 7.092948749232164e-05, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-12.804221153259277, 3.762268543243408, 8.323115348815918], "digit_count": 2165, "retained_physics_pe": 5104.994140625, "retained_dark_pe": 36.0, "total_reconstructed_charge_pe": 5484.01708984375, "max_digit_truth_pe": 35.99996370077133, "max_digit_charge_pe": 39.47802734375, "max_particle_vs_segment_charge_difference": 1.1324882507324219e-06, "min_segment_causal_slack_ns": 0.0015387318718467213, "physics_first_time_ns": 15.851741790771484, "physics_last_time_ns": 444.0296936035156, "reco_pe_per_primary_MeV": 5.4840168952941895, "contained": true}, {"source_event_idx": 8, "emitted_photons": 141734, "max_photon_distance_from_g4_segment_m": 0.00022349090849541571, "max_emission_radius_m": 1.469765305519104, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 7982.991910994053, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 22.54397201538086, "last_detected_ns": 482.36376953125, "max_pmt_total_pe_before_digitizer": 39.99995946884155, "infinite_time_rows_dropped_by_digitizer": 155, "infinite_time_total_charge_dropped_by_digitizer": 0.00015705815087585506, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [10.115479469299316, -5.872598648071289, -9.160630226135254], "digit_count": 3891, "retained_physics_pe": 7153.9931640625, "retained_dark_pe": 44.0, "total_reconstructed_charge_pe": 7850.4033203125, "max_digit_truth_pe": 39.99996083974838, "max_digit_charge_pe": 44.77744674682617, "max_particle_vs_segment_charge_difference": 1.3709068298339844e-06, "min_segment_causal_slack_ns": 0.001282425012703925, "physics_first_time_ns": 22.54397201538086, "physics_last_time_ns": 471.9374084472656, "reco_pe_per_primary_MeV": 7.850403308868408, "contained": true}, {"source_event_idx": 9, "emitted_photons": 232190, "max_photon_distance_from_g4_segment_m": 0.00020752429808876816, "max_emission_radius_m": 3.739264965057373, "primary_ke_MeV": 1000.0, "detected_before_digitizer": 12760.987069547176, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 20.448806762695312, "last_detected_ns": 603.200927734375, "max_pmt_total_pe_before_digitizer": 71.9999270439148, "infinite_time_rows_dropped_by_digitizer": 149, "infinite_time_total_charge_dropped_by_digitizer": 0.00015097848051937035, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-12.307044982910156, -0.8668511509895325, 5.113790988922119], "digit_count": 3584, "retained_physics_pe": 12238.9873046875, "retained_dark_pe": 48.0, "total_reconstructed_charge_pe": 12846.51171875, "max_digit_truth_pe": 71.9999241232872, "max_digit_charge_pe": 69.93011474609375, "max_particle_vs_segment_charge_difference": 2.9206275939941406e-06, "min_segment_causal_slack_ns": 0.0019408674369287837, "physics_first_time_ns": 20.448806762695312, "physics_last_time_ns": 603.200927734375, "reco_pe_per_primary_MeV": 12.846511840820312, "contained": true}]}
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/gamma.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/gamma
+    Dataset:    wc_actual_audit_gamma
+    file_index: 0
+    n_events:   10
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: bcad778f-5539-4a67-83ab-c8847eb7277a
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/gamma.root
+  Found 10 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 10 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 10 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Selection: min_physics_hits >= 3 (low-E truth cut; sub-threshold events dropped, dark kept + labelled)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/gamma
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 2.98s
+  rays= 2,048: 3.12s
+  rays= 8,192: 3.54s
+  rays=32,768: 4.41s
+Processing batch 1/1 (events 0 to 9)
+
+  Event 1/10 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.071s
+    Raw: photons=144  segments=168
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.009s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.002s
+    [timing] meta_contain 0.000s
+    Event total time: 0.14s
+
+  Event 2/10 (index 1):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.041s
+    Raw: photons=199  segments=186
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.002s
+    [timing] meta_contain 0.000s
+    Event total time: 0.06s
+
+  Event 3/10 (index 2):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.041s
+    Raw: photons=117  segments=173
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    event 2: < 3 physics hits — dropped
+
+  Event 4/10 (index 3):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.040s
+    Raw: photons=150  segments=181
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.001s
+    [timing] meta_contain 0.000s
+    Event total time: 0.05s
+
+  Event 5/10 (index 4):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.042s
+    Raw: photons=155  segments=174
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.001s
+    [timing] meta_contain 0.000s
+    Event total time: 0.06s
+
+  Event 6/10 (index 5):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.041s
+    Raw: photons=123  segments=181
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.002s
+    [timing] meta_contain 0.000s
+    Event total time: 0.07s
+
+  Event 7/10 (index 6):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.042s
+    Raw: photons=364  segments=119
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.04s
+    [timing] simulate 0.038s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.002s
+    [timing] meta_contain 0.000s
+    Event total time: 0.09s
+
+  Event 8/10 (index 7):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.041s
+    Raw: photons=270  segments=153
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.04s
+    [timing] simulate 0.040s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.002s
+    [timing] meta_contain 0.000s
+    Event total time: 0.09s
+
+  Event 9/10 (index 8):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.044s
+    Raw: photons=171  segments=205
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.002s
+    [timing] meta_contain 0.000s
+    Event total time: 0.06s
+
+  Event 10/10 (index 9):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.041s
+    Raw: photons=124  segments=182
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.01s
+    [timing] simulate 0.008s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.001s
+    [timing] meta_contain 0.000s
+    Event total time: 0.06s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.216s
+
+
+Successfully wrote 1 batches (4 files total) to /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/gamma/{sensor,hits,step,labl}/
+Average event processing time: 0.074s
+LUCiD wrote 4 files under /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/gamma/{sensor,hits,step,labl}/
+AUDIT_CASE gamma {"events_requested": 10, "events_kept": 9, "elapsed_s": 25.35979250399396, "summary": {"mean_emitted_photons": 188.88888888888889, "mean_detected_before_digitizer": 9.999989867210388, "mean_retained_physics_pe": 8.44443580839369, "mean_reconstructed_charge_pe": 62.53810458713107, "mean_reco_pe_per_primary_MeV": 28.4264104631212, "max_digit_truth_pe": 2.0, "max_pmt_total_pe_before_digitizer": 1.9999979734420776}, "events": [{"source_event_idx": 0, "emitted_photons": 144, "max_photon_distance_from_g4_segment_m": 2.528346742401392e-05, "max_emission_radius_m": 0.4532095789909363, "primary_ke_MeV": 2.2, "detected_before_digitizer": 8.99999088048935, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 54.90342712402344, "last_detected_ns": 371.18603515625, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [2.681387424468994, -7.416531562805176, -0.6068677306175232], "digit_count": 44, "retained_physics_pe": 7.9999918937683105, "retained_dark_pe": 36.0, "total_reconstructed_charge_pe": 57.31998825073242, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 2.824983835220337, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.04223393694917377, "physics_first_time_ns": 54.90342712402344, "physics_last_time_ns": 371.18603515625, "reco_pe_per_primary_MeV": 26.05453872680664, "contained": true}, {"source_event_idx": 1, "emitted_photons": 199, "max_photon_distance_from_g4_segment_m": 3.180697737673595e-06, "max_emission_radius_m": 0.8002182245254517, "primary_ke_MeV": 2.2, "detected_before_digitizer": 11.999987840652466, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 55.771671295166016, "last_detected_ns": 131.10623168945312, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 1, "infinite_time_total_charge_dropped_by_digitizer": 1.013278392747452e-06, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [0.1860150247812271, -5.4994635581970215, -6.900486469268799], "digit_count": 52, "retained_physics_pe": 10.999988555908203, "retained_dark_pe": 41.0, "total_reconstructed_charge_pe": 63.93930435180664, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 2.358506441116333, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.02589954815394435, "physics_first_time_ns": 55.771671295166016, "physics_last_time_ns": 131.10623168945312, "reco_pe_per_primary_MeV": 29.06332015991211, "contained": true}, {"source_event_idx": 3, "emitted_photons": 150, "max_photon_distance_from_g4_segment_m": 1.3188087302519633e-05, "max_emission_radius_m": 0.3375997543334961, "primary_ke_MeV": 2.2, "detected_before_digitizer": 7.9999918937683105, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 34.34059524536133, "last_detected_ns": 201.8521728515625, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-9.615463256835938, -8.345178604125977, -8.250814437866211], "digit_count": 50, "retained_physics_pe": 3.9999959468841553, "retained_dark_pe": 46.0, "total_reconstructed_charge_pe": 62.56773376464844, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 2.820075511932373, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.2274997850955458, "physics_first_time_ns": 34.34059524536133, "physics_last_time_ns": 201.8521728515625, "reco_pe_per_primary_MeV": 28.439878463745117, "contained": true}, {"source_event_idx": 4, "emitted_photons": 155, "max_photon_distance_from_g4_segment_m": 1.923739758152706e-05, "max_emission_radius_m": 0.7509506940841675, "primary_ke_MeV": 2.2, "detected_before_digitizer": 6.999992907047272, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 44.38478088378906, "last_detected_ns": 174.41317749023438, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-2.332766056060791, -12.823835372924805, -2.2478692531585693], "digit_count": 40, "retained_physics_pe": 3.9999959468841553, "retained_dark_pe": 36.0, "total_reconstructed_charge_pe": 53.76957702636719, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 2.51283597946167, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.16251006952526836, "physics_first_time_ns": 44.38478088378906, "physics_last_time_ns": 174.41317749023438, "reco_pe_per_primary_MeV": 24.440715789794922, "contained": true}, {"source_event_idx": 5, "emitted_photons": 123, "max_photon_distance_from_g4_segment_m": 3.7397543025079447e-06, "max_emission_radius_m": 0.5985995531082153, "primary_ke_MeV": 2.2, "detected_before_digitizer": 4.999994933605194, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 19.139545440673828, "last_detected_ns": 120.0999526977539, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [10.836867332458496, -8.36745548248291, -4.220026969909668], "digit_count": 45, "retained_physics_pe": 4.99999475479126, "retained_dark_pe": 40.0, "total_reconstructed_charge_pe": 56.417022705078125, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 2.363213539123535, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.12203647370930071, "physics_first_time_ns": 19.139545440673828, "physics_last_time_ns": 120.0999526977539, "reco_pe_per_primary_MeV": 25.644100189208984, "contained": true}, {"source_event_idx": 6, "emitted_photons": 364, "max_photon_distance_from_g4_segment_m": 1.9259073108061115e-05, "max_emission_radius_m": 0.3893219828605652, "primary_ke_MeV": 2.2, "detected_before_digitizer": 17.9999817609787, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 64.38215637207031, "last_detected_ns": 148.6317596435547, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-8.716983795166016, -0.5483884811401367, -4.3459391593933105], "digit_count": 51, "retained_physics_pe": 16.999982833862305, "retained_dark_pe": 34.0, "total_reconstructed_charge_pe": 64.77278900146484, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 3.261155605316162, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.047003970558435526, "physics_first_time_ns": 64.38215637207031, "physics_last_time_ns": 148.6317596435547, "reco_pe_per_primary_MeV": 29.442176818847656, "contained": true}, {"source_event_idx": 7, "emitted_photons": 270, "max_photon_distance_from_g4_segment_m": 1.4189983751342295e-05, "max_emission_radius_m": 0.05594081059098244, "primary_ke_MeV": 2.2, "detected_before_digitizer": 14.999984800815582, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 15.878363609313965, "last_detected_ns": 152.92030334472656, "max_pmt_total_pe_before_digitizer": 1.9999979734420776, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-12.804221153259277, 3.762268543243408, 8.323115348815918], "digit_count": 55, "retained_physics_pe": 13.999985694885254, "retained_dark_pe": 42.0, "total_reconstructed_charge_pe": 71.82508087158203, "max_digit_truth_pe": 1.9999979734420776, "max_digit_charge_pe": 3.256744384765625, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.00878009383545475, "physics_first_time_ns": 15.878363609313965, "physics_last_time_ns": 152.92030334472656, "reco_pe_per_primary_MeV": 32.647762298583984, "contained": true}, {"source_event_idx": 8, "emitted_photons": 171, "max_photon_distance_from_g4_segment_m": 8.345947863413092e-06, "max_emission_radius_m": 0.6100425720214844, "primary_ke_MeV": 2.2, "detected_before_digitizer": 6.999992907047272, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 87.43379211425781, "last_detected_ns": 205.20982360839844, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [10.115479469299316, -5.872598648071289, -9.160630226135254], "digit_count": 45, "retained_physics_pe": 4.99999475479126, "retained_dark_pe": 40.0, "total_reconstructed_charge_pe": 63.57703399658203, "max_digit_truth_pe": 1.0, "max_digit_charge_pe": 2.777193307876587, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.35630387684824427, "physics_first_time_ns": 87.43379211425781, "physics_last_time_ns": 205.20982360839844, "reco_pe_per_primary_MeV": 28.898651123046875, "contained": true}, {"source_event_idx": 9, "emitted_photons": 124, "max_photon_distance_from_g4_segment_m": 7.2392068354163425e-06, "max_emission_radius_m": 0.34446582198143005, "primary_ke_MeV": 2.2, "detected_before_digitizer": 8.99999088048935, "orphan_segment_pe": 0, "orphan_particle_pe": 0, "first_detected_ns": 21.186922073364258, "last_detected_ns": 212.55870056152344, "max_pmt_total_pe_before_digitizer": 0.9999989867210388, "infinite_time_rows_dropped_by_digitizer": 0, "infinite_time_total_charge_dropped_by_digitizer": 0.0, "max_finite_photon_pe_deviation_from_one": 1.0132789611816406e-06, "vertex_m": [-12.307044982910156, -0.8668511509895325, 5.113790988922119], "digit_count": 52, "retained_physics_pe": 7.9999918937683105, "retained_dark_pe": 45.0, "total_reconstructed_charge_pe": 68.65441131591797, "max_digit_truth_pe": 2.0, "max_digit_charge_pe": 2.633268356323242, "max_particle_vs_segment_charge_difference": 0.0, "min_segment_causal_slack_ns": 0.09132021195731, "physics_first_time_ns": 21.186922073364258, "physics_last_time_ns": 168.49485778808594, "reco_pe_per_primary_MeV": 31.20655059814453, "contained": true}]}
+ALL_END_TO_END_CHECKS_PASSED

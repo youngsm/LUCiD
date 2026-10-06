@@ -1,0 +1,66 @@
+Packaging source/dependency review, 6 October 2026
+
+Publication scope: report, source tests, proposed/tested patches, compact results
+and provenance. Large raw evidence, executables, caches, environments and sandbox
+directories are regeneration products, not files to push. The package inventory
+must distinguish a file present in the working tree from a file actually shipped.
+
+1. Runtime dependencies
+   The previous Geant4 wrapper lived outside this repository and used an external
+   bind-mount sandbox. Its mechanism is now bundled as packaging/run_photonsim.sh
+   and make_rootfs.sh. packaging/RUNTIME.md records exact CVMFS dependencies,
+   interpreter inheritance, overrides and preparation order. This removes that
+   script dependency, not the host Apptainer/CVMFS/LCG dependency. No host identity
+   files should be shipped with a generated rootfs.
+
+   The baseline Python environment inherits a separate conda environment through
+   include-system-site-packages=true. Copying its venv is not sufficient. The
+   packaging validation captures a visible-package inventory; the separate
+   runtime_jax0438/requirements-resolved.txt remains the pinned 0.4.38 inventory.
+   Preserve that runtime distinction in every result and setup description.
+
+2. Historical paths and preparation
+   Most old sbatch files still hardcode checkout, uv, interpreter and wrapper
+   paths. The new wrapper is relocatable; the full launcher collection is not yet
+   portably validated. Prefer a clearly labelled launcher-copy generator which
+   substitutes only those known literal site prefixes with configured values,
+   leaving original evidence files unchanged. Generated copies still need a
+   small Slurm smoke test. Shell parameter expansion is not performed inside
+   #SBATCH directives, so output/account paths need actual rewritten text or
+   submission command options.
+
+   Regenerate macros/commands after relocation: saved files can embed absolute
+   fixture paths. Several analysis-only launchers need raw files produced by
+   earlier jobs. RUNTIME.md lists major dependencies. primaries/run_spin.sbatch
+   now calls prepare.py before prepare_spin.py, and its missing-polarization
+   regression validates event count, GENIE entry IDs and PDGs to reject fallback.
+
+3. Links and source provenance
+   Read-only review found every local Markdown link in REPORT.md and existing
+   audit .md notes resolves in the current workspace; report anchors match.
+   All 26 files named by the GENIE source manifest exist. No absolute local
+   Markdown links or incompatible :line anchors were found. Repeat against the
+   actual publication inventory after excluding raw data; existence now does not
+   guarantee inclusion in the branch.
+
+   Minor supporting-note wording needing correction if retained:
+   - primaries/genie_polarization_review.txt uses photonsim_physics/upstream/
+     without stating repository/audit-root context; use ../../photonsim_physics/.
+   - transport/independent_capture_review.txt, source section, overstates that
+     all cited G4 files are saved under reference/. Only a subset is bundled;
+     PhotonSim is ../../photonsim_physics/upstream/ and other citations external.
+   - transport/reference/oracles.md has the same blanket stored-beside wording
+     and an outdated Bertini-constructor retrieval failure; the exact v11.3.0
+     G4HadronicAbsorptionBertini.cc is now present beside that note.
+
+4. Minimal README
+   Lead readers to REPORT.md; distinguish compact review evidence from regenerable
+   raw files. Include source commits, Geant4/ROOT/JAX versions, the user CPU/GPU
+   execution restriction, runtime setup link, per-finding reproducer and required
+   generating job, and expected intentional baseline failures. State that headless
+   main checks command status, unlike original PhotonSim, and that original
+   production-container equivalence was not established. Link a file manifest
+   with sizes/hashes and generator commands for excluded evidence.
+
+No production or git changes were made by this reviewer. Runtime validation is
+tracked separately in packaging/runtime-<job>.log and the final agent handoff.

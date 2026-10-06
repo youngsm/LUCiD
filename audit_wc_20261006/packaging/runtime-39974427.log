@@ -1,0 +1,22 @@
+Using Python 3.12.8 environment at: /sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system
+warning: `--no-sync` has no effect when used alongside `--no-project`
+warning: `--no-sync` has no effect when used alongside `--no-project`
+warning: `--no-sync` has no effect when used alongside `--no-project`
+{
+  "events": 256,
+  "muon_primaries": 256,
+  "baseline_muon_spin_norm_min_max": [
+    0.0,
+    0.0
+  ],
+  "repaired_muon_spin_norm_min_max": [
+    0.9999999999999999,
+    1.0000000000000007
+  ],
+  "max_repaired_helicity_error": 6.661338147750939e-16,
+  "same_momenta_before_after": true,
+  "nonrandom_direction_preserved": true,
+  "missing_optional_branch_keeps_zero_spin": true,
+  "missing_optional_branch_has_expected_five_entries_and_twenty_primaries": true
+}
+PACKAGING_RUNTIME_PASS job=39974427 partition=milano rootfs=/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/packaging/rootfs-validation-39974427

@@ -1,0 +1,169 @@
+PhotonSim water/Cherenkov audit
+
+Result: two limited emission discretization findings, no demonstrated large
+normal-event light-yield error. The near-threshold step-size issue below is
+larger than the sparse-table quadrature error, but small in absolute light.
+
+Source/runtime
+  PhotonSim pinned v1.0.2 9232a7dae46ae36d9c81dd5f1b4e9f7653803514,
+  unmodified production DetectorConstruction and PhysicsList compiled with
+  Geant4 11.3.0. ROOT 6.34.02 used for output rather than production 6.30.
+  All imports, compilations and numerical tests ran on Slurm milano CPUs.
+  Source copies and instrumented binaries are audit artifacts only.
+
+Confirmed minor numerical defect: sparse refractive-index integration
+  Water has ten phase-index knots from1.84 to4.51eV. Geant4 tabulates the
+  cumulative integral of1/n(E)^2 by trapezoids at these knots, then linearly
+  interpolates that cumulative integral at the beta-dependent threshold.
+  A partial interval near threshold can consequently give a negative mean
+  number of photons; PostStepDoIt emits zero when this happens.
+
+  Minimal direct reproducer: mean_yield.cc builds the actual pinned water,
+  calls installed G4Cerenkov::BuildPhysicsTable and GetAverageNumberOfPhotons.
+  At beta=.734, G4 gives0.00659140583 photons/mm while the exact positive-part
+  Frank–Tamm integral for precisely the same n(E) is0.02596135309 photons/mm.
+  beta.73165–.73370 is physically above threshold (true beta_min.73164129)
+  but G4 produces no photons. This is a local near-threshold error, not a
+  detector-wide75% yield deficit.
+
+  Analytic oracle: for a linearly varying n(E), the integral of1/n(E)^2 over
+  a retained interval [Ea,Eb] is(Eb−Ea)/(na*nb). Split at each original knot
+  and n=1/beta, integrate max(0,1−1/(beta*n)^2), multiply369.81/(eV cm).
+  This isolates G4 numerical integration from the physical refractive-index
+  model. Densifying the original linear n(E), without changing its shape,
+  agrees with that oracle. A separate dense Daimon–Masumura Sellmeier table
+  tests the physical knot provenance and is not used as the numerical fix.
+
+Whole-track impact (job39971407, milano sdfmilan271)
+  Actual pinned PhotonSim runs were observed before output storage. The
+  observer records real G4 step lengths, both endpoint betas, photon births,
+  and true emitting track. It avoids the independent production segment-
+  ownership defect. All charged primary and secondary tracks are included;
+  primary-track summaries are also saved. Exact/coarse integrals below use
+  the SAME realized charged trajectories, avoiding shower-fluctuation bias.
+
+  Total raw-light / production-QE-weighted fractional loss, respectively:
+    e−0.30MeV:0.0843% /0.0414%
+    e−0.50MeV:0.00614% /0.00383%
+    e−10MeV:  0.000854% /0.000798%
+    mu−1GeV: 0.000936% /0.000859%
+  The primary500MeV proton loses0.331% of its own raw Cherenkov light;
+  primary60MeV mu− loses0.119%. Other products dilute or alter event totals.
+  The0.25MeV electron loses about9% of just0.00568 photons/event; expected
+  production-QE weight before geometry is only3.46e−5/event. Its missing
+  QE-weighted light is approximately3e−6/event, not a large detector error.
+
+  Production QE weighting clips wavelength to[300,648.22]nm BEFORE applying
+  SK_QE, following actual evaluate_optical_model behavior. It includes the
+  accepted ultraviolet QE-clamp approximation. Geometry, absorption and
+  electronics are deliberately absent from these emission-side weights.
+
+Minimal sparse-table fix suggestion
+  Densify the water RINDEX table while preserving its existing piecewise-
+  linear function, and add threshold/whole-track convergence checks. The
+  audit dense table uses1000 subdivisions per original interval; this is a
+  verification choice, not a claimed optimal production size. Densification
+  makes the artifact arbitrarily small; exact elimination requires a G4
+  integral that integrates the partially retained interval consistently.
+  No production files were changed.
+
+Confirmed low-energy step-size dependence
+  The default maximum proposed beta change is10% per step. G4Cerenkov uses
+  the mean of pre/post-step beta for its total rate and photon spectrum,
+  then independently samples a position weighted by endpoint rates.
+  This does not integrate the continuous energy loss through threshold.
+
+  The isolated dense-index build removes the sparse-table error while
+  retaining precisely the same n(E). For10000 stopping0.3MeV electrons:
+
+    max beta change     sampled photons/event     expected photons/event
+    10% (default)       0.8881 +/-0.00982          0.891640 +/-0.002536
+    0.1%                0.9863 +/-0.01018          0.981690 +/-0.002332
+    0.01%               1.0095 +/-0.01027          0.984714 +/-0.002313
+
+  Standard errors are from per-event variance. Expected values sum the exact
+  n(E) Frank–Tamm mean over each actual step; they reduce photon-sampling
+  noise, but do not assert those default coarse steps are physically exact.
+  The0.1% and0.01% settings agree statistically. Relative to the finer run,
+  the default expected rate is9.45% lower; production-QE-weighted expectation
+  is0.091440 versus0.102326,10.64% lower. This is only0.093 missing emitted
+  photons, or0.0109 incident-QE-weighted photons, per0.3MeV electron before
+  geometry and water losses. No comparable large normal-event bias is
+  established. Tests at1/10MeV and the muon/proton settings were consistent
+  within their ensemble precision; the small ensembles cannot certify a
+  sub-percent bound on all events.
+
+  At default steps, about0.99% of sampled0.3MeV photons lie below threshold
+  at their assigned position IF beta is assumed linear between endpoints.
+  That conditional-path inconsistency disappears in the sampled0.01% run.
+  This is a diagnostic; endpoints alone do not establish the true trajectory.
+  Hard endpoint interactions, continuous loss, multiple scattering and
+  beta's nonlinear dependence on kinetic energy cannot be uniquely separated
+  from this observer alone. The convergence finding does not depend on that
+  linear-path assumption.
+
+  Minimal fix suggestion, before initialization:
+    /process/optical/cerenkov/setMaxBetaChange 0.1
+  Equivalent PhotonSim initialization:
+    #include "G4OpticalParameters.hh"
+    G4OpticalParameters::Instance()->SetCerenkovMaxBetaChange(0.1);
+  The API value is percent. This is a demonstrated convergence setting for
+  these inputs, not a universal proof of exact physics. Check runtime impact
+  and broader production spectra before adopting it globally.
+
+  Minimal unchanged-source repro: min_default.mac and min_small.mac contain
+  identical0.3MeV electron runs, differing only in the beta limit and output
+  name. run_minimal.sbatch invokes the exact original PhotonSim_v102 binary.
+  This gives8891 photons at10% versus9767 at0.1%, directly counted by the
+  unchanged production photon-wavelength histogram (job39972343,
+  milano/sdfmilan270,46seconds). This simple test requires no observer or
+  dense-index modification. Its lower yield shift than the dense control
+  is consistent with sampling/trajectory variation at these sample sizes.
+  The dense-index convergence controls are conv_default.mac, conv_small.mac,
+  conv_smaller.mac; their photon histogram counts independently match the
+  observer totals8881,9863,10095. These counts do not use segment labels.
+  Convergence job39971973 completed onmilano/sdfmilan271 in90seconds.
+
+Checks passed and scope limits
+  Actual material is H2O at1g/cm3 and293.15K, mean excitation energy78eV.
+  All ten phase-index values agree with Daimon–Masumura20C Sellmeier values
+  within5.5e−6. This verifies the cited model, not equivalence to actual SK
+  water temperature/composition. Source material calibration is still needed
+  before claiming exact real-detector agreement.
+  For beta>=0.8, replacing the original linear n(E) with the dense physical
+  Sellmeier fit changes the rate by at most0.0397% in the scanned range.
+  G4 defaults are100 mean photons/step and10% maximum proposed beta change.
+  Individual observed photons obey cos(theta)=1/(beta_mid*n(E)) to floating
+  precision, and their birth times match the G4 step formula. These verify
+  what G4 implements; local energy-angle-position consistency during a
+  slowing step is addressed by the convergence result above.
+  An independent exact conditional Frank–Tamm CDF test also passes for all
+  five saved photon samples:0.3MeV at three step settings,100MeV electrons,
+  and1GeV muons. KS p-values range0.146–0.890 across8881–200000 photons.
+  This checks spectrum and its dispersion relationship with the sampled
+  angle, conditional on G4's step-mean beta. It does not vindicate that
+  step-mean approximation or test detector transport. See spectrum_results.json
+  and job39972392 (milano/sdfmilan270).
+  Endpoint discrete energy losses can enter G4's midpoint beta because
+  Cerenkov PostStep order1000 follows ionisation2/brems3/annihilation5.
+  This is a source-level mechanism, not yet a quantified production bug.
+
+Primary references
+  Daimon & Masumura, Appl. Opt.46(18),3811(2007), Table2:
+    https://opg.optica.org/ao/abstract.cfm?uri=ao-46-18-3811
+  G4 implementation (readable patch-version source; numerical test uses
+  actual installed11.3.0 binary):
+    https://raw.githubusercontent.com/Geant4/geant4/v11.3.2/source/processes/electromagnetic/xrays/src/G4Cerenkov.cc
+  PDG2024 passage through matter, Cherenkov section34.7:
+    https://pdg.lbl.gov/2024/reviews/rpp2024-rev-passage-particles-matter.pdf
+  G4 optical defaults:
+    https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/electromagnetic/utils/src/G4OpticalParameters.cc
+
+Artifacts
+  mean_yield.cc + run_mean.sbatch + analyze_mean.py -> mean_results.json
+  prepare_tracks.py + run_tracks.sbatch -> isolated coarse/dense builds
+  analyze_tracks.py -> track_results.json
+  run_fine.sbatch -> independent fine-beta step convergence
+  run_convergence.sbatch ->10000-event focused three-setting convergence
+  min_default.mac/min_small.mac + run_minimal.sbatch -> unchanged-source repro
+  check_spectrum.py + run_spectrum.sbatch -> conditional energy-spectrum test

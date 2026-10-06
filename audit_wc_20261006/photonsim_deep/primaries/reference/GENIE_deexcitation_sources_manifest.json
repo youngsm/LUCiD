@@ -1,0 +1,158 @@
+[
+  {
+    "file": "GENIE_R-3_04_00_GHepStatus.h",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Framework/GHEP/GHepStatus.h",
+    "github_blob_sha": "f19aac8d568e08353ff26577a52ae013b909b01b",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_PDGCodes.h",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Framework/ParticleData/PDGCodes.h",
+    "github_blob_sha": "2e14a519361bdd9aec426d3c244fc7d6bd127d4e",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_gNtpConv.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Apps/gNtpConv.cxx",
+    "github_blob_sha": "ace4f0b44b998f4b15048ed3be4d36d36ae31d97",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_NucDeExcitationSim.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/NuclearDeExcitation/NucDeExcitationSim.cxx",
+    "github_blob_sha": "c2ad79f2a908877f305332aaa952219305b001c6",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_Intranuke2018.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/HadronTransport/Intranuke2018.cxx",
+    "github_blob_sha": "89cb2884887ccd1d0d36886328264e5db5d95b8a",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_HAIntranuke2018.h",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/HadronTransport/HAIntranuke2018.h",
+    "github_blob_sha": "53789c07e3546e6cd30cd5bd6d4f1fc9695306aa",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_EventGenerator.xml",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/config/EventGenerator.xml",
+    "github_blob_sha": "d1a418a16a2d5f66c61e60aaa20ee3accc28b7de",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_G18_10a_ModelConfiguration.xml",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/config/G18_10a/ModelConfiguration.xml",
+    "github_blob_sha": "95c99abbfe699fd9fb27e0adaa837e5233122c21",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_G18_10a_TuneGeneratorList.xml",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/config/G18_10a/TuneGeneratorList.xml",
+    "github_blob_sha": "938e2240620f8a4a1b33b21dc3a9f016f3404dc8",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_NucDeExcitationSim.xml",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/config/NucDeExcitationSim.xml",
+    "github_blob_sha": "3890904ba21180f5dfb7693ccd0bc9358b269a27",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_06_02_NucDeExcitationSim.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_06_02/src/Physics/NuclearDeExcitation/NucDeExcitationSim.cxx",
+    "github_blob_sha": "ad633cd2a488c59b05f62cde032f06b2c8939068",
+    "ref": "R-3_06_02"
+  },
+  {
+    "file": "GENIE_R-3_06_02_Intranuke2018.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_06_02/src/Physics/HadronTransport/Intranuke2018.cxx",
+    "github_blob_sha": "84d563c4031a7bfb26ea932d4ab1d64a8cf7f210",
+    "ref": "R-3_06_02"
+  },
+  {
+    "file": "GENIE_R-3_06_02_gNtpConv.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_06_02/src/Apps/gNtpConv.cxx",
+    "github_blob_sha": "a450e52b73bb190255653a4e9054aadedc98258f",
+    "ref": "R-3_06_02"
+  },
+  {
+    "file": "GENIE_R-3_04_00_COHHadronicSystemGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Coherent/EventGen/COHHadronicSystemGenerator.cxx",
+    "github_blob_sha": "147a8039555658836b25e222a236f2164d60eb36",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_QELEventGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/QuasiElastic/EventGen/QELEventGenerator.cxx",
+    "github_blob_sha": "186b3da98c076a0f066a85f86815dc22febc0397",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_QELPrimaryLeptonGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/QuasiElastic/EventGen/QELPrimaryLeptonGenerator.cxx",
+    "github_blob_sha": "5554b93127e1de5e7c240edfe1ed6ff65a47232b",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_RESPrimaryLeptonGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Resonance/EventGen/RESPrimaryLeptonGenerator.cxx",
+    "github_blob_sha": "bc0d782aa8400728a59de12b9be01c375bd3abdf",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_DISPrimaryLeptonGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/DeepInelastic/EventGen/DISPrimaryLeptonGenerator.cxx",
+    "github_blob_sha": "f47c9d20ea021a0148e235ead9f26080b85e6287",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_MECGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Multinucleon/EventGen/MECGenerator.cxx",
+    "github_blob_sha": "874322f8d027b3c315435bb99b408a015a836901",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_COHPrimaryLeptonGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Coherent/EventGen/COHPrimaryLeptonGenerator.cxx",
+    "github_blob_sha": "dec269278f9d7cbd12b9b367b43129e7f81c78c1",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_PrimaryLeptonUtils.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Common/PrimaryLeptonUtils.cxx",
+    "github_blob_sha": "25ad55800bddf9f75e1ce957b671e6d8473d1ec9",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_GHepParticle.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Framework/GHEP/GHepParticle.cxx",
+    "github_blob_sha": "a34d0e9f01ea7fffcfe99fb5f109f464b162641c",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_04_00_PDGUtils.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Framework/ParticleData/PDGUtils.cxx",
+    "github_blob_sha": "d84a6ee6866209e50d0c6b5fec19fc9891531b9a",
+    "ref": "R-3_04_00"
+  },
+  {
+    "file": "GENIE_R-3_06_02_PrimaryLeptonUtils.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_06_02/src/Physics/Common/PrimaryLeptonUtils.cxx",
+    "github_blob_sha": "5879d4e2f7a4e1a167ac11005dbf7d6cca8829a2",
+    "ref": "R-3_06_02"
+  },
+  {
+    "file": "GENIE_R-3_06_02_QELEventGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_06_02/src/Physics/QuasiElastic/EventGen/QELEventGenerator.cxx",
+    "github_blob_sha": "a04dddbc228bee7936db40d99340f9218b4d83ed",
+    "ref": "R-3_06_02"
+  },
+  {
+    "file": "GENIE_R-3_04_00_PrimaryLeptonGenerator.cxx",
+    "source_url": "https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Common/PrimaryLeptonGenerator.cxx",
+    "github_blob_sha": "eadf9155d5d2e64d4e0c479566f7bed56ab8690b",
+    "ref": "R-3_04_00"
+  }
+]

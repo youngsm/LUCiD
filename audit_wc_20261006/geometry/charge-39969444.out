@@ -1,0 +1,94 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+Building baseline
+baseline {'seed': 701, 'total_pe': 13206.986328125, 'pe_after150ns': 1206.9990234375, 'pe_after300ns': 67.00015258789062}
+baseline {'seed': 702, 'total_pe': 13360.986328125, 'pe_after150ns': 1257.9989013671875, 'pe_after300ns': 79.00015258789062}
+baseline {'seed': 703, 'total_pe': 13157.986328125, 'pe_after150ns': 1170.9990234375, 'pe_after300ns': 74.00013732910156}
+Building fixed
+fixed {'seed': 701, 'total_pe': 13194.986328125, 'pe_after150ns': 1205.9990234375, 'pe_after300ns': 73.0001449584961}
+fixed {'seed': 702, 'total_pe': 13346.986328125, 'pe_after150ns': 1255.9990234375, 'pe_after300ns': 82.0001449584961}
+fixed {'seed': 703, 'total_pe': 13179.986328125, 'pe_after150ns': 1196.9990234375, 'pe_after300ns': 86.0001220703125}
+{
+  "job": "39969444",
+  "partition": "milano",
+  "n_per_seed": 200000,
+  "seeds": [
+    701,
+    702,
+    703
+  ],
+  "source": "isotropic uniform fiducial volume, 1/lambda^2 300-650nm",
+  "runs": {
+    "baseline": [
+      {
+        "seed": 701,
+        "total_pe": 13206.986328125,
+        "pe_after150ns": 1206.9990234375,
+        "pe_after300ns": 67.00015258789062
+      },
+      {
+        "seed": 702,
+        "total_pe": 13360.986328125,
+        "pe_after150ns": 1257.9989013671875,
+        "pe_after300ns": 79.00015258789062
+      },
+      {
+        "seed": 703,
+        "total_pe": 13157.986328125,
+        "pe_after150ns": 1170.9990234375,
+        "pe_after300ns": 74.00013732910156
+      }
+    ],
+    "fixed": [
+      {
+        "seed": 701,
+        "total_pe": 13194.986328125,
+        "pe_after150ns": 1205.9990234375,
+        "pe_after300ns": 73.0001449584961,
+        "paired_delta": [
+          -11.999991416931152,
+          -1.0000028610229492,
+          5.999991416931152
+        ],
+        "paired_sigma": [
+          12.409660339355469,
+          10.816642761230469,
+          5.477220058441162
+        ]
+      },
+      {
+        "seed": 702,
+        "total_pe": 13346.986328125,
+        "pe_after150ns": 1255.9990234375,
+        "pe_after300ns": 82.0001449584961,
+        "paired_delta": [
+          -13.999980926513672,
+          -1.9999938011169434,
+          3.000002145767212
+        ],
+        "paired_sigma": [
+          13.711295127868652,
+          12.247435569763184,
+          5.744556903839111
+        ]
+      },
+      {
+        "seed": 703,
+        "total_pe": 13179.986328125,
+        "pe_after150ns": 1196.9990234375,
+        "pe_after300ns": 86.0001220703125,
+        "paired_delta": [
+          21.999971389770508,
+          25.99996566772461,
+          11.999981880187988
+        ],
+        "paired_sigma": [
+          12.806235313415527,
+          10.954440116882324,
+          5.656848430633545
+        ]
+      }
+    ]
+  }
+}

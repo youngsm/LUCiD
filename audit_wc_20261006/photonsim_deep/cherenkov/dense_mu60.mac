@@ -1,0 +1,10 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_mu60.root
+
+/run/initialize
+/random/setSeeds 718192 192817
+/photon/storeIndividual false
+/gun/clearPrimaries
+/gun/addPrimary mu- 60 MeV
+/gun/position 0 0 0 m
+/gun/direction 0 0 1
+/run/beamOn 30

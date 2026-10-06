@@ -1,0 +1,152 @@
+SK_WAND electronics physical-reference crosscheck, 2026-10-06
+
+Later evidence update: high_charge_finding.txt supersedes the initial
+production-occupancy gap below. Exact GeV bomb event5 has1190PE on one PMT;
+raw replay job39970809 establishes1152PE within1ns (96.8067%). Prompt
+optical reachability is confirmed; the precise calibrated anode correction
+remains unmeasured. See ../high_charge_finding.txt for bounded impact.
+
+Scope: independent static inspection of current digitizer.py, trigger.py,
+event_generation.py readout wiring, SK_WAND configs, and primary publications.
+No simulation, numerical test, or Python import was run on the login node.
+No production code was changed. This file contains validation gaps, not newly
+confirmed campaign-wide large defects.
+
+1. Do not promote WCSim's dark-rate conversion into a proven physical fix.
+
+Current LUCiD generates 4.2 kHz/PMT before SPE charge sampling and the
+0.25-pe discriminator. The earlier electronics audit measured 3.226 kHz
+after that discriminator. Upstream WCSim additionally multiplies raw noise
+by 1.367. However, its own PMT20inch::GetDarkRate source provenance says
+the SK-I 4.2 kHz value was BEFORE threshold in SKDETSim and the measured
+post-threshold rate was 3.4 kHz. These statements conflict with interpreting
+4.2 kHz as a measured post-threshold target. A factor-1.367 parity patch
+therefore cannot be justified as physical correctness without choosing the
+detector period and calibrated rate. Source:
+https://github.com/WCSim/WCSim/blob/7a15837bd8be5cf26a1989083e50d1c4400e13e5/src/WCSimPMTObject.cc#L251
+The raw-source copy inspected is at:
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_review_20261004/electronics/reference/WCSimPMTObject.cc
+
+2. Nonlinearity/saturation is absent, but production occupancy is needed.
+
+digitizer.py lines310-333 sum a linear SPE response without a saturation
+factor; lines402-411 directly write it as the digit charge. No PMT/anode or
+electronics dynamic-range response was found in the production readout.
+Primary SK calibration establishes that PMT response departs from linearity
+at large charges (section3.1.7, printed page23; PDF page22): approximately
+linear through200pe, >10% deviation above1000pe. The SK simulation models
+the measured average response. Source:
+https://arxiv.org/pdf/1307.0162 (section3.1.7, Figure19)
+
+This is a physical omission if WAND generates sufficiently bright PMTs,
+but prevalence and event-level bias have NOT been established here. The
+next discriminating test is a Slurm-side charge-occupancy scan of actual
+production events: fractions of digits and total charge above200/1000pe.
+A synthetic million-pe digit alone proves unbounded behavior but cannot
+prove that the campaign occupies that domain. Minimal eventual fix: apply
+a detector-calibrated response curve after charge integration, with an
+explicit electronics range if modeling a specific SK period. Do not use
+an arbitrary clamp as a claimed physical fix.
+
+3. Timing model is WCSim-like, not an exact calibrated real-SK distribution.
+
+The current sampled-charge timing fix is present: line410 passes pe_reco,
+and the ski model floors it at0.5pe. The Gaussian width and rounding are
+implemented as described by the preset. The primary SK timing calibration
+has unequal early/late widths and per-channel charge-time corrections:
+https://arxiv.org/pdf/1307.0162 (section3.1.8, Figures23-24)
+Figure23 contains unequal fitted widths near1pe. A direct ratio between
+the paper's summary2.1ns and LUCiD's sigma(1pe) is NOT a defensible new
+bug calculation: the source uses a two-sided fit and its conventions and
+SK period must be matched. This remains a physical-validation gap.
+
+4. Missing afterpulses are not established as a new in-scope large defect.
+
+LUCiD production digitization has independent Poisson dark noise and no
+correlated afterpulse response. SK has measured afterpulse backgrounds:
+https://journals.aps.org/prd/abstract/10.1103/PhysRevD.110.032003
+Reference note34 describes false/poorly reconstructed signals10-20us after
+bright cosmic muons. That example substantially overlaps the user's
+accepted late-light exclusions, and no applicable WAND yield or earlier
+afterpulse spectrum was established. Do not report it as a proven large
+production bug from absence of code alone.
+
+5. Discriminator/window causality is a model approximation to scrutinize.
+
+The digitizer opens the200ns integration gate at the first photoelectron,
+sums all later deposits, and only then applies a discriminator to the total
+sampled charge. Actual hardware opens on a threshold-crossing analog pulse.
+A low-charge leading electron followed by a well-separated accepted pulse
+can therefore give different recorded timing. WCSim uses similar simplified
+windowing. No detector-calibrated waveform reproduction or WAND impact was
+established; do not turn this argument into a numerical campaign-bias claim.
+
+6. Prior default-padding issue is no longer the old100ns configuration.
+
+event_generation._dark_readout_pad_ns(trigger_cfg), lines158-170, supplies
+max(pre,post)+window. For SK_WAND this is500ns, and both direct production
+digitize_and_decompose and pooled paths receive it. The helper's claim
+that it covers EVERY noise-driven gate is stronger than the algebra
+warrants, since noise itself may sustain a trigger near the generated
+span boundary. Any residual case needs a probability/impact assessment;
+it is not the old deterministic lack of dark noise in300ns gate padding.
+
+Potential optical crosscheck forwarded to the parent: primary R3600
+collection efficiency is about73% over the46cm active area in
+https://s3.cern.ch/inspire-prod-files-f/fd23eeff10e09b37f7ce3283940a852f
+Check whether SK_QE represents QE or already folded photon detection
+efficiency before treating a missing explicit CE multiplier as a bug.
+
+FOLLOW-UP: production occupancy and Figure19 inspection
+
+The parent reports a fresh production-path GeV/01_pbomb event with1190 true
+PE assigned to one digit and1154 reconstructed PE. Event5 contains
+mu+1802.76MeV, e-697.687MeV, pi-1036.01MeV and is uncontained. This was
+reported by the parent, not rerun or independently read by this subagent.
+It establishes a realistic production input scale at which a missing PMT
+nonlinear response merits an explicit finding and minimal synthetic probe.
+
+I independently downloaded the primary article's HTML and native Figure19:
+https://arxiv.org/html/1307.0162v2
+https://arxiv.org/html/1307.0162v2/nonlin02-2.svg
+Local files: 1307.0162v2.html, sk_id_nonlinearity_fig19.svg, and the rendered
+sk_id_nonlinearity_fig19.png. Rendering is document inspection, not a
+numerical simulation/test. No Python import or simulation was run here.
+
+The plotted ordinate is observed/expected. At high charge, the average
+turns DOWN: this is compression, not a positive superlinear enhancement.
+The visibly plotted average is roughly0.96 near600-700pe. The plotted
+means do not provide a precise tabulated response value at1190pe. The text
+states deviations exceed10% above1000pe; that supports the scale of this
+physical effect but is not a calibrated deterministic1190->1071pe bound
+for every PMT/pulse. In particular:
+
+* A single random reconstructed value1154 must not be compared with a mean
+  calibration curve as though it were the simulation's systematic bias.
+* The calibration illuminates PMTs with a short laser pulse. A1190pe sum
+  spread over200ns is not equivalent to1190 nearly simultaneous PE, because
+  space-charge/anode nonlinearity depends on pulse current. Check the raw
+  arrival-time concentration of the bright production digit before asserting
+  its exact physical suppression. A synthetic1190-PE coincident pulse is a
+  valid existence proof for the missing response within the observed scale.
+* The measurement is SK-IV, with the same R3600-05(A) ID PMT family. The
+  article explicitly separates PMT nonlinearity from QBEE electronics, which
+  remain linear within1% over their ranges. Therefore labeling LUCiD's model
+  ski does not eliminate the PMT/anode issue. Quantitative transfer between
+  periods still needs the operating gain and pulse-shape convention.
+* Do not use the8-inch OD fit Q/(1+kQ) from section4.4.2 for20-inch ID PMTs.
+
+Suggested precise finding language:
+"The SK_WAND readout is linear at arbitrarily high pulse charge, although
+normal production already produces individual digits above1000PE. Real
+SK ID PMTs exhibit charge compression in this range, and SK's calibration
+reports deviations exceeding10% above1000PE. The response is missing from
+LUCiD. Its event-level bias has not been calibrated; pulse timing, PMT gain,
+and the fraction of event charge in bright channels determine that bias."
+
+Minimal credible fix is a separately configurable PMT charge-response curve
+applied to compact analog pulse groups, before final digit output (and in
+the appropriate order with timing calibration), using an ID-PMT measured
+curve. Merely imposing the old ATM450pC ceiling is a different electronics
+choice, and arbitrarily selecting a WCSim SaturFactor threshold is not a
+proof of calibration: upstream permits threshold=-1, which disables it.

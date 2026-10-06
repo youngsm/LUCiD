@@ -1,0 +1,10 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/conv_smaller.root
+/process/optical/cerenkov/setMaxBetaChange 0.01
+/run/initialize
+/random/setSeeds 493821 128394
+/photon/storeIndividual false
+/gun/clearPrimaries
+/gun/addPrimary e- 0.3 MeV
+/gun/position 0 0 0 m
+/gun/direction 0 0 1
+/run/beamOn 10000

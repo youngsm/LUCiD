@@ -1,0 +1,162 @@
+{
+  "gamma25": {
+    "baseline": {
+      "n": 2000,
+      "mean_photons": 5287.4555,
+      "mean_photons_se": 7.549134236701376,
+      "min_photons": 3696.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 25.000000000337852,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 2000,
+      "mean_photons": 5109.7025,
+      "mean_photons_se": 21.46622620375063,
+      "min_photons": 0.0,
+      "mean_neutrons": 0.004,
+      "fraction_with_neutrons": 0.004,
+      "mean_edep_MeV": 24.509126608140516,
+      "gamma_nuclear_count": 75,
+      "gamma_nuclear_event_fraction": 0.0375,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 75,
+      "primary_nuclear_event_fraction": 0.0375
+    },
+    "comparison": {
+      "relative_photon_change": -0.033617871583032644,
+      "mean_photon_difference_sigmas": -7.811614894376824
+    }
+  },
+  "gamma2000": {
+    "baseline": {
+      "n": 400,
+      "mean_photons": 435624.6225,
+      "mean_photons_se": 160.05483905131933,
+      "min_photons": 425809.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 1999.9783679529635,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 400,
+      "mean_photons": 432267.8825,
+      "mean_photons_se": 1089.1936476078106,
+      "min_photons": 52973.0,
+      "mean_neutrons": 0.1325,
+      "fraction_with_neutrons": 0.0475,
+      "mean_edep_MeV": 1992.2708634649932,
+      "gamma_nuclear_count": 146,
+      "gamma_nuclear_event_fraction": 0.3075,
+      "electron_nuclear_count": 1,
+      "electron_nuclear_event_fraction": 0.0025,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 1,
+      "primary_nuclear_event_fraction": 0.0025
+    },
+    "comparison": {
+      "relative_photon_change": -0.007705579130803164,
+      "mean_photon_difference_sigmas": -3.049112842991938
+    }
+  },
+  "electron2000": {
+    "baseline": {
+      "n": 400,
+      "mean_photons": 436331.7,
+      "mean_photons_se": 174.8617220967373,
+      "min_photons": 425548.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 1999.9836496240925,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 400,
+      "mean_photons": 432951.36,
+      "mean_photons_se": 594.3396627141655,
+      "min_photons": 275380.0,
+      "mean_neutrons": 0.16,
+      "fraction_with_neutrons": 0.0575,
+      "mean_edep_MeV": 1993.0348839831072,
+      "gamma_nuclear_count": 132,
+      "gamma_nuclear_event_fraction": 0.2825,
+      "electron_nuclear_count": 1,
+      "electron_nuclear_event_fraction": 0.0025,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "comparison": {
+      "relative_photon_change": -0.007747179496699452,
+      "mean_photon_difference_sigmas": -5.456305792143609
+    }
+  },
+  "muon2000": {
+    "baseline": {
+      "n": 1000,
+      "mean_photons": 451608.03,
+      "mean_photons_se": 146.07045664817167,
+      "min_photons": 367511.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 2036.6442031992267,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 1000,
+      "mean_photons": 451585.436,
+      "mean_photons_se": 166.19897650013883,
+      "min_photons": 329806.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 2036.5348121890845,
+      "gamma_nuclear_count": 12,
+      "gamma_nuclear_event_fraction": 0.012,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "comparison": {
+      "relative_photon_change": -5.0030111289345314e-05,
+      "mean_photon_difference_sigmas": -0.10211235275956342
+    }
+  }
+}

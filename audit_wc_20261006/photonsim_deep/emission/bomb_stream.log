@@ -1,0 +1,32 @@
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Accumulable registered as "accumulable_0"
+Accumulable registered as "accumulable_1"
+Output filename set to: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/emission/bomb_stream.root
+Checking overlaps for volume Detector:0 (G4Box) ... OK! 
+### Birks coefficients used in run time
+Individual photon storage: enabled
+Per-photon process name storage: enabled
+Chunked photon streaming: enabled
+ROOT file /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/emission/bomb_stream.root created for optical photon data
+1D wavelength histogram created: 800 bins from 0-800 nm
+
+### Starting run with 3 events ###
+Progress: [>                                       ] 0.0% (0/3) Elapsed: 0s     Progress: [=============>                          ] 33.3% (1/3) Elapsed: 6s ETA: 12s     Progress: [==========================>             ] 66.7% (2/3) Elapsed: 7s ETA: 3s     
+
+--------------------End of Global Run-----------------------
+ The run consists of 3 pi- of 1.5535 GeV
+------------------------------------------------------------
+
+OpticalPhotonsRaw written with 15 chunk entries
+Photon wavelength histogram written with 1363784.0 entries
+Photon distance (s) histogram written with 1363784.0 entries
+ROOT file closed with 3 events

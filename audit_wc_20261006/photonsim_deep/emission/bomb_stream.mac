@@ -1,0 +1,45 @@
+# PhotonSim macro (particle bomb)
+# Configuration: particle bomb (single vertex)
+# Config Number: -00001
+# Material: water
+# Multiplicity per event: Uniform[1, 5]
+# Candidate pool (8 entries):
+#   e-: [1, 2000] MeV
+#   e+: [1, 2000] MeV
+#   mu-: [200, 2000] MeV
+#   mu+: [200, 2000] MeV
+#   pi+: [200, 2000] MeV
+#   pi-: [200, 2000] MeV
+#   pi0: [200, 2000] MeV
+#   gamma: [1, 2130] MeV
+
+# Set output filename before initialization
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/emission/bomb_stream.root
+
+/run/initialize
+
+/random/setSeeds 314159 271828
+
+/photon/storeIndividual true
+/photon/storeProcessName true
+/photon/streamPhotonsChunked true
+
+# Decays ENABLED
+
+# Bomb candidate pool
+/gun/clearPrimaries
+/gun/bombClearCandidates
+/gun/bombMinParticles 1
+/gun/bombMaxParticles 5
+/gun/bombAddCandidate e- 1 2000 MeV
+/gun/bombAddCandidate e+ 1 2000 MeV
+/gun/bombAddCandidate mu- 200 2000 MeV
+/gun/bombAddCandidate mu+ 200 2000 MeV
+/gun/bombAddCandidate pi+ 200 2000 MeV
+/gun/bombAddCandidate pi- 200 2000 MeV
+/gun/bombAddCandidate pi0 200 2000 MeV
+/gun/bombAddCandidate gamma 1 2130 MeV
+/gun/bombMode true
+
+# Run 3 events
+/run/beamOn 3

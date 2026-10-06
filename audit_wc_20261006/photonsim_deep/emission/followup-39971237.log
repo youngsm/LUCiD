@@ -1,0 +1,108 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{
+  "slurm_job": "39971237",
+  "partition": "milano",
+  "observer_neutrality_verified": true,
+  "rows": [
+    {
+      "scenario": "electron",
+      "event": 0,
+      "photons": 22420,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 122,
+      "segment_L1_using_exact_creation_times": 122
+    },
+    {
+      "scenario": "electron",
+      "event": 1,
+      "photons": 21140,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 100,
+      "segment_L1_using_exact_creation_times": 100
+    },
+    {
+      "scenario": "electron",
+      "event": 2,
+      "photons": 21863,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 98,
+      "segment_L1_using_exact_creation_times": 98
+    },
+    {
+      "scenario": "muon",
+      "event": 0,
+      "photons": 215387,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 426,
+      "segment_L1_using_exact_creation_times": 426
+    },
+    {
+      "scenario": "muon",
+      "event": 1,
+      "photons": 217190,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 418,
+      "segment_L1_using_exact_creation_times": 418
+    },
+    {
+      "scenario": "pion",
+      "event": 0,
+      "photons": 83983,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 528,
+      "segment_L1_using_exact_creation_times": 528
+    },
+    {
+      "scenario": "pion",
+      "event": 1,
+      "photons": 105666,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 294,
+      "segment_L1_using_exact_creation_times": 294
+    },
+    {
+      "scenario": "pion",
+      "event": 2,
+      "photons": 78318,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 196,
+      "segment_L1_using_exact_creation_times": 196
+    },
+    {
+      "scenario": "gamma",
+      "event": 0,
+      "photons": 144,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 8,
+      "segment_L1_using_exact_creation_times": 8
+    },
+    {
+      "scenario": "gamma",
+      "event": 1,
+      "photons": 199,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 4,
+      "segment_L1_using_exact_creation_times": 4
+    },
+    {
+      "scenario": "gamma",
+      "event": 2,
+      "photons": 117,
+      "baseline_identical": true,
+      "time_rewind_changed_segment_assignments": 0,
+      "segment_L1_using_current_record_times": 4,
+      "segment_L1_using_exact_creation_times": 4
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+baseline {'initial_pmt_hits': 179869, 'sampled_pmt_reflections': 44806, 'false_same_pmt_hits': 1820, 'fraction': 0.04061955988037316, 'example': {'idx': 207, 'sensor': 9623, 'origin': [-11.821776390075684, 7.424383640289307, -11.694117546081543], 'direction': [0.9525371789932251, 0.11565133184194565, -0.2815985083580017], 'key': [432153015, 2986635259], 'new_origin': [10.064401626586914, 10.081613540649414, -18.164339065551758], 'new_direction': [-0.23627173900604248, -0.9637988209724426, -0.12356187403202057]}}
+fixed {'initial_pmt_hits': 179919, 'sampled_pmt_reflections': 44822, 'false_same_pmt_hits': 0, 'fraction': 0.0}
+{
+  "job": "39969881",
+  "jax": "0.11.0",
+  "n": 200000,
+  "baseline": {
+    "initial_pmt_hits": 179869,
+    "sampled_pmt_reflections": 44806,
+    "false_same_pmt_hits": 1820,
+    "fraction": 0.04061955988037316,
+    "example": {
+      "idx": 207,
+      "sensor": 9623,
+      "origin": [
+        -11.821776390075684,
+        7.424383640289307,
+        -11.694117546081543
+      ],
+      "direction": [
+        0.9525371789932251,
+        0.11565133184194565,
+        -0.2815985083580017
+      ],
+      "key": [
+        432153015,
+        2986635259
+      ],
+      "new_origin": [
+        10.064401626586914,
+        10.081613540649414,
+        -18.164339065551758
+      ],
+      "new_direction": [
+        -0.23627173900604248,
+        -0.9637988209724426,
+        -0.12356187403202057
+      ]
+    }
+  },
+  "fixed": {
+    "initial_pmt_hits": 179919,
+    "sampled_pmt_reflections": 44822,
+    "false_same_pmt_hits": 0,
+    "fraction": 0.0
+  }
+}
+warning: `--no-sync` has no effect when used alongside `--no-project`
+{
+  "photon_draws": 6000000,
+  "job": "39969707",
+  "source": "isotropic uniform fiducial volume, 1/lambda^2 300-650nm",
+  "total_pe": {
+    "baseline": 396553.58984375,
+    "fixed": 396258.58984375,
+    "delta": -294.9996542930603,
+    "paired_sigma": 72.2979184795376,
+    "relative_delta": -0.0007439086717366398,
+    "significance": -4.080333991587237
+  },
+  "pe_after150ns": {
+    "baseline": 35898.97058105469,
+    "fixed": 35814.970703125,
+    "delta": -83.99989128112793,
+    "paired_sigma": 63.937403166455375,
+    "relative_delta": -0.0023398969363611225,
+    "significance": -1.3137832805383358
+  },
+  "pe_after300ns": {
+    "baseline": 2129.0043449401855,
+    "fixed": 2145.0043563842773,
+    "delta": 16.000020027160645,
+    "paired_sigma": 34.029363895918074,
+    "relative_delta": 0.00751525945223478,
+    "significance": 0.4701827538151513
+  }
+}

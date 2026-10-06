@@ -1,0 +1,109 @@
+Partition=milano Job=39969911 Host=sdfmilan271
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/electron.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron
+    Dataset:    wc_actual_audit_electron
+    file_index: 0
+    n_events:   5
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: 0f125d89-7ef3-4fc6-b63a-2bc134ad5dee
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/electron.root
+  Found 5 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 5 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 5 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 3.20s
+  rays= 2,048: 3.14s
+  rays= 8,192: 3.17s
+  rays=32,768: 3.24s
+Processing batch 1/1 (events 0 to 4)
+
+  Event 1/5 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.068s
+    Raw: photons=22,420  segments=2,943
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.36s
+    [timing] simulate 0.364s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.005s
+    [timing] meta_contain 0.000s
+    Event total time: 0.83s
+
+  Event 2/5 (index 1):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.065s
+    Raw: photons=21,140  segments=3,286
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.37s
+    [timing] simulate 0.372s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.005s
+    [timing] meta_contain 0.000s
+    Event total time: 0.45s
+
+  Event 3/5 (index 2):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.064s
+    Raw: photons=21,863  segments=3,255
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.32s
+    [timing] simulate 0.320s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.005s
+    [timing] meta_contain 0.000s
+    Event total time: 0.40s
+
+  Event 4/5 (index 3):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.082s
+    Raw: photons=22,743  segments=3,048
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.34s
+    [timing] simulate 0.336s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.005s
+    [timing] meta_contain 0.000s
+    Event total time: 0.43s
+
+  Event 5/5 (index 4):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.056s
+    Raw: photons=22,257  segments=2,952
+    [timing] preprocess 0.000s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 0.34s
+    [timing] simulate 0.338s
+MAX_FINITE_PHOTON_PE_DEVIATION 1.0132789611816406e-06 UNIQUE_NONUNIT [0.99999899]
+    [timing] post_jax 0.007s
+    [timing] meta_contain 0.000s
+    Event total time: 0.41s
+Saving batch 1 as four-file group...
+Batch 1 save time: 0.159s
+
+
+Successfully wrote 1 batches (4 files total) to /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron/{sensor,hits,step,labl}/
+Average event processing time: 0.503s
+LUCiD wrote 4 files under /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/electron/{sensor,hits,step,labl}/
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/check_actual_production.py", line 105, in <module>
+    assert np.allclose(hit_counts, seg_counts, rtol=2e-6, atol=2e-5), 'Particle and segment truth charge mismatch'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Particle and segment truth charge mismatch

@@ -1,0 +1,63 @@
+{
+  "commit": "20df309",
+  "scope": "Canonical SK_WAND DATA transport orchestration, Bernoulli QE/reflect/continuation exclusivity, per-photon flattening, bucket padding and K=12 termination",
+  "confirmed_new_production_bugs": [],
+  "diagnostic_only_limitations": [
+    {
+      "scope": "config/SK_WAND_physics_config_scat10x.json, not canonical SK_WAND production",
+      "problem": "Reusing production K=12 in the 10x-scattering diagnostic discards a material fraction of surviving detectable light.",
+      "evidence": "Milano job 39967677, 8192 photons per wavelength at centre/near-wall locations: fraction of K24 expected-QE light deposited after K12 is 25.27% at 300nm, 10.53% at 325nm, 2.56% at 350nm, 0.661% at 375nm, 0.107% at 400nm. K24 still contains a nonzero terminal tail at 300/325nm, so these are lower bounds on the loss relative to fully converged propagation.",
+      "minimal_repro": "sbatch --export=ALL,AUDIT_PHYSICS_CONFIG=config/SK_WAND_physics_config_scat10x.json,AUDIT_RESULT_NAME=scat10x_results.json audit_wc_20261006/simulator_statistics/run_cpu.sh",
+      "reachability": "lucid/production/jobs/fitqun/configs/attenscat10x.json selects this physics file. generate_sample_jobs.py:job_command omits --K, so fitqun/__main__.py's sample-run --K default12 and sample_propagate.py:47's K=12 apply to the intended diagnostic workflow.",
+      "minimal_fix": "Pass a larger K for high-scattering diagnostic runs and verify iteration convergence; the fitqun sample-run CLI already accepts --K, so wire a K field from the diagnostic JSON through generate_sample_jobs.job_command, keeping the default12 for canonical production.",
+      "artifact": "scat10x_results.json",
+      "longer_iteration_validation": "Milano39969610 reran identical photons/random seed with K96. The K12 deficit relative to K96 is 31.80% at300nm, 11.52% at325nm, 2.63% at350nm, 0.661% at375nm, 0.107% at400nm. Last24 iterations carry no additional detected weight for this finite sample. Artifact scat10x_K96_results.json. K96 is an empirically sufficient setting for this diagnostic sample; other geometries/optical settings need their own convergence check."
+    }
+  ],
+  "executed_checks": [
+    {
+      "job_id": "39967555",
+      "partition": "milano",
+      "script": "check_statistics.py",
+      "results": "results.json",
+      "meaning": "65,536 actual DATA rays across 8 wavelengths (300--600 nm) and two emission locations. Transport uses actual sampled branches; per_photon output analytically applies QE to expose light versus iteration without K-dependent QE RNG effects.",
+      "outcome": "No major deposit after step 9, zero light at steps 13--24, no source photon has more than one major deposit. Flat expected QE charge 4348.97754 matches per-sensor charge 4348.97803. Synthetic exact-label kernel verifies all candidate/step rows survive N=37 bucket sizes 16,16,8 with no padding leakage and correct sensor/segment/global-photon alignment."
+    },
+    {
+      "job_id": "39967640",
+      "partition": "milano",
+      "script": "check_bernoulli.py",
+      "results": "bernoulli_results.json",
+      "meaning": "65,536 actual per_segment DATA photons aimed at a real SK_WAND PMT with 0.246 m travel, four wavelength groups, K=12 and full physical absorption/scattering/reflection/QE.",
+      "outcome": "All 13,017 finite detected rows have unit PE to the first-hit clip tolerance. Each source photon has at most one valid detected row. Direct QE marginal rates agree with QE*exp[-D*(1/L_R+1/L_M+1/L_A)], largest |z|=1.44. Block-count variance ratios 0.875--0.979 are consistent with binomial fluctuations."
+    }
+  ],
+  "code_review_cleared_hypotheses": [
+    {
+      "hypothesis": "QE random key collides with first propagation-step random stream",
+      "resolution": "simulator.py:775 splits the initial key and takes branch 1; propagation_step's first split at 606 leaves branch 1 (prop_key) unused, then derives actual photon-update keys only under branch 0. Branches therefore do not collide. Later iterations descend from branch 0."
+    },
+    {
+      "hypothesis": "Same photon is counted at multiple PMTs by per-candidate QE draws",
+      "resolution": "Sampled survival terminates at the non-reflecting surface interaction. The hard first_hit_survival weights have one major candidate and sub-threshold residuals. Full per_segment test observed zero multiple finite-time detections."
+    },
+    {
+      "hypothesis": "Tiny first_hit_survival residuals become full ghost PE through digitizer minimum-one rounding",
+      "resolution": "first_hit_survival clips p=1 to 1-1e-6, so downstream candidates can retain ~1e-6 weight. make_hits_per_photon's >1e-5 timing mask gives these rows infinite time. digitize_and_decompose:521--529 filters nonfinite times before charge rounding. Six such positive/nonfinite rows were observed and are excluded by that production filter."
+    },
+    {
+      "hypothesis": "PMT reflection makes QE happen twice or loses another factor 1-R",
+      "resolution": "Current common_propagation divides QE by 1-R, sampled step deposits with probability 1-R, and make_hits_per_photon applies a single Bernoulli draw at conditional QE. Full path gives measured 400nm direct efficiency 0.22699 versus expected 0.22573."
+    }
+  ],
+  "limitations": [
+    "Finite sample and code review do not prove all physical laws or all possible inputs correct.",
+    "The short-beam expected optical lengths come from evaluate_optical_model; independent validation of its underlying wavelength laws is another audit lane.",
+    "K12 convergence statement applies to the tested canonical SK_WAND sample, not arbitrary modified optical parameters.",
+    "Accepted endpoint candidate approximation, spherical PMTs, wavelength clamping, timing cuts, fixed group velocity and unpolarised scattering are outside this lane's bug claims."
+  ],
+  "reproduce": [
+    "sbatch audit_wc_20261006/simulator_statistics/run_cpu.sh",
+    "sbatch audit_wc_20261006/simulator_statistics/run_bernoulli_cpu.sh"
+  ]
+}

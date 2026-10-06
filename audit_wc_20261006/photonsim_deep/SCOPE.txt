@@ -1,0 +1,56 @@
+Expanded PhotonSim audit for SK_WAND DATA production
+Requested after the initial LUCiD audit, 6 October 2026
+
+Baseline: PhotonSim v1.0.2 / 9232a7dae46ae36d9c81dd5f1b4e9f7653803514.
+Exact source and baseline binary: ../photonsim_physics/upstream and PhotonSim_v102.
+LUCiD checkout: 20df3094bd563162d40c6ca34c5ad25e1e1d3656.
+All builds, imports, numerical analysis and simulations must use Slurm milano
+or roma CPU allocations. No GPU execution is planned for this extension.
+No production source or configuration edits are authorized by this audit.
+
+Coverage assignments and physical questions
+
+transport/: PhysicsList.cc and actual constructed Geant4 process managers.
+  Are all relevant electromagnetic, hadronic, stopping and decay channels
+  present? Compare process construction, energy/species coverage, interaction
+  rates and muon endpoint behavior to physical references and complete lists.
+
+cherenkov/: DetectorConstruction.cc water properties and actual G4Cerenkov.
+  Independent dispersive Frank--Tamm yield, threshold, spectrum, cone angle,
+  beta dependence, material composition/density and production-cut convergence.
+
+emission/: SteppingAction.cc, StackingAction.cc, DataManager.cc, EventAction.cc,
+  RunAction.cc and their headers/messengers. Compare photon creation snapshots
+  to first-step recording and ROOT arrays. Check loss/duplication, timestamps,
+  directions, wavelength, chunk boundaries, event resets and storage modes.
+
+pion_replacement/: Artificial >5-degree pion kill-and-replace behavior.
+  Compare physical endpoint/yield/range statistics with splitting disabled;
+  check momentum, time, energy, lifetime and process-state semantics. The prior
+  zero endpoint-position gap is not sufficient to establish equivalence.
+
+primaries/: PrimaryGeneratorAction/Messenger, RooTrackerReader,
+  RandomSeedMessenger, PhotonSim.cc and LUCiD generate_macro/config routing.
+  Independently verify primary mixtures, multiplicity, energy/momentum/units,
+  angular correlations, seeds, input completeness and failure behavior.
+
+boundary/: Giant homogeneous source world followed by LUCiD translation and
+  optical-source clipping. Test escaped/re-entering charged particles and
+  secondary production near the ID boundary; distinguish geometry/material
+  model uncertainty from demonstrated production errors.
+
+Evidence and exclusions
+
+Earlier confirmed spin-correlation and photon segment-label defects remain
+valid; this extension should not count them as newly discovered bugs.
+The user's accepted endpoint PMT search, spherical PMTs, late-light cuts,
+constant LUCiD light speed, unpolarized optical scattering, QE wavelength
+clamping, SPE shape, and named off-production issues remain excluded.
+The user explicitly confirmed that SK_WAND particle-bomb/single-particle
+configurations AND GENIE inputs are production scope. GENIE input failures and
+lost final-state information belong in the main findings. Synthetic fixtures
+establish reachability, not their frequency in the user's actual datasets.
+No generic claim of 100% detector agreement can follow from finite tests or
+from agreement between two Geant4 configurations. Every finding needs an
+independent physical expectation, executed minimal witness and bounded impact;
+model/calibration uncertainties must remain explicit.

@@ -1,0 +1,119 @@
+SK_WAND high-charge PMT response omission: confirmed local physics gap
+===================================================================
+This addendum supersedes findings.txt's earlier statement that no fresh
+production occupancy witness was available. No campaign-wide large error
+has been established, and no production code has been modified.
+
+Physical reference, independently inspected
+-------------------------------------------
+Abe et al., Calibration of the Super-Kamiokande Detector, arXiv:1307.0162v2,
+section3.1.7, printed pages22-24, Figure19:
+https://arxiv.org/html/1307.0162v2#S3.SS1.SSS7
+https://arxiv.org/pdf/1307.0162
+Local preserved PDF: refs/SK_calibration_1307.0162.pdf
+Local inspected Figure19: refs/sk_id_nonlinearity_fig19.png
+
+The measurement normalizes each tube near30PE. It reports ID-PMT response
+linear within1% below/near200PE and deviation exceeding10% above1000PE.
+Figure19 gives the sign: high-charge compression, observed/expected below1.
+The reported effect belongs to the20-inch ID PMT/anode response; QBEE
+readout is separately linear to1%. These are R3600-05(A) ID PMTs, not HK
+box-and-line tubes. This identifies relevant sensor physics for SK_WAND's
+SK20-inch response, though transferring an exact calibration between SK
+periods also requires matching gain, high voltage, and pulse conditions.
+
+The old ATM electronics'450pC range is a separate effect from PMT
+nonlinearity. The preset name 'ski' alone does not justify clipping at a
+chosen ATM range: LUCiD advertises SK-like detector electronics, and a
+specific hardware epoch has not been established. Do not combine a PMT
+nonlinearity correction with an assumed ADC ceiling without that choice.
+
+Actual-code reproducer
+----------------------
+Command: sbatch audit_wc_20261006/digitizer/run_high_charge.sbatch
+Executed on milano job39970669,2CPUs,0GPUs.
+Script: probe_high_charge_response.py
+Results: high_charge_results.json, high_charge_39970669.log
+
+Essential executable probe, within an approved CPU allocation:
+
+    import numpy as np
+    from lucid.simulation.digitizer import apply_readout_resolution, resolve_model_config
+    rng = np.random.default_rng(1901190)
+    for npe in (30, 200, 1190, 5000):
+        q, _ = apply_readout_resolution(np.full(300000, npe),
+            np.zeros(300000), resolve_model_config('ski'), rng)
+        print(npe, q.mean(dtype=np.float64) / npe)
+
+Observed mean output/input gain:
+30PE:1.000235857;200PE:1.000223194;1190PE:1.000328968;
+5000PE:1.000359134. Relative to30PE the1190PE gain is1.00009309,
+consistent with unity; there is no compression approaching the physical
+high-charge regime. A full digitize_and_decompose call with1190 simultaneous
+1PE deposits on one PMT records1207.038PE for seed19. Its stochastic
+fluctuation is not a saturation model.
+
+The production source explains this: _sample_spe_charge in digitizer.py
+lines310-333 sums independent single-PE draws with count-independent
+parameters and divides by a constant. apply_readout_resolution lines403-411
+passes that uncompressed charge directly into timing and then output.
+No intensity-dependent transfer function is present anywhere in that path.
+
+Production reachability and bounded impact
+-----------------------------------------
+Parent's exact GeV/01_pbomb cohort, source job39970274,10 events:
+end_to_end/results_bomb.json, end_to_end/bomb_occupancy.json.
+Event005 has one1190PE true digit on PMT4625, digit2333, reconstructed
+1154.039PE. Its primaries are mu+1802.762MeV, e-697.687MeV, pi-1036.010MeV;
+the event is uncontained. This is a configured production source, not an
+unphysically gigantic audit injection.
+
+Occupancy scan job39970608 establishes1/58690 saved digits exceeds1000PE,
+in1/10 events. That digit carries0.4133% of cohort truth charge and3.1288%
+of that event's truth charge. These numbers characterize this small cohort,
+not a campaign-wide prevalence estimate. Even removing this digit entirely
+would alter the cohort's total charge by only0.4133%; this is an upper
+bound for changes confined to this particular digit, not a bound for all
+possible nonlinearity corrections at lower charges.
+
+Prompt optical reachability is now directly established. The exact event5
+replay on milano job39970809 reproduces the original total detected charge
+bit-for-bit (38808.960675656796PE) and the1190 physical photoelectrons on
+PMT4625. Raw arrivals have central90% span0.7660706ns; the largest sliding
+1ns window contains1152PE (96.8067%),5ns contains1173PE, and10ns contains
+1179PE. The full132.2266ns span comes from a small late tail. Thus the
+nonlinear illumination regime is reached by a prompt optical pulse, not
+merely by adding diffuse light throughout the200ns digitization window.
+Evidence: end_to_end/bright_digit_timing.json and
+end_to_end/bright_digit_raw_deposits.npz.
+
+These are optical arrival times before PMT transit-time spread and
+electronics response. They resolve the optical concentration question but
+do not supply an anode-current waveform or a detector-period-specific
+charge calibration. Neither a strict1190-><=1071PE expectation nor a
+measured net event-energy bias follows from the available calibration.
+
+Minimal physically defensible fix suggestion
+--------------------------------------------
+Add a calibrated SK PMT charge-response curve to the digitizer model and
+apply its transfer function to the unsaturated analog charge before final
+readout/discrimination, using an explicitly matched pulse/gain regime.
+Schematically at apply_readout_resolution's charge boundary:
+
+    q_linear = _sample_spe_charge(pe_true, model['spe'], rng)
+    q_reco = calibrated_sk_transfer(q_linear, model['charge_response'])
+
+The curve should map expected linear charge to measured mean output using
+the SK average calibration or a directly measured R3600 response, with
+interpolation and a declared validated range. Preserve low-charge SPE
+behavior; keep any electronics saturation separately parameterized. Timing
+must use the appropriate calibrated pulse charge after response is modeled.
+For pulses spread across much of200ns, validate the integrated-charge
+approximation or apply the nonlinearity at pulse level before summing.
+
+No numerical replacement curve is supplied by this audit because the
+paper's figure and prose do not provide enough precision to assert a
+calibrated1190PE correction. An arbitrary10% multiplier or hard clip would
+not satisfy the requested physical correctness. A regression should verify
+measured response ratios at several published/calibrated pulse intensities,
+including the linear regime and the high-charge compression region.

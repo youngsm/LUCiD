@@ -1,0 +1,2 @@
+event	vertex	primary	pdg	kinetic_MeV	px_MeV	py_MeV	pz_MeV	x_mm	y_mm	z_mm	t_ns	event_true_MeV	rootracker_entry
+0	0	0	11	5	0	0	5.487256974117396	0	0	0	0	5	-1

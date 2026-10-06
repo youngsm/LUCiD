@@ -1,0 +1,21 @@
+Pinned-container validation did not execute.
+
+Slurm job: 39969694, partition milano, 4 CPUs, 20 GB requested.
+Image: /sdf/data/neutrino/zhenxiong/software/images/lucid.sif
+
+Apptainer failed before the Python interpreter started:
+FATAL: container creation failed: image driver mount failure: image driver
+squashfuse_ll instance exited with error: squashfuse_ll exited:
+Something went wrong trying to read the squashfs image.
+
+See slurm-39969694.out. No environment.json, numerical results, or test exit-code
+artifacts were produced. Consequently the existing numerical evidence remains
+from JAX 0.11.0; this attempt provides no JAX 0.4.38 validation.
+
+run.sbatch and check_environment.py retain the intended reproducible workflow:
+bind current checkout to /opt/LUCiD, use explicit PYTHONPATH and no user site,
+require CPU backend and milano/roma, verify imported source path and SHA256,
+then execute optical and geometry checks with results isolated in this directory.
+
+Current-checkout lucid/propagation/base.py SHA256 observed outside the container:
+22c4a509674ca605175df2d82d79aa5cffebc9a85cf2be68e5b35dc08f96ada7

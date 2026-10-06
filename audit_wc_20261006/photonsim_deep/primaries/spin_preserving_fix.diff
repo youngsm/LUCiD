@@ -1,0 +1,70 @@
+--- a/include/RooTrackerReader.hh
++++ b/include/RooTrackerReader.hh
+@@ -21,6 +21,7 @@
+   G4double py;
+   G4double pz;
+   G4double E;
++  G4double polx = 0., poly = 0., polz = 0.;
+ };
+ 
+ /// Reads a GENIE gRooTracker TTree (as produced by `gntpc -f rootracker`)
+@@ -65,6 +66,8 @@
+     Int_t   fStdHepPdg[kMaxParticles] = {};
+     Int_t   fStdHepStatus[kMaxParticles] = {};
+     Double_t fStdHepP4[kMaxParticles][4] = {};
++    Double_t fStdHepPolz[kMaxParticles][3] = {};
++    G4bool fHasPolarization = false;
+ 
+     std::vector<GenieParticle> fFinalState;
+     G4double fNuKE_MeV = 0.0;
+--- a/src/RooTrackerReader.cc
++++ b/src/RooTrackerReader.cc
+@@ -32,6 +32,7 @@
+     fTree = nullptr;
+   }
+ 
++  fHasPolarization = false;
+   fPath = path;
+   fFile = TFile::Open(path.c_str(), "READ");
+   if (!fFile || fFile->IsZombie()) {
+@@ -52,6 +53,8 @@
+   fTree->SetBranchAddress("StdHepPdg",     fStdHepPdg);
+   fTree->SetBranchAddress("StdHepStatus",  fStdHepStatus);
+   fTree->SetBranchAddress("StdHepP4",      fStdHepP4);
++  if (fTree->GetBranch("StdHepPolz"))
++    fHasPolarization = fTree->SetBranchAddress("StdHepPolz", fStdHepPolz) >= 0;
+   return true;
+ }
+ 
+@@ -97,7 +100,10 @@
+     }
+ 
+     if (status != 1) continue;
+-    fFinalState.push_back({pdg, px, py, pz, E});
++    fFinalState.push_back({pdg, px, py, pz, E,
++      fHasPolarization ? fStdHepPolz[k][0] : 0.,
++      fHasPolarization ? fStdHepPolz[k][1] : 0.,
++      fHasPolarization ? fStdHepPolz[k][2] : 0.});
+   }
+ 
+   return true;
+--- a/src/PrimaryGeneratorAction.cc
++++ b/src/PrimaryGeneratorAction.cc
+@@ -146,14 +146,17 @@
+       }
+ 
+       G4ThreeVector mom(p.px * MeV, p.py * MeV, p.pz * MeV);
++      G4ThreeVector spin(p.polx, p.poly, p.polz);
+       if (fGenieIsotropic) {
+         G4RotationMatrix rot;
+         rot.rotate(fGenieRotAngle,
+                    G4ThreeVector(fGenieRotAxisX, fGenieRotAxisY, fGenieRotAxisZ));
+         mom = rot * mom;
++        spin = rot * spin;
+       }
+ 
+       auto* primary = new G4PrimaryParticle(pdef, mom.x(), mom.y(), mom.z());
++      primary->SetPolarization(spin);
+       vertex->SetPrimary(primary);
+       ++n_fired;
+ 

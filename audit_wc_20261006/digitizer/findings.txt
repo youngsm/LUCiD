@@ -1,0 +1,108 @@
+SK_WAND DATA readout audit, 2026-10-06
+Repository commit: 20df309
+Result: no NEW campaign-wide large production readout defect confirmed.
+Later production evidence confirms a local high-charge PMT response omission;
+see high_charge_finding.txt and high_charge_results.json for the addendum.
+Do not interpret this result as proof of exact agreement with a real detector.
+
+Executed independent checks
+---------------------------
+Slurm job39967549, partition milano, node sdfmilan271,4CPUs,0GPUs,
+COMPLETED exit0:0, elapsed5s. No numerical/test execution on login nodes.
+Reproduce: sbatch audit_wc_20261006/digitizer/run_cpu.sbatch
+Script: check_readout_invariants.py
+Evidence: job_39967549.log
+
+The script imports current production digitizer.py and trigger.py by file,
+reads the actual SK_WAND physics JSON, and compares behavior to independent
+scalar/interval oracles rather than importing existing unit-test assumptions.
+It verifies:
+*200 randomized per-PMT gate cases: each valid PE belongs to exactly one
+  200ns gate; each gate has the correct earliest time, sensor, and charge.
+*100 independent interval-union trigger cases for actual200ns/25-hit/
+  +/-300ns configuration, including gate overlap merging.
+*100 production-order readout cases: multiple sources and bursts per sensor,
+  dark noise, SPE response, discriminator, then trigger, with consistent
+  hit/segment digit_idx foreign keys and per-window CSR slices.
+*Ordinary negative detector-frame times after WAND t0 shifts are preserved.
+*Positive residual ghost weights with infinite arrival times are removed
+  before the SPE sampler's minimum-one-PE rule can create a digit.
+*1,000,000 one-PE samples: timing spread follows sampled analogue charge,
+  rather than unsmeared PE count. RMS by charge bin:
+  .25-.5pe:4.79577ns;1-1.5pe:3.16800ns;2-3pe:2.42033ns.
+  Normalized by the configured sigma(Q), RMS is.9987/.9982/.9995.
+*One-PE discriminator survival=.768322; isolated dark output=3.2269524kHz
+  for raw dark input4.2kHz. This is measured behavior, not a new bug claim.
+
+Production reachability and inspected code
+-----------------------------------------
+run_job.py:303-318 builds is_data=True, hit_mode=per_segment,
+charge_resolution=None, and detector params from the SK_WAND physics file.
+Detector params default tts=0 for this file, so no extra upstream TTS smear
+is present; digitizer.py applies ski timing once on the summed digit.
+GeV configs have no own detector/digitizer and select real trigger; -D
+SK_WAND resolves ski plus the detector25-hit trigger. Solar's current
+01_e_low_energy.json instead explicitly owns HK geometry/hk digitizer and
+min_physics_hits=3. The production fanout prioritizes that config detector
+over -D; it is not a default SK_WAND case.
+
+Inspected sensor_response.make_hits_per_photon, event_builder's flat record
+alignment and gather_photon_deposits, event_generation's single-interaction
+and pooled-deposit digitization, trigger remapping and final sensor/hits/
+segment/time writer paths. The pooled path shifts individual deposits by
+interaction t0 before one shared digitization pass, preserving cross-vertex
+pile-up integration. Per-sensor and per-particle per-chunk diagnostic sums
+do not replace the production deposit list.
+
+The production dark pad is max(pre,post)+window=500ns through
+_dark_readout_pad_ns, rather than the obsolete100ns default on the lower
+level function. Data writers retain negative times and use float64 for
+host readout times. Current sampled-charge jitter fix is present.
+
+Physical validation gaps, not claimed new large bugs
+----------------------------------------------------
+Detailed independently checked sources are in refs/physical_reference_review.txt.
+
+1.No saturation/nonlinearity model is applied to the summed charge.
+  SK calibration arxiv1307.0162 section3.1.7 measures >10% response deviation
+  beyond1000PE and approximate linearity only through200PE. A production
+  occupancy scan later found one1190PE digit in10 ordinary bomb events.
+  See high_charge_finding.txt for the executed response probe and production
+  occupancy: this digit holds0.413% of cohort charge. Exact raw replay on
+  milano job39970809 confirms1152PE arrive within1ns, so prompt optical
+  reachability is established. Its exact anode-charge correction still
+  requires a calibrated response matched to the detector's gain/period.
+  Appropriate eventual fix: calibrated integrated-charge response curve and
+  explicit electronics range for the intended detector era, not an arbitrary
+  clipping level. This is a scientifically relevant gap, not a certified
+  high-severity finding in the present audit.
+
+2.A WCSim dark-rate conversion factor1.367 is NOT a proven physical fix.
+  Its PMT20inch source explicitly calls4.2kHz a PRE-threshold SK-I rate and
+  gives measured post0.25PE rate3.4kHz. WCSim's extra conversion and these
+  provenance statements are inconsistent. LUCiD3.227kHz is about5% below
+  that3.4kHz measurement. Do not report a23% physical loss merely by treating
+  raw4.2kHz as a measured post-threshold target.
+
+3.A real SK timing PDF is asymmetric and channel-dependent; the Gaussian
+  WCSim-style width does not prove exact real detector timing. Missing
+  afterpulse/prepulse physics and analog threshold-crossing causality are
+  calibration gaps, but no new large in-scope production consequence was
+  demonstrated. The documented charge-spectrum shape is user-accepted.
+
+4.The independent trigger interval oracle used continuous times. Exact ties
+  at t and t+window are implemented with arrivals before expirations, i.e.
+  inclusive endpoint counting. This differs from the docstring's half-open
+  trailing window; no campaign-large impact is claimed for a boundary/TDC
+  convention difference.
+
+5.Empty detected-physics streams produce no dark-only event. The production
+  interface is event-conditioned, not a complete continuous detector DAQ.
+  The dark envelope depends on detected light and its padding, so extremely
+  rare self-sustaining noise gates can reach its edges. Magnitude was not
+  established; this is not the formerly fixed deterministic padding defect.
+
+Explicitly excluded/accepted here: late100us/10us light cuts, the charge-
+spectrum shape, realistic-mode TTS, supernova chunks, direct CLI/EventID/
+input-vertex truth issues, c/1.33, endpoint search, unpolarized scattering,
+clamped QE wavelength and sphere PMTs. No production code modified.

@@ -1,0 +1,23 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /tmp/audit_unused.root
+    Output dir: /tmp
+    Dataset:    particle bomb (single vertex)
+    file_index: 0
+    n_events:   7
+    geometry:   cylinder / water, 11096 sensors
+LUCiD wrote 0 files under /tmp/{sensor,hits,step,labl}/
+{
+  "production_forwarding": "SK_WAND data, ski, threshold25, leg bound, one digitizer smearing",
+  "ancestry_containment_writer": "muon/decay e, pi0/gamma/conversion e; sparse rows/times/PE preserved",
+  "vertex_moments": {
+    "mean_r2_fraction": 0.501305103302002,
+    "mean_z2_fraction": 0.33283066749572754
+  },
+  "distinct_seed_streams": 8
+}
+Expected group IDs: [0, 0, 1, 1]
+Actual group IDs:   [0, 1, 2, 3]
+Segment count unchanged; merged groups incorrectly change from 2 to 4.

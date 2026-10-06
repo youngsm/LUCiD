@@ -1,0 +1,66 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+EVENT_SCREENED 0 photons 62451
+EVENT_SCREENED 1 photons 1072761
+EVENT_SCREENED 2 photons 228572
+EVENT_SCREENED 3 photons 715023
+EVENT_SCREENED 4 photons 752685
+EVENT_SCREENED 5 photons 778797
+EVENT_SCREENED 6 photons 336021
+EVENT_SCREENED 7 photons 780843
+EVENT_SCREENED 8 photons 550241
+EVENT_SCREENED 9 photons 136213
+{
+  "actual_production_vertices": {
+    "placements": 10,
+    "inside_id_photons_10us": 5274300,
+    "id": {
+      "exposed_photons_10us": 29,
+      "fraction_10us": 5.498359971939404e-06,
+      "placements_with_exposed_photons": 1,
+      "max_placement_fraction_10us": 4.534863719526498e-05,
+      "max_placement_exposed_photons_10us": 29
+    },
+    "nominal_tank": {
+      "exposed_photons_10us": 0,
+      "fraction_10us": 0.0,
+      "placements_with_exposed_photons": 0,
+      "max_placement_fraction_10us": 0.0,
+      "max_placement_exposed_photons_10us": 0
+    },
+    "inset_tank_sensitivity": {
+      "exposed_photons_10us": 0,
+      "fraction_10us": 0.0,
+      "placements_with_exposed_photons": 0,
+      "max_placement_fraction_10us": 0.0,
+      "max_placement_exposed_photons_10us": 0
+    }
+  },
+  "all_translated_placements": {
+    "placements": 170,
+    "inside_id_photons_10us": 90420856,
+    "id": {
+      "exposed_photons_10us": 73877,
+      "fraction_10us": 0.0008170349548559903,
+      "placements_with_exposed_photons": 16,
+      "max_placement_fraction_10us": 0.058882913191202604,
+      "max_placement_exposed_photons_10us": 45787
+    },
+    "nominal_tank": {
+      "exposed_photons_10us": 0,
+      "fraction_10us": 0.0,
+      "placements_with_exposed_photons": 0,
+      "max_placement_fraction_10us": 0.0,
+      "max_placement_exposed_photons_10us": 0
+    },
+    "inset_tank_sensitivity": {
+      "exposed_photons_10us": 0,
+      "fraction_10us": 0.0,
+      "placements_with_exposed_photons": 0,
+      "max_placement_fraction_10us": 0.0,
+      "max_placement_exposed_photons_10us": 0
+    }
+  }
+}
+Witnesses: 0

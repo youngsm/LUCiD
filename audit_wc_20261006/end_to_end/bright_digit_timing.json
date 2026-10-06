@@ -1,0 +1,68 @@
+{
+  "job": "39970809",
+  "partition": "milano",
+  "source_event_idx": 5,
+  "saved_event_group": "event_005",
+  "digit_idx": 2333,
+  "pmt_idx": 4625,
+  "master_seed": 918273,
+  "production_job_id": 2718,
+  "replay_total_detected_pe": 38808.960675656796,
+  "original_total_detected_pe": 38808.960675656796,
+  "exact_total_detected_match": true,
+  "replay_physical_photoelectrons_on_pmt": 1190,
+  "replay_physics_charge_on_pmt": 1189.9987941980362,
+  "saved_digit_truth_pe": 1189.9987691640854,
+  "saved_digit_reconstructed_charge_pe": 1154.0390625,
+  "dark_pe_in_saved_digit": 0.0,
+  "same_pmt_saved_digit_count": 1,
+  "arrival_quantiles_ns_in_g4_frame": {
+    "min": 16.322845458984375,
+    "p05": 16.34477777481079,
+    "p25": 16.430626392364502,
+    "p50": 16.562274932861328,
+    "p75": 16.733827590942383,
+    "p95": 17.110848331451415,
+    "max": 148.54942321777344
+  },
+  "full_true_arrival_span_ns": 132.22657775878906,
+  "central_90_percent_true_arrival_span_ns": 0.7660705566406243,
+  "max_sliding_window_counts_ns": {
+    "1": {
+      "max_physical_photoelectrons": 1152,
+      "fraction_of_digit_physics_pe": 0.9680672268907563,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "5": {
+      "max_physical_photoelectrons": 1173,
+      "fraction_of_digit_physics_pe": 0.9857142857142858,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "10": {
+      "max_physical_photoelectrons": 1179,
+      "fraction_of_digit_physics_pe": 0.9907563025210084,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "20": {
+      "max_physical_photoelectrons": 1183,
+      "fraction_of_digit_physics_pe": 0.9941176470588236,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "50": {
+      "max_physical_photoelectrons": 1189,
+      "fraction_of_digit_physics_pe": 0.9991596638655462,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "100": {
+      "max_physical_photoelectrons": 1189,
+      "fraction_of_digit_physics_pe": 0.9991596638655462,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "200": {
+      "max_physical_photoelectrons": 1190,
+      "fraction_of_digit_physics_pe": 1.0,
+      "start_ns_in_g4_frame": 16.322845458984375
+    }
+  },
+  "timing_scope": "Optical arrival times at the PMT from identical source event and optical random keys, before PMT transit-time spread or electronics response. This is not an anode-current waveform or a calibrated nonlinear-charge correction."
+}

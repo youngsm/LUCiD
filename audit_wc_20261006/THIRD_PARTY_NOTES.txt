@@ -1,0 +1,95 @@
+Third-party provenance and publication notes
+Reviewed 2026-10-06. Static source/file/license review; no tests or numerical work.
+
+Audit evidence versus external reference material
+------------------------------------------------
+Preserve the audit's reports, compact measurement results, logs, macros,
+instrumented source, patches and build/reproduction scripts. Per the user's
+publication scope, leave large raw ROOT/HDF5/NPZ/CSV artifacts local and
+publish their inventory/hashes and regeneration instructions instead.
+Generated simulation evidence is distinct from copied reference articles.
+Exclude virtual environments, uv caches, __pycache__, object files and
+rebuildable ELF executables from the published package. Keep environment
+version manifests and the scripts/source that rebuild excluded executables.
+The relative reflection_sample.npz links are legitimate evidence links;
+venv interpreter/library links and cache links are runtime debris.
+
+Geant4
+------
+Vendored reference source is under photonsim_physics/reference/ and
+photonsim_deep/transport/reference/. Geant4-derived notices also occur in
+the frozen PhotonSim source and generated source variants. Existing file
+headers must remain intact. Include the complete pinned license with the
+distribution, not just a URL:
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/LICENSE
+Geant4 Software License Version 1.0, 28 June 2006.
+
+Required documentation acknowledgment:
+"This product includes software developed by Members of the Geant4
+Collaboration ( http://cern.ch/geant4 )."
+
+The license requires its copyright notice and conditions with redistributed
+software/documentation/materials. Modified versions must be distinguishable
+from Geant4 itself. Identify audit-generated or modified source copies as
+audit variants, retain the original pinned source separately, and do not
+imply Geant4 endorsement. The exact license is now bundled in
+packaging/licenses/Geant4-LICENSE-11.3.0.txt; the required acknowledgment
+and provenance are in packaging/licenses/NOTICE.txt.
+
+PhotonSim
+---------
+photonsim_physics/upstream/ is the audited source subset for PhotonSim
+v1.0.2, commit 9232a7dae46ae36d9c81dd5f1b4e9f7653803514, from
+https://github.com/cesarjesusvalls/PhotonSim . Its exact pinned README has a
+License section stating that the project follows the Geant4 license terms.
+The publication package retains that README alongside the frozen source.
+Retain the source headers and complete Geant4 license/acknowledgment above;
+preserve modifications as clearly named audit variants and/or patches.
+Pinned README provenance:
+https://github.com/cesarjesusvalls/PhotonSim/blob/9232a7dae46ae36d9c81dd5f1b4e9f7653803514/README.md
+
+GENIE review-only references
+---------------------------
+photonsim_deep/primaries/reference/GENIE_* files retain source headers and
+GENIE_deexcitation_sources_manifest.json records exact tags, paths and blob
+hashes. They are reference copies, not code linked into the audit programs.
+Keep the manifest and source URLs while omitting these copies. The pinned
+source headers point to https://copyright.genie-mc.org/ rather than carrying
+a complete license. That official page currently states GPLv3 together
+with additional conditions; do not relabel these files as simply the host
+repository's license or GPL-3.0-only. Linking the pinned upstream files from
+the manifest is a clean way to preserve source provenance without vendoring
+unneeded source. The selected publication package omits the review-only
+GENIE_R-* files and retains the provenance manifest. GENIE's own linked
+MCnet document requests author agreement for partial redistribution; this
+package does not need to resolve that question. Its upstream notice, GPLv3
+and MCnet URLs, plus historical copyright-notice links, are recorded in
+packaging/licenses/NOTICE.txt.
+
+External paper and figure: retain links instead of copies
+--------------------------------------------------------
+digitizer/refs/SK_calibration_1307.0162.pdf and
+digitizer/refs/sk_id_nonlinearity_fig19.svg are copied publication material,
+not newly generated audit results. The SVG contains the article figure/page
+as vector paths. Also omit digitizer/refs/1307.0162v2.html,
+digitizer/refs/figure19_page24.png and
+digitizer/refs/sk_id_nonlinearity_fig19.png; retain the original audit note
+physical_reference_review.txt. The arXiv record selects its nonexclusive distribution
+license, not a Creative Commons license granting general reuse:
+https://arxiv.org/abs/1307.0162v2
+https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html
+
+For the GitHub package, retain the report's citation, section/figure number
+and these public links instead of redistributing the PDF/SVG (or rendered
+derivatives) without a separately established reuse grant:
+https://arxiv.org/pdf/1307.0162v2
+https://arxiv.org/html/1307.0162v2/nonlin02-2.svg
+Article: K. Abe et al., Calibration of the Super-Kamiokande Detector,
+Nuclear Instruments and Methods A 737 (2014), 253-272,
+https://doi.org/10.1016/j.nima.2013.11.081 .
+
+Other literature appears as source links and audit notes in this package.
+Keep factual extracts/provenance and original analysis distinct from copied
+articles. A paper being publicly readable is not itself a redistribution
+license. External runtime libraries/data remain dependencies; the package
+does not redistribute CVMFS, ROOT, Geant4 data libraries or Python wheels.

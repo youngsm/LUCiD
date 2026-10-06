@@ -1,0 +1,8 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/transport/muon2000_baseline.root
+/random/setSeeds 314159 271828
+/photon/storeIndividual false
+/gun/clearPrimaries
+/gun/particle mu+
+/gun/energy 2000.0 MeV
+/gun/direction 0 0 1
+/run/beamOn 1000

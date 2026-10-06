@@ -1,0 +1,62 @@
+{
+  "wrong_tree_without_marker": {
+    "runner_exit": 0,
+    "events": 2,
+    "primary_pdgs": [
+      [
+        11
+      ],
+      [
+        11
+      ]
+    ],
+    "primary_kinetic_MeV": [
+      [
+        5.0
+      ],
+      [
+        5.0
+      ]
+    ],
+    "created_photons": [
+      1021,
+      1160
+    ],
+    "rootracker_entries": [
+      -1,
+      -1
+    ],
+    "wrong_tree_file_existed": true,
+    "count_marker_present": false
+  },
+  "wrong_tree_with_marker": {
+    "runner_exit": 0,
+    "events": 2,
+    "primary_pdgs": [
+      [
+        11
+      ],
+      [
+        11
+      ]
+    ],
+    "primary_kinetic_MeV": [
+      [
+        5.0
+      ],
+      [
+        5.0
+      ]
+    ],
+    "created_photons": [
+      1021,
+      1160
+    ],
+    "rootracker_entries": [
+      -1,
+      -1
+    ],
+    "wrong_tree_file_existed": true,
+    "count_marker_present": true
+  }
+}

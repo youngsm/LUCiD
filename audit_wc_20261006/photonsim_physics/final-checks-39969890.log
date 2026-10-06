@@ -1,0 +1,92 @@
+Partition=milano Job=39969890 Host=sdfmilan272
+{
+  "events": 20,
+  "pion_muon_michel_chains": [
+    {
+      "event": 1,
+      "muon_birth_KE_MeV": 4.1198126599383045,
+      "michel_birth_KE_MeV": 19.702553685161483,
+      "muon_cherenkov_count": 0,
+      "muon_track": 104429,
+      "pion_track": 104427
+    },
+    {
+      "event": 2,
+      "muon_birth_KE_MeV": 4.1198126599383045,
+      "michel_birth_KE_MeV": 7.872002549707422,
+      "muon_cherenkov_count": 0,
+      "muon_track": 76949,
+      "pion_track": 76947
+    },
+    {
+      "event": 4,
+      "muon_birth_KE_MeV": 96.67218486352026,
+      "michel_birth_KE_MeV": 12.352309790573228,
+      "muon_cherenkov_count": 2569,
+      "muon_track": 5474,
+      "pion_track": 4676
+    },
+    {
+      "event": 5,
+      "muon_birth_KE_MeV": 4.1198126599383045,
+      "michel_birth_KE_MeV": 51.779494739062336,
+      "muon_cherenkov_count": 0,
+      "muon_track": 131328,
+      "pion_track": 131326
+    },
+    {
+      "event": 10,
+      "muon_birth_KE_MeV": 4.1198126599383045,
+      "michel_birth_KE_MeV": 16.325452862188232,
+      "muon_cherenkov_count": 0,
+      "muon_track": 55474,
+      "pion_track": 55472
+    },
+    {
+      "event": 11,
+      "muon_birth_KE_MeV": 4.1198126599383045,
+      "michel_birth_KE_MeV": 40.51796549391005,
+      "muon_cherenkov_count": 0,
+      "muon_track": 147291,
+      "pion_track": 147285
+    },
+    {
+      "event": 13,
+      "muon_birth_KE_MeV": 3.4437598575118074,
+      "michel_birth_KE_MeV": 48.06459698803958,
+      "muon_cherenkov_count": 0,
+      "muon_track": 34187,
+      "pion_track": 33687
+    },
+    {
+      "event": 15,
+      "muon_birth_KE_MeV": 1020.4529236555707,
+      "michel_birth_KE_MeV": 45.292628430120196,
+      "muon_cherenkov_count": 191216,
+      "muon_track": 185,
+      "pion_track": 1
+    },
+    {
+      "event": 17,
+      "muon_birth_KE_MeV": 701.7449992687875,
+      "michel_birth_KE_MeV": 45.97998718907096,
+      "muon_cherenkov_count": 115585,
+      "muon_track": 21151,
+      "pion_track": 1
+    }
+  ],
+  "visible_muon_chains": 3
+}
+baseline: observed high-energy forward fraction=0.529670; water Michel oracle=0.383488; statistical sigma=0.016119
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/test_spin_physics.py", line 23, in <module>
+    assert abs(observed-expected) < 4*se + .01, 'Missing physical pion/muon spin correlation'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing physical pion/muon spin correlation
+first event: 144 photons; segment-count absolute mismatch=8
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/test_segment_counts.py", line 11, in <module>
+    assert np.array_equal(actual, expected), 'Photon assigned to a different creation step'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Photon assigned to a different creation step
+water: observed high-energy forward fraction=0.384522; water Michel oracle=0.383488; statistical sigma=0.016908

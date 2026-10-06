@@ -1,0 +1,117 @@
+PhotonSim / SK_WAND boundary and translation audit
+================================================
+
+Disposition: no additional consequential boundary defect demonstrated by this
+lane. This is sampled negative evidence, not proof of full detector equivalence.
+No production source was changed, and no uncalibrated material correction was
+introduced.
+
+Executed check
+--------------
+Run: sbatch audit_wc_20261006/photonsim_deep/boundary/census.sbatch
+Job 39971218: COMPLETED, exit 0:0, milano, elapsed 00:00:14, zero GPUs.
+Implementation: census_histories.py; complete results: history_census.json.
+Inputs: exact PhotonSim v1.0.2 source at commit 9232a7d, the previously generated
+10-event unmodified GeV/01_pbomb.json cohort, and its actual production vertices.
+The previously built PhotonSim_v102 differs only in headless startup, not physics.
+
+The census used ten independent Geant4 showers. Each was inspected at its actual
+production vertex and at 16 additional translations drawn using the production
+sample_translation_vector function. Thus 170 placements reuse ten showers;
+they must NOT be described as 170 independent Geant4 events.
+
+For each translated raw track and stored step, the check finds the earliest
+possible crossing of a cylindrical screening surface. That time is propagated
+through the complete raw parent ancestry. It then counts optical photons born
+inside the ID after a possible ancestor excursion. Parent identity/completeness
+and track-to-segment mappings are asserted. The check uses stored track births
+and segment endpoints. A segment ending outside is conservatively marked at
+its START time; possible ancestry exposure is therefore not proof of a return
+trajectory. Inheriting a parent's later excursion into an already-born child's
+history also makes this an overinclusive screen.
+
+Surfaces, in meters:
+  actual LUCiD ID cylinder: radius 16.96228024518598, half-height 18.18921111111;
+  nominal SK full water tank: radius 19.65, half-height 20.7;
+  sensitivity surface inset 0.25 m from nominal tank: radius 19.40,
+      half-height 20.45. The inset is a sensitivity screen, not a surveyed wall.
+
+Actual ten production vertices:
+  5,274,300 photons born inside the ID within 10 microseconds;
+  29 photons with possible earlier ID-boundary ancestry exposure, in one event;
+  ZERO with earlier nominal-full-tank or inset-tank ancestry exposure.
+
+All 170 translated placements:
+  90,420,856 inside-ID photon instances within 10 microseconds;
+  73,877 with possible earlier ID-boundary ancestry exposure, 16 placements,
+      fraction 0.0008170349548559903 (0.0817 percent);
+  maximum single-placement ID exposure: 45,787 photons, fraction
+      0.058882913191202604 (5.89 percent);
+  ZERO with earlier nominal-full-tank or inset-tank ancestry exposure.
+The stored rows also give ZERO full-tank/inset-tank exposures when extending
+the photon-time window to 100 microseconds or retaining all stored photon times.
+These are emitted-photon counts, not detected PE or a claimed charge bias.
+
+Code and physical interpretation
+--------------------------------
+PhotonSim DetectorConstruction.hh lines 73-75 defaults to a 1000 m water box in
+each dimension. DetectorConstruction.cc lines 382-398 instantiate that box.
+LUCiD event_generation.py lines 468-475 rigidly translate photons in meters and
+steps in millimeters, after the charged-particle shower has already been run.
+simulator.py lines 599-602 gives photons born outside the optical detector zero
+initial survival. This accepted outside-born-photon mask does not change the
+charged-particle material history or manufacture missing external secondaries.
+
+Rigid translation is physically consistent in homogeneous water. It cannot
+provide a complete description of histories that depend on finite tank walls,
+PMT/support solids, or concrete/rock. Nevertheless, killing every charged
+particle at the ID cylinder would be an incorrect proposed fix: SK has an outer
+water volume, and charged particles and secondaries can leave and re-enter the
+ID while still propagating in water. The largest ID exposure above is therefore
+not evidence of a bug, and it is explicitly not presented as one.
+
+The real nominal tank is 39.3 m diameter and 41.4 m high. The optical ID is
+smaller and is separated from OD water by an optically opaque structure, not by
+the edge of the water tank. Detector material documentation describes thin
+steel tank walls and concrete/rock outside the sides/bottom, but air and
+equipment above the ceiling. A uniformly rock-backed cylinder would itself
+be an uncontrolled simplification.
+
+Limitations and fix scope if a future witness is found
+----------------------------------------------------
+The census follows only branches present in the homogeneous-water simulation.
+It cannot bound new returning branches that steel, supports, concrete, or rock
+would create. It does not certify optical leakage through the ID/OD separator,
+PMT glass/support interactions, externally generated neutrons, or exact tank
+shape/materials. No material-bounded comparison was run in this lane because
+there was no full-tank return witness in the sampled source histories and a
+detector-calibrated outside-material model is not available here. This is an
+explicit unresolved detector-modelling boundary, not a reported catastrophic
+bug or an established negligible effect for all possible events.
+
+If a consequential material-dependent witness is established, the physical
+correction belongs upstream: sample the final vertex before Geant4 transport
+and transport non-optical particles through a finite water/OD/solid geometry
+with supported materials. Merely masking outside-born optical photons, or
+killing non-optical tracks at the ID, cannot reproduce secondary transport.
+No minimal code fix is proposed without such a validated physical target.
+
+Primary detector references checked by boundary_reference
+------------------------------------------------------
+Official nominal tank dimensions:
+https://www-sk.icrr.u-tokyo.ac.jp/en/sk/about/detector/
+ID PMT-face definition and dimensions, Conner thesis section 2.2, printed p37:
+https://www-sk.icrr.u-tokyo.ac.jp/sk/_pdf/articles/zoa-thesis.pdf
+OD water and ID/OD separation, Takenaga thesis section 2.2.1, pp12-14:
+https://www-sk.icrr.u-tokyo.ac.jp/sk/_pdf/articles/Takenaga-d.pdf
+Detector construction, NIM paper pp427-429:
+https://www.phy.bnl.gov/~diwan/talks/talks/nusag-may-20/newwork/superk-NIM.pdf
+Modern refurbishment: wall thickness/material and polygonal tank:
+https://arxiv.org/html/2511.03921v2#S4.SS1
+Concrete backing and air/equipment above, Renshaw thesis section 3.3.1:
+https://www-sk.icrr.u-tokyo.ac.jp/sk/_pdf/articles/Renshaw_Doctoral_Thesis.pdf
+External-shower modelling context; its small cosmogenic effect must not be
+transferred quantitatively to this bomb cohort, section IV.A.2:
+https://link.aps.org/doi/10.1103/PhysRevD.110.032003
+Ikenoyama rock composition, Table II and section II.C (recorded, not simulated):
+https://arxiv.org/pdf/hep-ph/0604078

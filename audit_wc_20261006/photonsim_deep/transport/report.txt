@@ -1,0 +1,174 @@
+PhotonSim charged and hadronic transport review
+
+Four physical problems were reproduced in the pinned PhotonSim v1.0.2
+source using Geant4 11.3.0. The largest new problem is the capture target
+chosen for negative pions in water. Production files were not changed.
+
+1. Negative pions capture on hydrogen far too often in water.
+
+Geant4's generic element selector assigns hydrogen about 30.9% of stopped
+negative-pion captures in H2O. The measured final nuclear-capture fraction
+on hydrogen is 0.445 +/- 0.024%. The selected target passes unchanged through
+the stopping process and Bertini cascade; there is no subsequent transfer
+that repairs this choice.
+
+In 3,000 cold-pion events, the baseline selected hydrogen 880 times and
+created 880 capture pi0 daughters. A material- and species-specific selector
+using the measured probability selected hydrogen 19 times. Mean emitted
+Cherenkov light fell from 9,435 +/- 243 to 1,080 +/- 46 photons.
+
+The effect remains large at an energy used in the gun production config:
+for 1,000 injected monoenergetic 200 MeV pi- events per variant, the baseline
+produced 162 stopped-capture pi0
+showers, versus two with the corrected selector. Mean emitted light fell
+from 24,808 +/- 601 to 18,604 +/- 515 photons, approximately 25%. This is
+not a measured fractional effect for the full GENIE distribution or PMT PE.
+
+Minimal fix: WaterPionElementSelector.hh samples the measured H/O target
+probability and retains Geant4's natural-isotope selection. Its PDG and
+material guards are essential because the Bertini stopping process is
+shared with negative kaons and hyperons. The runtime variant passed the
+independent target-fraction oracle. This fixes target choice only; item 4
+describes remaining final-state errors.
+
+Physical reference: Berridge et al., Physical Review A 75, 034501 (2007),
+https://doi.org/10.1103/PhysRevA.75.034501 . The reported fraction already
+includes the Panofsky correction; it is not an initial atomic-capture rate.
+
+2. Negative muons have the wrong capture/decay mixture in water.
+
+The same generic selector leaves roughly 31% of stopped muons assigned to
+hydrogen. In real water, muonic hydrogen transfers to oxygen much faster
+than the muon disappears. This changes whether a Michel electron or nuclear
+capture products are generated.
+
+For 10,000 mu- injected with small positive kinetic energy and allowed to
+stop, the baseline capture fraction was 12.86 +/- 0.335%, and the mean
+disappearance delay was 1,926.5 +/- 19.4 ns. Water measurements give
+18.4 +/- 0.1% and 1,795.4 +/- 2.0 ns. An oxygen-selector variant gave
+18.17 +/- 0.386% and 1,814.9 +/- 18.1 ns, consistent with both measurements.
+The fraction with a tracked Michel daughter above 1 MeV before the accepted
+10 us cut changed from
+86.49% to 81.53%; this is not detector or tagging efficiency. Separate
+200 MeV samples also failed the baseline oracle
+and passed after the target correction. The positive-muon control passed.
+
+Minimal fix: attach WaterMuonElementSelector.hh to G4MuonMinusCapture using
+SetElementSelector. This preserves isotope sampling and represents rapid
+transfer through the final oxygen target. It does not model microscopic
+atomic-transfer timing and cascade details. Switching to
+G4MuonMinusAtomicCapture alone does not fix the target choice.
+
+Physical reference: Super-Kamiokande, Physical Review D 110, 082008 (2024),
+Transfer discussion in Section III B, capture fraction on printed page 12,
+and lifetime in Table XII on printed page 18:
+https://eprints.gla.ac.uk/340602/1/340602.pdf .
+
+The observer classifies direct daughters as decay-in-orbit or nuclear
+capture before stacking cuts, using their creator-model IDs. It records
+their birth times; Geant4 kills the muon parent at the stopping time while
+assigning delayed times to its daughters. Late rejected daughters are not
+misclassified as captures. The 200 MeV lifetime/capture comparison uses
+only muons that stopped, excluding rare decays in flight.
+
+3. Photonuclear, electronuclear, and muon-nuclear processes are omitted.
+
+The actual process managers have no electronNuclear, positronNuclear, or
+muonNuclear process; the combined gamma process has a null nuclear process.
+PhotonSim omits G4EmExtraPhysics, which the complete Geant4 QGSP_BERT
+reference list registers. Adding that constructor restores the processes.
+
+For 2,000 gamma events at 25 MeV, the added constructor produced 75
+photonuclear interactions. Mean emitted light changed from
+5,287.46 +/- 7.55 to 5,109.70 +/- 21.47 photons, a 3.36% reduction at
+7.81 approximate standard errors. It restored a near-zero-light tail that
+was entirely absent from the baseline sample.
+
+At 2 GeV, photonuclear interactions appeared in 30.75% of gamma showers
+and 28.25% of electron showers. Neutron-producing event fractions became
+4.75% and 5.75%, versus zero in their respective baseline samples. Mean
+light changed by approximately -0.77% for both species. The main GeV
+consequence is missing secondary topology and low-light tails, not a huge
+universal light-scale error. For 1,000 2 GeV mu+ events, the light difference
+was statistically negligible; no direct muon-nuclear interaction occurred.
+
+Minimal fix: include G4EmExtraPhysics.hh and register
+new G4EmExtraPhysics(0). See minimal_em_extra_fix.diff. Actual process
+presence, restored nuclear interactions, and the changed gamma tail were
+checked in the executed regression.
+
+4. Radiative pion-capture final states are missing even after target repair.
+
+All 880 baseline hydrogen captures yielded pi0 n. The pinned Bertini
+two-body channel table contains no gamma n final state. The measured
+Panofsky ratio is 1.546, implying approximately 39.3% electromagnetic
+capture-family branching on hydrogen. That family includes a small internal
+conversion channel; assigning all of it to real gamma n is a leading-channel
+approximation. After correcting target probabilities, the missing family
+affects roughly 0.175% of all water pion stops.
+
+The oxygen omission is larger: the corrected sample contains 2,981 oxygen
+captures and zero immediate capture photons above 10 MeV. Independently
+measured hard components alone have branching fractions of
+0.15 +/- 0.03% near 128.1 MeV and 0.25 +/- 0.06% around 117-121 MeV. They
+predict about 12 photons in this sample, before adding the larger continuum.
+Their absolute-rate errors share normalization uncertainty. Using the sum
+of those errors as a conservative bound, reducing the combined branching
+by three such bounds leaves approximately 2.1% probability to observe zero.
+The central expectation and complete absence of the model channel are the
+main evidence; no independent-error assumption is made.
+
+The measured total oxygen radiative branch is 2.24 +/- 0.48%, but this
+includes an extrapolation below 50 MeV; it must not be described as a
+directly measured above-threshold branching fraction. The hard-line check
+avoids that ambiguity. See test_radiative_oracle.py and radiative_results.json.
+
+A minimal hydrogen correction can use a dedicated pi- stopping process
+with a custom hadronic interaction: select gamma n or pi0 n with the
+measured branching, and generate an energy-conserving two-body final state.
+For oxygen, use measured gamma lines/continuum with a consistent recoiling
+residual nucleus and de-excitation, for example gamma plus excited 16N.
+Adding a gamma to the existing absorption event would violate its energy
+budget. Neither radiative model was implemented or claimed validated here.
+
+Primary references and exact implementation hooks are documented in
+reference/pion_radiative_oracles.md. The oxygen author manuscript is
+https://escholarship.org/content/qt5835t658/qt5835t658.pdf , printed page 24.
+
+Reproduction, provenance, and remaining limits
+
+From /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/transport,
+submit run_transport.sbatch, run_capture.sbatch, run_final_checks.sbatch, and
+run_radiative_check.sbatch using sbatch. The substantive simulations completed on milano
+jobs 39971259 and 39971585; final assertions and fix-snippet compilation
+passed on milano job 39972145. The radiative statistical check is job
+39972650, rerun successfully as 39973045 after conservatively handling
+correlated measurement errors. Job 39973141 passed the final radiative
+oracle and required every transport fixture to have its expected row count
+and finite values. No tests, imports, numerical scripts, or builds ran on
+login CPUs.
+
+The isolated harness retains the original charged/hadronic actions and
+counts Cherenkov secondaries, then kills optical tracks to avoid transport
+and ROOT-storage cost. This changes random-number consumption. Comparisons
+are ensemble comparisons, not claims of paired event identity. Photon
+counts are emitted source light, not detected PMT photoelectrons.
+
+Minimal assertion examples are in test_new_findings.py. The water target
+test can be reduced to loading the capture CSV, dividing the hydrogen
+capture count by all stopped-pion captures, and checking agreement with
+0.00445. Baseline failure and isolated-fix success are both explicitly
+verified. Full observations are in capture_results.json, em_results.json,
+results.json, test_results.json, and radiative_results.json.
+
+Actual processes were inspected for gamma, e-/e+, mu-/mu+, proton, neutron,
+pi-/pi+, K-/K+/K0L, and alpha. Hadron elastic/inelastic interactions,
+negative-hadron stopping, neutron capture, ion physics, and ordinary decays
+are present. Proton, kaon, and neutron samples were also exercised.
+Muon stopping ranges at 200, 400, 1,000, and 2,000 MeV agreed with independent
+PDG water CSDA values within 0.65%; no large charged-range scale error was
+found. These checks do not establish the physical accuracy of every
+hadronic differential final state. Prompt nuclear de-excitation models,
+fine neutron response, and GENIE primary polarization remain separate
+validation topics. Accepted late-light and detector approximations were
+not counted as new bugs.

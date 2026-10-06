@@ -1,0 +1,454 @@
+SK WAND data mode physics audit
+6 October 2026
+
+UPDATED AFTER THE EXPANDED PHOTONSIM AUDIT
+
+The expanded audit found major source-physics errors that supersede the first
+pass's assessment of priorities. PhotonSim assigns far too many stopped pi-
+and mu- to hydrogen in water. Correcting pion target selection reduces emitted
+Cherenkov light by 25.0% in a 200 MeV pi- sample; the baseline produces spurious
+pi0 flashes. Negative-muon capture is 12.86% versus the measured 18.4%, distorting
+the Michel population and time distribution. EM nuclear interactions and
+radiative pion-capture channels are also missing. GENIE is explicitly in the
+user's production scope alongside the supplied particle configurations.
+
+Read photonsim_deep/REPORT.txt for the expanded, prioritized findings, executed
+minimal reproductions, candidate fixes, physical references and coverage.
+Its lane reports preserve the underlying source, measurements and limitations.
+Quoted PhotonSim photon changes are emitted light, not measured detector PE.
+The target-selection prototypes do not fix every capture final-state model.
+
+The first-pass findings below remain valid: missing decay-spin correlations,
+missing high-charge PMT compression, a small PMT-intersection precision defect
+and fine-grained photon truth-label errors. Absolute PMT efficiency remains a
+potentially large unresolved calibration question: the supplied QE table has
+no adequate provenance establishing whether collection efficiency is included.
+
+This conclusion applies to LUCiD 20df3094bd563162d40c6ca34c5ad25e1e1d3656,
+config/SK_WAND_geom_config.json and config/SK_WAND_physics_config.json, with
+the actual production settings. PhotonSim was independently built from the
+pinned v1.0.2 source, 9232a7dae46ae36d9c81dd5f1b4e9f7653803514, with Geant4
+11.3.0. The audit did not change production code or configurations.
+
+Every numerical test and source build used milano CPU allocations. No GPUs
+were used. The scripts, results and allocation logs are preserved beside this
+report; SCOPE.txt records the production path and the user's accepted
+approximations. An implementation audit and finite tests cannot certify exact
+agreement with a real detector; calibration uncertainties below remain real.
+
+1. Missing pion to muon to Michel spin correlation
+
+Priority: material angular-physics defect for affected decay chains.
+Location: PhotonSim src/PhysicsList.cc, instantiated by production, plus the
+LUCiD creator-process categorization required when applying the fix.
+
+PhotonSim registers G4DecayPhysics without the pion/muon spin-aware decay
+processes. That erases the joint angular correlation between a pion-decay
+muon and its Michel positron. This is distinct from the accepted approximation
+of unpolarized optical scattering.
+
+Minimal physical experiment: generate 2,000 stopped pi+ chains in water, retain
+the existing late cut, and compare the muon's birth direction with positrons
+above 40 MeV kinetic energy. Cherenkov generation is disabled only for this decay
+experiment; charged-particle propagation and decay run in the real source.
+
+  Current source:             forward hemisphere fraction = 0.529670
+  Independent water oracle:   forward hemisphere fraction = 0.383488
+  Isolated corrected source:  forward hemisphere fraction = 0.384522
+
+The oracle integrates the leading-order Michel distribution using measured
+positive-muon polarization retention in water adopted by SK. The current result fails the physical
+test by about nine reference standard errors. The corrected result agrees.
+The precise size is for this controlled selection, not all WAND events or PE.
+
+Production applicability was checked separately: 20 actual 1 GeV pi+ events
+contained three pion->muon->Michel chains with Cherenkov-emitting muons, whose
+birth kinetic energies were 96.7, 1020.5 and 701.7 MeV. Their direct muon light
+counts were 2,569, 191,216 and 115,585 photons. Thus a visible correlated chain
+is reachable. This small sample does not establish its campaign frequency.
+The stopped-pion test's 4.12 MeV muons themselves are below threshold, so the
+standalone Michel marginal direction remains isotropic; the defect is the
+joint kinematics, not a demonstrated total-light deficit.
+
+Minimal reproducer, after generating the preserved fixtures:
+
+  python audit_wc_20261006/photonsim_physics/test_spin_physics.py baseline
+  # AssertionError: Missing physical pion/muon spin correlation
+  python audit_wc_20261006/photonsim_physics/test_spin_physics.py water
+  # passes against the same physical oracle
+
+The small test evaluates:
+
+  expected = 0.5 - water_retention * integrated_Michel_asymmetry / 4
+  sigma = sqrt(expected * (1 - expected) / selected_positron_count)
+  assert abs(measured_fraction - expected) < 4 * sigma + 0.01
+
+Minimal adequate fix proposal:
+
+  #include "G4SpinDecayPhysics.hh"
+  RegisterPhysics(new G4DecayPhysics(0));
+  RegisterPhysics(new G4SpinDecayPhysics(0));
+
+Also model calibrated stopping-water depolarization. The tested illustrative
+mu+ correction retains the full spin with probability 0.718 at stopping and
+randomizes the remaining fraction. Merely multiplying the polarization vector
+by 0.718 is incorrect for this Geant4 channel, which uses it as a rotation
+axis rather than an asymmetry magnitude. Finally, add "DecayWithSpin" to
+lucid/sources/particle_categorization.py's DECAY_PROCESSES, since that is the
+corrected muon daughter's creator-process name. Otherwise physical photons
+survive but the Michel category can disappear.
+
+The patch summary is photonsim_physics/minimal_spin_fix.diff. The PhotonSim
+variants PhysicsList_spin.cc and SteppingAction_spin_water.cc were executed;
+the LUCiD creator-process integration change remains proposed. Radiative and
+finite-mass corrections make the leading-order oracle approximate; their
+scale, and the retention uncertainty, do not explain the baseline discrepancy.
+The fixture generators are run_audit.sbatch and run_spin_water.sbatch; the
+source, macros and analysis are retained in that directory. Negative-muon
+capture is now tested in photonsim_deep/transport; polarized GENIE input and
+remaining bound-muon physics are discussed in the expanded audit.
+
+Primary physical reference:
+https://arxiv.org/html/2403.08619v2, Sections III.2 and III.3.
+Geant4's spin process implementation is recorded in photonsim_physics/reference/.
+Full evidence: photonsim_physics/findings.txt, spin_results.json,
+production_chain_results.json and final-checks-39969890.log.
+
+2. Reflected photons can numerically encounter the same PMT again
+
+Priority: secondary numerical defect; small measured total-light effect.
+Location: lucid/propagation/base.py:229, with photon_step.py's 0.1 mm nudge.
+
+The sphere discriminant b*b - 4*a*c subtracts large, almost equal float32
+quantities at SK distances. The resulting entry point can be roughly 1 mm
+inside the modeled PMT. The 0.1 mm reflection nudge then leaves the ray inside.
+When the next candidate map includes this PMT, its exit is treated as another
+surface encounter. Its deposit is zero, but another reflection/absorption
+decision can change or terminate the reflected ray.
+
+This is a precision defect within the accepted spherical PMT representation.
+It is not the accepted incompleteness of the endpoint PMT search.
+
+On JAX 0.11.0 CPU, in a fused, actual sampled-step test, 1,820 of 44,806 reflected PMT rays falsely
+re-encountered their original sensor (4.06%). The isolated stable formula gave
+zero in 44,822 reflected rays. These are targeted geometry probes, not the
+fraction of all photons lost.
+
+A separate JAX/jaxlib 0.4.38 CPU runtime, matching the pinned JAX version,
+also reproduces it: 1,780 false encounters in 44,896 reflections (3.96%);
+the isolated fix gives zero in 44,906. This is a pip environment with Python
+3.12, not an execution of the production container. The old one-ray trigger
+does not reproduce on this version because compiler rounding differs; use
+the version-specific reproducer or the preserved population test.
+
+The total-response check on JAX 0.11.0 used 6 million paired K=12 DATA photon
+draws with the real SK_WAND optical settings. Corrected minus current charge
+was -295 +/- 72.3 PE out of 396,553.6 PE, or -0.0744% +/- 0.0182%. No significant
+late-light change was resolved. This is a real but small effect in the tested
+isotropic, uniform-volume, 300--650 nm ensemble. It is not a measured Geant4
+event-cohort bias. It measures the entire discriminant replacement, including
+changes to first-encounter classification and normals; it does not isolate
+the loss caused by repeated encounters. The earlier smaller sample's late-tail
+hint did not persist.
+
+Minimal executable reproducer using the preserved JAX 0.4.38 interpreter
+(inside an allowed allocation, with the environment from Section 8):
+
+  audit_wc_20261006/runtime_jax0438/venv/bin/python \
+    audit_wc_20261006/geometry/repro_reflection_selfhit_pinned.py
+  audit_wc_20261006/runtime_jax0438/venv/bin/python \
+    audit_wc_20261006/geometry/repro_reflection_selfhit_pinned.py --fixed
+
+The current calculation falsely encounters PMT 1027 again after 0.285 mm.
+The corrected calculation reaches the next real surface 0.703 m away. Both
+standalone checks completed in milano job 39970270. The separate older
+repro_reflection_selfhit.py demonstrates a different ray under JAX 0.11.0:
+a seed-0 false encounter after 87 micrometres, removed by the correction for
+all 32 checked seeds. These scripts change the function only in memory.
+
+Minimal fix, replacing the cancellation-prone discriminant:
+
+  perp = oc - (jnp.sum(oc * ray_d, axis=1) / a)[:, None] * ray_d
+  discriminant = 4 * a * (sensor_radius**2 - jnp.sum(perp**2, axis=1))
+
+Keep the existing root selection. Increasing the global nudge merely hides
+the inaccurate intersection and introduces a larger artificial path change.
+Evidence: geometry/findings.txt, repro_reflection_selfhit_pinned.py,
+fused_results_jax0.11.0.json and charge_bias_summary.json. Pinned-version
+evidence is runtime_jax0438/fused_results_jax0.4.38.json.
+
+3. Some photons have the wrong creation-segment truth label
+
+Priority: small truth-label error; total light and particle ownership survive.
+Location: PhotonSim src/DataManager.cc:464--473.
+
+PhotonSim infers a photon's source segment from its emission timestamp and
+the parent's segment start times. That inference sometimes chooses the next
+step. In ten 2.2 MeV gamma events, 32 of 1,817 photon positions unambiguously
+lie on a different same-parent segment. In the clearest example the photon
+is 25.3 micrometres from its assigned segment but 6 nanometres from the correct
+one. Other photons near boundaries cannot be resolved by float32 positions.
+
+Minimal invariant and actual executed reproducer:
+
+  counts = np.bincount(photon_segment_index, minlength=len(segment_ncherenkov))
+  assert np.array_equal(counts, segment_ncherenkov)
+
+  python audit_wc_20261006/photonsim_physics/test_segment_counts.py
+  # First gamma event: 144 photons, absolute segment-count mismatch 8; fails.
+
+The independent position test is segment_ownership.py. Mismatched counts also
+occur in the electron, muon and pion fixtures. They do not imply those photons
+were lost; the raw/event/segment total photon counts agree.
+
+Minimal reliable fix: attach the parent's local step index to each optical
+secondary when it is created, then translate that index through the existing
+per-parent segment offset. Do not reconstruct creation provenance from time
+or nearest position. The expanded audit now validates an isolated implementation:
+1,206 wrong assignments among 766,427 photons become zero, with all photon
+position/direction/wavelength/time arrays bitwise unchanged. Each wrong original
+assignment uses a Geant4 birth time slightly beyond the actual emitting step's
+end; first-step timestamp subtraction is not the cause. Production is unchanged.
+Evidence: photonsim_deep/emission/step_tag_prototype.diff, step_tag_results.json
+and findings.md; earlier photonsim_physics/segment_ownership_results.json.
+
+4. Potentially large unresolved absolute PMT efficiency
+
+SK_WAND uses SK_QE.json as an incident-photon detection probability, with
+qe_corrections=1. At 400 nm this is 0.2261907458. There is no independent
+photoelectron collection-efficiency factor. The exact curve's measurement
+source, illumination conditions and collection-efficiency convention could
+not be established from the file or its introduction in git.
+
+This matters because published R3600 specifications distinguish photocathode
+QE from collection efficiency, while SK calibration literature sometimes uses
+"QE" for their product. The curve's roughly 23% peak resembles photocathode
+specifications, but resemblance does not prove its convention.
+
+Conditional diagnostic, not a confirmed defect or measured event bias:
+
+  from lucid.wavelength.medium import load_qe_curve
+  q = float(load_qe_curve("config/pmt/SK_QE.json")(400.))
+  print(q, q * .73, 1 / .73 - 1)
+  # 0.2261907458, 0.1651192445, 0.3698630137
+
+If this is bare cathode QE, collection efficiency .73 or .67 implies the
+present direct-PE normalization is respectively 37% or 49% too high. If it
+already includes collection, another factor would recreate a double-counting
+bug. Some collection values depend on aperture; the cited Nishimura paper
+also contains a 67% table versus 73% prose discrepancy at the same aperture.
+
+Resolution: recover the source table and convention, or compare absolute
+low-occupancy response with a calibrated photon flux. If it is cathode QE,
+use an appropriate measured collection factor through qe_corrections or a
+measured full detection-efficiency curve. No arbitrary CE factor was applied.
+
+Primary references, calculation, and provenance analysis:
+physics_crosscheck/findings.md and optical_reference_results.json.
+https://inspirehep.net/files/f043ea4dfbaf066f1e0ec243e6d87f15
+https://arxiv.org/pdf/1307.0162
+https://s3.cern.ch/inspire-prod-files-f/fd23eeff10e09b37f7ce3283940a852f
+
+5. Additional physical and secondary-path findings
+
+High-charge PMT nonlinearity is absent from the readout. The actual SK_WAND
+charge function remains additive: 300,000 samples at each of 30, 200, 1,190
+and 5,000 input PE give relative gain at 1,190 PE of 1.000093, normalized to
+30 PE. This is distinct from the accepted shape of the one-PE distribution.
+SK calibration Section 3.1.7 and Figure 19 measure high-charge compression
+of the ID PMTs; the text reports deviations exceeding 10% above 1,000 PE.
+It identifies PMT anode response separately from the QBEE electronics. This
+does not establish a particular correction at exactly 1,190 PE, nor transfer
+a short-pulse calibration unchanged to every 200 ns integrated digit.
+
+The ordinary ten-event production bomb cohort contains one >=1,000-PE digit
+among 58,690 saved digits. Its 1,190 PE account for 3.13% of that event's
+truth charge and 0.413% of the cohort's truth charge. This establishes that
+high integrated occupancy is reachable; these fractions are not missing-
+charge estimates or precise campaign frequencies. Replaying this event with
+the identical keys reproduces its detected charge exactly and resolves the
+pulse-width question: 1,152 PE arrive within a 1 ns sliding window, and the
+central 90% span is 0.766 ns. The 132 ns full span is a small late tail. Thus
+the production witness has a genuinely prompt high-occupancy optical pulse.
+These are pre-PMT-TTS arrival times; the exact anode response still needs a
+matched calibration. See end_to_end/bright_digit_timing.json, job 39970809.
+
+Minimal current-code response probe (inside an allowed CPU allocation):
+
+  import numpy as np
+  from lucid.simulation.digitizer import apply_readout_resolution, resolve_model_config
+  import json
+  cfg = json.load(open("config/SK_WAND_physics_config.json"))
+  model = resolve_model_config(cfg["digitizer"])
+  rng = np.random.default_rng(1901190)
+  for n in (30, 1190):
+      q, _ = apply_readout_resolution(np.full(300_000, n),
+                                     np.zeros(300_000), model, rng)
+      print(n, q.mean() / n)  # gain stays approximately one
+
+The executed probe includes a full 1,190 simultaneous-photon digitizer call:
+digitizer/probe_high_charge_response.py, high_charge_results.json, milano
+job 39970669. The minimal physically justified fix is a measured, period-
+appropriate PMT charge-response function in apply_readout_resolution, before
+charge-dependent timing. Preserve true PE in truth records. An arbitrary
+clamp or universal 10% reduction would not be a calibrated fix. Pulse-width
+dependence needs measurement or a supported response model.
+References/evidence: https://arxiv.org/pdf/1307.0162, Section 3.1.7;
+digitizer/high_charge_finding.txt and end_to_end/bomb_occupancy.json.
+
+Water asymmetric scattering imports a coefficient fitted with SK's forward
+law p(mu)=2*mu on 0<=mu<=1, but uses Henyey--Greenstein with g=.95. The mean
+cosine becomes .95 instead of 2/3. Its rate is small: a straight-path estimate
+weighted by Cherenkov spectrum, QE and absorption gives roughly 0.30% affected
+over 20 m. This is not a demonstrated large charge error. Minimal reproducer:
+
+  import jax.numpy as jnp
+  from lucid.wavelength.scattering import hg_sample_cos_theta
+  u = (jnp.arange(1_000_000) + .5) / 1_000_000
+  print(hg_sample_cos_theta(u, .95).mean(), jnp.sqrt(u).mean())
+  # .95 versus .6666666
+
+Use mu=sqrt(U), uniform azimuth, for that specific SK fitted phase law; or
+refit HG and its coefficient together. Changing HG g alone does not recover
+the law. See physics_crosscheck/verify_optical_reference.py and findings.md.
+
+The scat10x diagnostic has a substantial truncation issue, separate from
+canonical SK_WAND. Its intended fiTQun AttenL job path still defaults to K=12.
+Relative to K=96 it misses 31.8% of detected light at 300 nm, 11.5% at 325 nm,
+and 2.63% at 350 nm in the probe. K=96 had no detected tail in its final 24
+iterations for that sample. Expose the existing --K option through the job
+configuration and check convergence when changing scattering strength.
+Reproducer: simulator_statistics/check_statistics.py with
+AUDIT_PHYSICS_CONFIG=config/SK_WAND_physics_config_scat10x.json, AUDIT_K=96,
+and AUDIT_RESULT_NAME=scat10x_K96_results.json. Set a distinct result name
+to preserve the canonical results.json evidence.
+Canonical SK_WAND showed no extra light between K=12 and K=24 in its test.
+
+Pileup merging drops segment group_id, so two streams containing [0,0] each
+write [0,1,2,3] instead of [0,0,1,1]. Preserve group IDs and offset groups
+between streams. This changes grouping truth, not sensor charge or timing,
+and is outside the supplied single-vertex SK_WAND GeV production path.
+Minimal reproducer: production_integrity/repro_pileup_group_ids.py.
+
+6. Independent checks supporting the conclusions
+
+The checks below test specific invariants or physical laws; their success is
+not a claim that every possible input or every real-detector effect is right.
+
+Source physics: 40 e-/mu-/pi+/gamma events conserve total emitted photons;
+primary energies and emission band agree with input; 40 pion replacement
+endpoints are continuous. A high-beta muon Frank--Tamm comparison gives
+observed/expected yield 0.998648. A 20,000-event GENIE injection test gives
+mean cos(theta)=-0.00340 and mean cos(theta)^2=.333384.
+
+Input handoff: reversed/noncontiguous ROOT chunks preserve ordering, mm->m
+conversion, wavelength, direction and emission time. Synthetic later-step
+and candidate records survive chunking; padding does not. 513 known photons
+reach 513 intended actual PMTs with exact IDs and <.0063 ns timing residual.
+513 outside-detector sources give zero ID hits. Orphan truth labels do not
+remove physical PE. See root_emission/findings.md.
+
+Absolute transport law: 2.4 million photons over 24 wavelength, distance and
+reflectance settings agree with independently evaluated absorption/scattering
+survival times incident QE. Combined chi-square=28.944 for 24 degrees of
+freedom, p=.222, maximum deviation 2.739 sigma. At 400 nm over 20 m the expected
+19,162.8 PE compare with 19,093 at R=0 and 19,125 at R=.25. The recent double-QE
+and reflection-normalization fixes behave correctly against this oracle.
+This validates the use of the supplied QE, not its experimental calibration.
+
+Transport/statistics: 27 independent stochastic and angular checks pass;
+water coefficient equations and all 25 red Pope--Fry knots agree with cited
+values. Nominal K24 has no detected contribution beyond step 12 in 65,536
+photons. Another 65,536-photon DATA sample has 13,017 valid detected records,
+with no photon contributing multiple valid hits. Tiny clipped residual
+weights have infinite timestamps and are discarded before digitization.
+
+Geometry: 200,000 cylinder rays agree with independent double-precision
+intersections: zero missing/wrong faces, worst distance error 48 micrometres.
+11,096 PMTs are loaded without overlapping spheres. See geometry/findings.txt.
+
+Readout: 400 independent integration, trigger and decomposition cases pass,
+plus one million PE timing samples. Tests include cross-window behavior,
+negative absolute timestamps, threshold application, dark labeling, and
+charge-dependent timing. Production settings and sparse-file preservation,
+ancestry, containment, seed separation and volume sampling were also checked.
+See digitizer/findings.txt and production_integrity/REPORT.txt.
+
+Actual ROOT-to-HDF5 production: five 100 MeV electrons, five 1 GeV muons and
+ten 1 GeV pions all passed with the normal SK_WAND trigger. Nine of ten
+2.2 MeV gamma events survived a separately labeled diagnostic selection of
+at least three physical hits; that gamma selection is not the GeV trigger.
+Persisted particle and segment physics-charge sums agree within 6.14e-6 PE,
+all retained source-to-PMT timing lower bounds pass, and file references are
+consistent. No detected PE lacked particle/segment attribution in this sample.
+Its largest per-PMT truth charge was 174 PE. Absolute experimental SK energy
+calibration is not established by these consistency checks.
+Evidence: end_to_end/results.json and slurm-39969996.log.
+
+An additional ten events from the ordinary GeV/01_pbomb.json production
+configuration generated 5,413,607 photons. All ten survived the normal
+trigger. Every raw primary ID, PDG and kinetic energy survived into metadata;
+stored ancestors matched the raw Geant4 parent chains. There were zero orphan
+PE, maximum per-(particle,digit) charge disagreement was 1.34e-5 PE, and the
+smallest source-to-PMT causal slack was positive at 0.000145 ns. This cohort
+reached 1,190 truth PE in one digit, with 1,154 reconstructed PE, so high-charge
+PMT response is relevant to the supplied production configuration. The
+reconstructed value fluctuates from SPE sampling and is not evidence that
+nonlinearity is modeled. Evidence: end_to_end/results_bomb.json,
+bomb.sbatch and bomb-39970274.log; milano job 39970274 completed successfully.
+
+7. Remaining calibration and validation limits
+
+Absolute PMT efficiency is the most consequential unresolved normalization
+question. Scalar reflection parameters and angular response require optical
+calibration; config comments do not establish their accuracy. Spatial and
+time-dependent water properties are simplified. PMT response has no high-
+occupancy nonlinearity; the ordinary production sample reaches high charge,
+but its calibrated pulse-dependent correction remains undetermined.
+These omissions require detector measurements and broader occupancy checks,
+not an arbitrary parameter patch.
+
+Full nuclear-model accuracy, all energy/species combinations, material outside
+the full water tank, negative-muon spin/bound-decay response, and every possible
+geometry trajectory were not established by these finite probes. Negative-muon
+capture rates were subsequently checked and a large discrepancy established;
+see the expanded report. The user's
+explicitly accepted approximations are listed in SCOPE.txt and were not
+reclassified as bugs.
+
+8. Reproduction and handoff
+
+All reported numerical results were obtained in milano Slurm allocations.
+Unsuccessful setup attempts are also preserved and are not passing evidence.
+To run an individual Python test, first obtain an allowed allocation:
+
+  srun --partition=milano --account=neutrino:ml-dev@milano --qos=preemptable \
+       --ntasks=1 --cpus-per-task=4 --mem=16G --time=00:30:00 \
+       --pty bash --noprofile --norc
+
+Then from the repository root set JAX_PLATFORMS=cpu, PYTHONPATH=$PWD, and
+PYTHONDONTWRITEBYTECODE=1. Use the interpreter documented by the relevant
+lane, with PYTHONNOUSERSITE=1 for the isolated pinned runtime. The shared
+initial Python environment provides JAX 0.11.0; the separate
+runtime_jax0438 directory records the pinned-version check. Never run these
+tests on the login node. A roma allocation with the matching account is also
+within the user's allowed resources.
+
+The 27 optical-law checks pass on both JAX versions. The geometry population
+defect and its isolated correction were also verified on both. The six-million-
+photon charge comparison and the main integration runs use JAX 0.11.0; their
+precise small numerical effects are not asserted to be identical on every
+backend. An attempted shared SIF launch failed during mounting before Python
+started; its logs remain under optical_transport/pinned_container/ and are
+not counted as successful validation.
+
+Full PhotonSim fixture regeneration additionally uses the existing CVMFS
+Geant4/ROOT installation and the prior audit's Apptainer rootfs/runtime
+wrapper. Their exact paths are recorded in photonsim_physics/run_audit.sbatch
+and geant4_env.sh. The source/macros and numerical analysis are preserved here,
+but this directory alone is not a portable Geant4 installation.
+
+The small physical regression tests deliberately fail for the confirmed
+defects; diagnostic measurement scripts may instead assert that the erroneous
+behavior is present and print it. The geometry --fixed option and spin source
+variants are isolated demonstrations, not applied production fixes.

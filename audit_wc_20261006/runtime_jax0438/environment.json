@@ -1,0 +1,16 @@
+{
+  "host": "sdfmilan271",
+  "partition": "milano",
+  "job_id": "39970012",
+  "python": "3.12.8 | packaged by conda-forge | (main, Dec  5 2024, 14:24:40) [GCC 13.3.0]",
+  "interpreter": "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/runtime_jax0438/venv/bin/python",
+  "jax": "0.4.38",
+  "jaxlib": "0.4.38",
+  "flax": "0.10.2",
+  "optax": "0.2.4",
+  "numpy": "1.26.4",
+  "jax_source": "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/runtime_jax0438/venv/lib/python3.12/site-packages/jax/__init__.py",
+  "base_source": "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/propagation/base.py",
+  "base_sha256": "22c4a509674ca605175df2d82d79aa5cffebc9a85cf2be68e5b35dc08f96ada7",
+  "git_head": "20df3094bd563162d40c6ca34c5ad25e1e1d3656"
+}

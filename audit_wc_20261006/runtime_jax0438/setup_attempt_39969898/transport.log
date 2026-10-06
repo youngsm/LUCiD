@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/optical_transport/check_transport_physics.py", line 18, in <module>
+    from lucid.simulation.optics import (
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/simulation/__init__.py", line 2, in <module>
+    from lucid.simulation.simulator import setup_event_simulator
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/simulation/simulator.py", line 28, in <module>
+    from lucid.siren.training.inference import SIRENPredictor
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/siren/training/__init__.py", line 9, in <module>
+    from .monitor import TrainingMonitor, LiveTrainingCallback
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/lucid/siren/training/monitor.py", line 16, in <module>
+    from IPython.display import display, clear_output
+ModuleNotFoundError: No module named 'IPython'

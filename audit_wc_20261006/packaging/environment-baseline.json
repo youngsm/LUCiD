@@ -1,0 +1,45 @@
+{
+  "job": "39974575",
+  "partition": "milano",
+  "python": "3.12.8 | packaged by conda-forge | (main, Dec  5 2024, 14:24:40) [GCC 13.3.0]",
+  "executable": "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/bin/python",
+  "modules": {
+    "jax": {
+      "version": "0.11.0",
+      "source": "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jax/__init__.py"
+    },
+    "jaxlib": {
+      "version": "0.11.0",
+      "source": "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/__init__.py"
+    },
+    "flax": {
+      "version": "0.12.8",
+      "source": "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/flax/__init__.py"
+    },
+    "optax": {
+      "version": "0.2.8",
+      "source": "/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/optax/__init__.py"
+    },
+    "numpy": {
+      "version": "2.4.3",
+      "source": "/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/numpy/__init__.py"
+    },
+    "scipy": {
+      "version": "1.15.1",
+      "source": "/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/scipy/__init__.py"
+    },
+    "h5py": {
+      "version": "3.12.1",
+      "source": "/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/h5py/__init__.py"
+    },
+    "uproot": {
+      "version": "5.5.2",
+      "source": "/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/uproot/__init__.py"
+    },
+    "awkward": {
+      "version": "2.6.8",
+      "source": "/sdf/group/neutrino/youngsam/.conda/envs/py310_torch/lib/python3.12/site-packages/awkward/__init__.py"
+    }
+  },
+  "note": "Visible package metadata including inherited system sites; not a minimal or portable environment lock."
+}

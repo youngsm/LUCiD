@@ -1,0 +1,27 @@
+{
+  "negative_muon_water_oracle": "baseline fails / water selector passes",
+  "negative_pion_water_oracle": "baseline fails / measured water selector passes",
+  "em_nuclear_processes": "baseline missing / G4EmExtraPhysics present",
+  "muon_csda_range_checks": {
+    "200": {
+      "measured_cm": 79.03270342534648,
+      "pdg_csda_cm": 78.94,
+      "ratio": 1.0011743529940016
+    },
+    "400": {
+      "measured_cm": 179.2632304807478,
+      "pdg_csda_cm": 179.6,
+      "ratio": 0.9981248913181949
+    },
+    "1000": {
+      "measured_cm": 470.4475493175767,
+      "pdg_csda_cm": 473.2,
+      "ratio": 0.9941833248469499
+    },
+    "2000": {
+      "measured_cm": 929.2547492208936,
+      "pdg_csda_cm": 935.3,
+      "ratio": 0.9935365649747606
+    }
+  }
+}

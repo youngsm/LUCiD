@@ -1,0 +1,30 @@
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Accumulable registered as "accumulable_0"
+Accumulable registered as "accumulable_1"
+Output filename set to: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_mu60.root
+Checking overlaps for volume Detector:0 (G4Box) ... OK! 
+### Birks coefficients used in run time
+Individual photon storage: disabled
+ROOT file /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_mu60.root created for optical photon data
+1D wavelength histogram created: 800 bins from 0-800 nm
+
+### Starting run with 30 events ###
+Progress: [>                                       ] 0.0% (0/30) Elapsed: 0s     Progress: [=>                                      ] 3.3% (1/30) Elapsed: 0s ETA: 0s     Progress: [==>                                     ] 6.7% (2/30) Elapsed: 0s ETA: 0s     Progress: [====>                                   ] 10.0% (3/30) Elapsed: 0s ETA: 0s     Progress: [=====>                                  ] 13.3% (4/30) Elapsed: 0s ETA: 0s     Progress: [======>                                 ] 16.7% (5/30) Elapsed: 0s ETA: 0s     Progress: [========>                               ] 20.0% (6/30) Elapsed: 0s ETA: 0s     Progress: [=========>                              ] 23.3% (7/30) Elapsed: 0s ETA: 0s     Progress: [==========>                             ] 26.7% (8/30) Elapsed: 0s ETA: 0s     Progress: [============>                           ] 30.0% (9/30) Elapsed: 0s ETA: 0s     Progress: [=============>                          ] 33.3% (10/30) Elapsed: 0s ETA: 0s     Progress: [==============>                         ] 36.7% (11/30) Elapsed: 0s ETA: 0s     Progress: [================>                       ] 40.0% (12/30) Elapsed: 0s ETA: 0s     Progress: [=================>                      ] 43.3% (13/30) Elapsed: 0s ETA: 0s     Progress: [==================>                     ] 46.7% (14/30) Elapsed: 0s ETA: 0s     Progress: [====================>                   ] 50.0% (15/30) Elapsed: 0s ETA: 0s     Progress: [=====================>                  ] 53.3% (16/30) Elapsed: 0s ETA: 0s     Progress: [======================>                 ] 56.7% (17/30) Elapsed: 0s ETA: 0s     Progress: [========================>               ] 60.0% (18/30) Elapsed: 0s ETA: 0s     Progress: [=========================>              ] 63.3% (19/30) Elapsed: 1s ETA: 0s     Progress: [==========================>             ] 66.7% (20/30) Elapsed: 1s ETA: 0s     Progress: [============================>           ] 70.0% (21/30) Elapsed: 1s ETA: 0s     Progress: [=============================>          ] 73.3% (22/30) Elapsed: 1s ETA: 0s     Progress: [==============================>         ] 76.7% (23/30) Elapsed: 1s ETA: 0s     Progress: [================================>       ] 80.0% (24/30) Elapsed: 1s ETA: 0s     Progress: [=================================>      ] 83.3% (25/30) Elapsed: 1s ETA: 0s     Progress: [==================================>     ] 86.7% (26/30) Elapsed: 1s ETA: 0s     Progress: [====================================>   ] 90.0% (27/30) Elapsed: 1s ETA: 0s     Progress: [=====================================>  ] 93.3% (28/30) Elapsed: 1s ETA: 0s     Progress: [======================================> ] 96.7% (29/30) Elapsed: 1s ETA: 0s     
+
+--------------------End of Global Run-----------------------
+ The run consists of 30 mu- of 60 MeV
+------------------------------------------------------------
+
+OpticalPhotonsRaw written with 0 chunk entries
+Photon wavelength histogram written with 205523.0 entries
+Photon distance (s) histogram written with 205523.0 entries
+ROOT file closed with 30 events

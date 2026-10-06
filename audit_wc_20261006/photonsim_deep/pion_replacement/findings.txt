@@ -1,0 +1,106 @@
+Pion deflection track replacement: no established consequential physics bug
+==========================================================================
+
+Scope
+-----
+PhotonSim upstream/src/SteppingAction.cc:106-174 kills a pi+/pi- track after
+a >5-degree hadElastic/hIoni deflection and appends a same-species child at
+the post-step position/global time/three-momentum, retaining status. This
+audit isolates the physical effect of that operation. It does NOT validate
+the absolute correctness of Geant4 capture targets or hadronic models;
+those are identical in both variants and belong to separate audit tasks.
+
+Executed comparison
+-------------------
+Slurm milano job 39971593, sdfmilan272, COMPLETED 0:0, elapsed 5m01s.
+Geant4 11.3.0, the frozen PhotonSim source and its actual physics list,
+four independent single-thread processes inside a 4-CPU allocation.
+No production source was edited. The isolated on/off SteppingAction
+copies differ in exactly one branch:
+
+    - if (angle > 5.0 * deg) {
+    + if (false && angle > 5.0 * deg) {
+
+2,800 events per variant: 300 each for pi+/pi- at 200, 1000, 2000 MeV
+kinetic energy, plus 500 each at 2 MeV to exercise stopped replacement.
+Identical initial seeds; individual histories diverge because replacement
+changes stacking/RNG consumption. Independent-ensemble standard errors
+are reported; bitwise per-event agreement is not expected or asserted.
+Individual photon ROOT storage was disabled in both variants; physical
+optical transport continued and an identical instrumentation hook counted
+every first optical-photon step, parent-chain light, ranges and daughters.
+
+Deterministic invariants checked on every event
+---------------------------------------------
+All 2,645 replacement children in the on-variant resumed and were linked
+to their actual old-track parent. This includes 1,517 fAlive, 518
+fStopButAlive and 610 fSuspend replacements. No child was lost. Every
+primary continuation chain had exactly one eventual physical termination.
+Child birth position/global time matched the old endpoint exactly; largest
+kinetic-energy reconstruction discrepancy was 6.8213e-13 MeV. The sum of
+continuation-track counts was exactly one plus the replacement count.
+
+Population results
+------------------
+Total optical-photon mean: replacement ON minus OFF, percentage of OFF.
+Intervals below are approximate 95% intervals, not subpercent validation.
+
+    pi+  200 MeV:  +1.612% +/-  9.735%
+    pi+ 1000 MeV:  -0.818% +/-  7.617%
+    pi+ 2000 MeV:  -1.088% +/-  6.199%
+    pi-  200 MeV:  -0.853% +/- 12.199%
+    pi- 1000 MeV:  +5.962% +/-  8.125%
+    pi- 2000 MeV:  +1.849% +/-  6.586%
+
+All production-energy photon changes are within 1.44 standard errors.
+Pion-chain light, total chain range, terminal/max radius, terminal global
+time, decay/capture/inelastic counts, muon daughters, other physical
+daughters, and physical pion births show no established discrepancy.
+The largest absolute mean z across 104 comparisons is 2.579 for the
+2-MeV pi+ endpoint radius; this is not significant evidence after allowing
+for the many comparisons and is not promoted to a bug. The 2-MeV pi+
+sample decays in all 500 events in both variants (mean terminal times
+27.984 vs 26.670 ns); stopped pi- replacements also reach normal at-rest
+capture. These checks exclude the proposed lost-track/at-rest-loss
+mechanisms without claiming the shared capture implementation is correct.
+
+Code-grounded interpretation
+---------------------------
+See semantics.txt for exact Geant4 source links. SetInitialStep reactivates
+suspended tracks, puts zero-KE tracks into at-rest processing and locates
+missing touchables. fStopAndKill preserves already-created secondaries.
+Ordinary pion decay uses an exponential interaction clock; restarting it
+after survival does not itself extend lifetime. Production pions use
+WentzelVI, and neither it nor the G4VMultipleScattering wrapper has the
+suspected Urban first-step/track-age reset. Suspended tracks already call
+StartTracking/InitializeStep on normal resume. A fresh step's conservative
+geometry-safety cache can alter finite-step partitioning for fAlive tracks,
+so exact numerical equivalence is not claimed. No aggregate physical bias
+from that distinction is established by this comparison.
+
+The first step skips updating preMomentumDir, so the next step may attach
+a deflection label to the wrong step. This is a concrete bookkeeping
+issue; no large physical-light consequence is shown and it is not a
+physical bug finding. No physical fix is recommended from this evidence.
+
+Reproduce and inspect
+---------------------
+From repository root, submit (do not execute numerical code on login):
+
+    sbatch audit_wc_20261006/photonsim_deep/pion_replacement/run.sbatch
+
+prepare.py generates the isolated source variants and event macros;
+PionAudit.hh contains the measurement hooks; analyze.py checks invariants
+and calculates uncertainties. summary.txt is the concise result and
+results.json contains all statistics. CSVs preserve every event.
+The earlier job 39971321 was canceled after an instrumentation correction
+and is not evidence. Optional follow-up 39972370 was canceled while
+pending (0 seconds); no additional statistical run was performed.
+
+Limits
+------
+This comparison targets large changes under homogeneous-water transport,
+ordinary production pion initial states and 200-2000 MeV kinetic energy.
+It cannot establish 100% physical equivalence, rule out effects below its
+confidence widths, validate absolute nuclear physics, or cover customized
+weights/preassigned decay data that PhotonSim does not generate.

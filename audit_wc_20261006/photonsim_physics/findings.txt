@@ -1,0 +1,134 @@
+PhotonSim physical-source audit for SK_WAND, 2026-10-06
+
+Audited source: PhotonSim v1.0.2 = 9232a7dae46ae36d9c81dd5f1b4e9f7653803514,
+the ref pinned by the current LUCiD .github/workflows/container.yml.
+All source/headers were fetched from that upstream ref into upstream/.
+Headless executable uses the exact physics, geometry, primary generator,
+stepping, stacking and output source. Only GUI startup was omitted and
+startup seeds fixed; each macro resets its seeds explicitly.
+Geant4 11.3.0 and ROOT 6.34.02 from CVMFS. Container normally uses ROOT6.30;
+the ROOT difference affects transport-independent output, not G4 physics.
+All tests/compilation/numerical checks used milano CPU Slurm allocations.
+39967619 was canceled after an initial missing StackingAction.hh compile;
+39967697 ran corrected baseline and spin simulations; 39969641 ran calibrated
+water-spin and the source-segment geometry test; 39969890 ran final physical
+oracles and the production-chain applicability check. No GPUs were used.
+No production file was edited; candidate changes are isolated here.
+
+CONFIRMED PHYSICS DEFECT: missing pion->muon->Michel spin correlation.
+
+upstream/src/PhysicsList.cc:57 registers G4DecayPhysics but no spin decay.
+Default G4MuonDecayChannel ignores muon spin. G4PionDecayMakeSpin and
+G4DecayWithSpin are absent. This erases the joint angular distribution.
+It is distinct from the accepted optical-photon unpolarized scattering.
+
+Proof: pion_rest_baseline.mac and pion_rest_spin.mac each generate 2000
+pi+ initially at rest, let the 4.1198 MeV mu+ stop in water and decay, and
+record the positron and muon birth directions. Cerenkov alone is disabled
+to eliminate photon storage; charged-particle transport and decay remain
+the actual source physics. The accepted 10us cutoff is preserved.
+Baseline: 1975 Michels, mean cosine +0.00845 +/- 0.01306, matching isotropy.
+Spin constructor: 1980 Michels, -0.10155 +/- 0.01262, consistent with -1/9.
+For positron kinetic energy >40MeV, fraction in same hemisphere as the
+muon's birth momentum changes 0.52967 -> 0.33333.
+
+Primary physical reference: SK collaboration, Kitagawa et al., PRD110
+082008 (2024), Sec III.2 and III.3, https://arxiv.org/html/2403.08619v2 .
+Their Michel formula has spin-dependent asymmetry and they use positive
+muon polarization retention in water 0.718 +/- 0.007, so water does not
+justify dropping this effect. Their negative-muon retention is much smaller.
+
+Executed calibrated water variant: at the mu+ positive-energy->at-rest
+transition in G4_WATER, preserve spin with probability0.718, otherwise set
+spin zero (G4DecayWithSpin draws an uncorrelated direction). Results:
+1973 Michels, mean cosine -0.05747 +/-0.01312, high-energy same-hemisphere
+fraction0.38452. These agree statistically with the water Michel oracle.
+Do not merely scale the spin vector: G4MuonDecayChannelWithSpin uses it as
+a unit rotation axis and does not multiply angular asymmetry by magnitude.
+
+Minimal fix: register G4SpinDecayPhysics after G4DecayPhysics; this installs
+both pion and muon spin-aware processes and muon decay tables. Add calibrated
+stopping-water depolarization. Candidate code: PhysicsList_spin.cc and
+SteppingAction_spin_water.cc. ROOT positron creator becomes DecayWithSpin,
+so LUCiD particle_categorization.py:44 must also accept DecayWithSpin in
+DECAY_PROCESSES. Pion-to-muon creator remains Decay. See minimal_spin_fix.diff.
+
+Minimal physical test: test_spin_physics.py compares the high-energy
+hemisphere fraction to the independently integrated Michel formula for
+water. Executed in39969890: baseline FAILS (0.529670 versus expected0.383488,
+statistical sigma0.016119), calibrated water PASSES (0.384522, sigma0.016908).
+
+Scope: stopped-pion daughter muons in the controlled test are below the
+Cherenkov threshold; the standalone Michel marginal direction remains
+isotropic. This proof establishes lost joint kinematics, not a claimed
+change in total photons or 15% of all events. Its visible-light relevance
+is muons born in pion decays in flight, and polarized primary muons when
+their initial polarization is modeled. In the exact-source20-event pi+1GeV
+fixture there are9 pi->mu->Michel chains, including3 with directly emitting
+muons: birth KE96.672,1020.453,701.745MeV and direct muon Cherenkov counts
+2569,191216,115585 respectively. This demonstrates a real production path;
+20events do not establish a precise campaign-wide frequency or efficiency
+impact. production_chain_results.json preserves the actual events.
+Full mu- capture/depolarization behavior
+and GENIE primary spin input are not validated by this mu+ fix.
+
+CONFIRMED SECONDARY TRUTH DEFECT: time-inferred photon segment is sometimes
+not the actual creation segment.
+
+upstream/src/DataManager.cc:464-473 maps each photon to its immediate parent's
+last segment whose start time precedes the reconstructed emission time.
+In ten actual 2.2MeV gamma events, sum of per-segment Cherenkov counts equals
+all1817 stored photons, but the histogram of Photon_SegmentIndex disagrees
+by absoluteL1=68. This requires at least34 photons to have wrong segment
+labels. Geometry independently resolves32 unambiguous wrong assignments:
+photon source is >0.001mm from assigned segment but <0.001mm from another
+same-parent segment (1.76% of photons). Most point to the next step.
+Worst example: event0 photon56 assigned43 but emitted on42; assigned
+distance0.0252856mm versus correct distance0.000006026mm. Rawfloat32 source
+positions limit finer geometry checks. segment_ownership_results.json
+contains explicit endpoints and photon coordinates.
+The same count invariant fails for e100MeV (L1=580/110423), mu1000MeV
+(2576/1061694) and pi1000MeV (11306/2380274).
+Total PE and emitting-particle identity remain intact here. This is a small
+sub-mm per-step truth defect, not a demonstrated large simulation-yield loss.
+
+Minimal test: test_segment_counts.py, first gamma event only, compare
+bincount(Photon_SegmentIndex) with Segment_NCherenkov. It FAILED as expected
+in39969890:144photons in the first event, absolute segment mismatch8.
+Geometric proof is
+segment_ownership.py. Suggested minimal reliable fix is to tag each optical
+secondary with its parent's current local step index during the parent's
+UserSteppingAction, retain that index with the photon, and combine it with
+the existing per-parent global segment offset in EndEvent. Avoid timestamp
+inference or nearest-position matching for creation provenance. No fix
+to this ownership code was executed during this lane.
+
+EXECUTED COVERAGE
+
+40 physical events: e-100MeVx5, mu-1000MeVx5, pi+1000MeVx20,
+gamma2.2MeVx10; macros generated by current production generate_macro.
+Primary KE matches requested species energies, photon raw count equals
+event count and sum Segment_NCherenkov, no negative segment indices;
+emission band274.91-673.83nm consistent with material RINDEX endpoints.
+40 pion deflection replacements have exactly zero endpoint/birth gap.
+20,000 actual rooTracker forward-neutrino events through GENIE injector:
+mean cosz=-0.0034010, mean cos^2z=0.3333844, forwardfraction0.4971.
+Haar fix is functioning. Momentum GeV->MeV conversion is explicit in
+RooTrackerReader; source kinetic energy is handled by G4ParticleGun.
+Frank-Tamm oracle: selected energetic primary-muon chords8.962875m,
+observed389279 photons vs predicted389806.03 using pre-step beta, ratio
+0.998648. The approximation of chordlength and prestepbeta is restricted
+to beta>0.99; 0.135% difference is consistent with this approximation.
+Results are in source_results.json, scripts and complete ROOT outputs.
+
+LIMITS
+
+These checks cannot certify all hadron/nuclear interaction models or real
+detector agreement. G4HadronElasticPhysics lacks thermal water treatment;
+not raised for WAND's accepted late-light/no-neutron-tagging scope. No claim
+is made that GENIE nuclear remnants, source polarization, external material
+near real detector boundaries, all particle species, or every energy have
+been calibrated. The huge homogeneous water world plus translated/clipped
+light source remains an approximation requiring near-boundary validation.
+Water emission-band tails, material density and interpolation are small
+modeling effects here, not established major bugs.

@@ -1,0 +1,165 @@
+PHOTONSIM CHARGED/HADRON PHYSICS: EXTERNAL ORACLES AND STATIC LEADS
+Research date: 2026-10-06 (client date). Agent: hadron_oracles.
+Scope: primary/official literature and source review only. No simulations,
+imports, numerical scripts, builds, or tests executed by this agent.
+Parent photonsim_physics owns execution on Slurm milano/roma.
+Production code is unchanged. Results below distinguish source predictions
+from executed evidence. Parent's runtime report is authoritative for execution.
+
+1. HIGH-PRIORITY STOPPED NEGATIVE MUON HYPOTHESIS
+
+Physical oracle:
+- Negative muons in pure water: mean disappearance lifetime 1.7954 +/- 0.0020 us.
+- Nuclear capture probability 0.184 +/- 0.001; decay probability about 0.816.
+The SK Kitagawa 2022 thesis states both on printed pp.63-64 (PDF pp.72-73),
+citing Suzuki, Measday and Roalsvig, PRC 35, 2212 (1987):
+https://www-sk.icrr.u-tokyo.ac.jp/sk/_pdf/articles/2022/Master_Thesis_Kitagawa.ver8_.pdf
+https://doi.org/10.1103/PhysRevC.35.2212
+The 1987 full text could not be fetched with web tools; exact numbers were
+read in the institutional thesis, not guessed from the primary abstract.
+
+Decisive independent physical mechanism:
+Super-Kamiokande, H. Kitagawa et al., PRD 110, 082008 (2024), printed p.9:
+muonic hydrogen diffuses in water and transfers the muon to oxygen on a
+timescale much shorter than decay. The paper therefore treats decay in orbit
+in water as oxygen-bound. This is not a negligible isotope/thermal-neutron
+approximation. The same paper discusses oxygen DIO energy-spectrum distortion.
+https://eprints.gla.ac.uk/340602/1/340602.pdf
+https://doi.org/10.1103/PhysRevD.110.082008
+
+Pinned implementation chain (all source URLs explicitly v11.3.0):
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/physics_lists/constructors/stopping/src/G4StoppingPhysics.cc
+At lines97-118 the configured stopping constructor creates G4MuonMinusCapture
+and registers it on mu-. PhotonSim PhysicsList actually registers this constructor.
+
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4ElementSelector.cc
+SelectZandA lines69-92 weights ordinary elements by number density times Z,
+but oxygen by number density times 0.56*Z. For H2O, H:O weights are 2:4.48.
+Therefore about31% of its selected atomic captures are on H. Lines99-114 choose
+the isotope and write that nucleus to the target. This is an implementation
+fact; the physical problem depends on whether a later transfer step exists.
+
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4HadronStoppingProcess.cc
+AtRestDoIt lines130-158 selects target once, performs its EM atomic cascade,
+then directly applies bound decay/capture to that same target. Afterward it
+creates final daughters and kills the muon. No intervening material transfer.
+
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4EmCaptureCascade.cc
+ApplyYourself lines107-157 reads fixed Z/A, generates atomic photons/Auger
+electrons, and never changes the target nucleus. Thus the EM cascade does not
+rescue hydrogen-to-oxygen transfer.
+
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4MuonMinusBoundDecay.cc
+Lines83-99 sample an exponential using capture+decay rate and branch by their
+ratio. The table gives H1 capture0.000725/us and O16 capture0.10242/us.
+The decay rate is approximately0.455/us with a small bound-state correction.
+Source-level inference, pending runtime: water capture should be roughly12.7%
+instead of18.4%, producing roughly7% too many Michel electrons per stopped mu-,
+with a longer delayed-electron mean time. Do not call these measured rates.
+
+No automatic fix from switching to G4MuonMinusAtomicCapture:
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4MuonMinusAtomicCapture.cc
+It also creates G4ElementSelector and forms a muonic atom using that selected
+Z/A (lines62,117,136). Replacing the constructor alone preserves wrong initial
+H/O selection unless a separately demonstrated transfer model follows.
+
+Minimal supported fix proposal:
+Customize element selection only on the mu- stopping process and only for
+the known pure-water material. Select oxygen, retaining natural O isotope
+abundances; all other materials retain default behavior. A small subclass
+can repeatedly call the base SelectZandA for G4_WATER until oxygen is returned,
+which reuses the existing conditional isotope distribution. Better production
+scoping uses the actual water material pointer/composition. This correction
+uses rapid-transfer approximation for WAND, not a molecular-cascade simulation.
+
+Public extension hook exists in pinned installed header:
+/cvmfs/sft.cern.ch/lcg/releases/Geant4/11.3.0-3cd7f/x86_64-el8-gcc11-opt/include/Geant4/G4ElementSelector.hh
+SelectZandA is virtual const G4Element* and the destructor is virtual.
+G4HadronStoppingProcess::SetElementSelector replaces/deletes old selector:
+https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/include/G4HadronStoppingProcess.hh
+Attach to the G4MuonMinusCapture instance after ordinary ConstructProcess.
+Do not alter pion/kaon/antiproton capture selectors.
+
+Suggested runtime oracle:
+Generate stopped mu- in G4_WATER, score immediate daughters at creation.
+The muMinusCaptureAtRest process includes BOTH nuclear capture and DIO.
+Counting only creatorProcess==Decay would misclassify all DIO electrons.
+Prefer creator-model IDs *_DIO and *_NuclearCapture, or prompt direct electron
+plus antineutrino_e daughters with the same muon parent. Exclude atomic Auger
+electrons. Record delayed electron time minus stop time and capture fraction.
+Compare to water measurements, then verify oxygen-only variant fixes both.
+
+2. EXTERNAL RANGE AND ENERGY-LOSS ORACLES
+
+PDG muon table (kinetic energy, mass range; water density1.000 g/cm3):
+T[MeV]       200       400       800       1000      1400      2000
+CSDA[g/cm2]  78.94     179.6     377.1     473.2     661.1     935.3
+https://pdg.lbl.gov/2020/AtomicNuclearProperties/MUE/muE_water_liquid.pdf
+At2GeV the photonuclear stopping power is0.001 versus total2.218 MeV cm2/g.
+Inference: omitted muonNuclear alone cannot plausibly cause an order-one loss
+in average charged light below2GeV, though rare hadronic topologies disappear.
+
+NIST/ICRU90 updated proton table A.9 (PDF p11):
+T[MeV]       200       400       500       800       1000      2000
+CSDA[g/cm2]  26.09     82.63     117.6     238.2     326.8     807.9
+https://www.nist.gov/system/files/documents/2017/04/26/newstar.pdf
+The table uses water density0.998 g/cm3 and mean excitation energy78eV.
+Convert mass range to length using simulation material density. Updated values
+are slightly different from older PSTAR75eV tables (e.g.200MeV26.09 vs25.96).
+
+Oracle limitations (our test-design deductions):
+CSDA is integrated stopping path length, not exact endpoint displacement or
+the unconditioned range of a proton sample with nuclear interactions enabled.
+For proton stopping-power checks use an EM-only diagnostic or no-inelastic
+survivors, and report the selection. Separately validate physical interaction
+and secondary rates. Straggling, MCS, decay-in-flight, material parameters,
+and nuclear interactions prevent requiring bitwise equality to tabulations.
+A1GeV muon displacement about4.7m is a strong unit-scale check.
+
+3. MISSING GAMMA/ELECTRON/POSITRON NUCLEAR INTERACTIONS
+
+PhotonSim registers EM option4 and hadron constructor QGSP_BERT, but no
+G4EmExtraPhysics. The full reference QGSP_BERT list includes photo-nuclear and
+lepto-nuclear interactions; merely registering its hadron inelastic constructor
+does not establish those processes exist. Parent owns actual process dump/A-B.
+Official physics-list description:
+https://geant4.web.cern.ch/documentation/dev/plg_html/PhysicsListGuide/reference_PL/QGSP_BERT.html
+
+Primary data supporting real prompt effect:
+Burgov et al., Soviet Physics JETP16(1963)50, measured oxygen gamma absorption
+using distilled water in18.9-26.6MeV. Nuclear absorption contributes a few
+percent of total absorption and has peaks near22.3,23.05,24.3,25.15MeV.
+https://www.jetp.ras.ru/cgi-bin/dn/e_016_01_0050.pdf
+This motivates25MeV gamma A/B and low-light-tail comparison; it does not prove
+any particular average PE bias for WAND without an actual production spectrum.
+
+Evaluated primary institutional data:
+IAEA-TECDOC1178, oxygen evaluation printedpp102-103 (PDFpp107-108), gives
+oxygen16 thresholds: gamma,n15.66MeV; gamma,p12.13MeV; gamma,alpha7.16MeV.
+It uses measured Ahrens absorption and separate direct ground-state channels;
+below30MeV direct gamma,n0 and gamma,p0 contributions matter. The evaluation
+also documents limitations of statistical nuclear modeling for light nuclei.
+https://www-pub.iaea.org/MTCD/publications/PDF/te_1178_prn.pdf
+Primary Ahrens measurement DOI:10.1016/0375-9474(75)90543-6.
+
+Why relevant even without neutron tagging (deduction):
+Photonuclear conversion can remove energy from visible electromagnetic
+secondaries immediately, change prompt deexcitation gamma content, and produce
+charged hadrons. The parent gamma may be primary or arise in an electron/positron
+shower. A late-neutron acceptance policy does not remove this prompt effect.
+Report event-rate/tail/mean separately. Secondary nuclear processes being rare
+does not imply every affected event has a small change.
+
+4. MODEL VALIDATION LIMITS
+
+The root reviewer notes Geant4 documentation says a Bertini11.2 compatibility
+switch was added in11.3.2 because11.3 changes did not consistently improve
+thin-target comparisons. The pinned11.3.0 model therefore has version-specific
+hadron uncertainties. This is a reason to measure against data, not proof of a
+PhotonSim defect or permission to claim a model is universally exact.
+https://geant4.web.cern.ch/documentation/dev/plg_html/PhysicsListGuide/physicslistguide.html
+
+No claim of universal physical correctness follows from constructor coverage,
+correct energy conservation, or one alternative-Geant4 agreement. The physical
+water capture/lifetime test above can falsify a standard-model configuration
+even when all its classes behave exactly as implemented.

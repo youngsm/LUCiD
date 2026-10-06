@@ -1,0 +1,133 @@
+Optical transport audit, SK_WAND DATA, source HEAD 20df309
+
+Conclusion: this lane has not confirmed a new large production transport bug.
+It does not certify exact agreement with real detector data.
+
+Source scope
+
+Reviewed the DATA selector and common propagation in lucid/simulation/simulator.py;
+photon_iteration_sample in photon_step.py; optical local-frame, truncated-flight,
+Rayleigh and hemisphere functions in optics.py; scalar_mix and angular models in
+reflection.py; wavelength/scattering.py, optical_model.py, and medium.py; the
+SK_WAND production physics/material configuration; and the interface to geometric
+surface distances, normals, first deposits and bounds checks.
+
+The production selector uses photon_iteration_sample, scalar_mix reflection and
+K=12. photon_step_volume is not used for the SK_WAND cylindrical detector. The
+expected-value step was inspected for shared interfaces but its AD/DiCE correctness
+is outside the DATA audit. The nondefault angular-reflection model is also outside
+production: its scalar reflection_wavelength cannot describe a broadband source,
+but that is not a current SK_WAND DATA failure.
+
+Independent physical checks
+
+check_transport_physics.py evaluates the actual production photon-step code using
+262,144 independent keys. Reference probabilities derive from independent exponential
+hazards, not from repository test expectations. Let s=1/L_R+1/L_M, a=1/L_A and D be
+distance to a boundary, with boundary reflectance R. Then
+
+  P(reach boundary)=exp(-sD)
+  P(nonreflected and survive)=(1-R)*exp(-(s+a)D)
+  P(reflected and survive)=R*exp(-(s+a)D)
+  P(scatter and survive)=s/(s+a)*(1-exp(-(s+a)D))
+  E[scatter distance | scatter before D]=1/s-D/(exp(sD)-1)
+
+The checks use D=20m, L_R=30m, L_M=50m, L_A=40m, R=.25, g=.95.
+They also check the Rayleigh CDF F(mu)=1/2+3mu/8+mu^3/8, second moment2/5,
+HG mean g, HG second moment(1+2g^2)/3, and Lambertian hemisphere mean cosine2/3
+and second moment1/2 at both axial and oblique reference directions. Surviving
+and absorbed scattered photons independently retain the expected angular mean.
+
+The k2 reuse for truncated scatter distance and reflect/nonreflect sampling is
+not a confirmed defect: those draws affect mutually exclusive branches and the
+branch selector uses independent k1. Mie versus Rayleigh uses independent k5;
+absorption uses independent k6; reflected direction uses k4. The local-to-global
+rotation uses frame.T, consistent with basis vectors stored as rows. The inward
+reflection hemisphere uses the normal with its sign consistent with the geometric
+interface. The corrected scalar QE/(1-R0) convention is consistent with external
+incident-photon QE; this does not independently establish QE table provenance or
+whether that table includes electron collection efficiency.
+
+Water coefficients were independently compared with Eqs14--17/Table3 in:
+  https://arxiv.org/pdf/1307.0162
+The code matches the published equations. At400nm the published rounded Table3
+parameters imply an absorption length about400.42m; the paper prose says402m.
+This sub-percent discrepancy from rounded fit parameters is not a simulation bug.
+The smooth splice around464nm and finite tabulation grid are interpolation
+approximations, not evidence of an order-of-magnitude unit error.
+
+All 27 checks passed in job 39967676, partition milano, host sdfmilan271,
+JAX 0.11.0 CPU backend; Slurm reports COMPLETED with exit code 0:0.
+They also passed with JAX and jaxlib 0.4.38 in milano job 39970012, using
+an isolated Python 3.12 runtime with flax 0.10.2, optax 0.2.4 and numpy 1.26.4.
+Those separate results and full dependency pins are in ../runtime_jax0438/.
+The runtime provenance verifies the current checkout's imported source path,
+HEAD and propagation/base.py SHA256. This validates pinned core JAX, not an
+identical reconstruction of the production container.
+The follow-up geometry population check in that runtime confirms the geometry
+lane's float32 sphere-intersection issue: 1,780 / 44,896 sampled PMT reflections
+falsely encounter the same tube again, versus 0 / 44,906 with the isolated stable
+discriminant correction. See ../runtime_jax0438/fused_results_jax0.4.38.json,
+milano job 39970105. This result belongs to the geometry finding rather than an
+additional transport-law defect. The old JAX 0.11 single-ray example did not
+reproduce under JAX 0.4.38; population evidence is retained separately.
+See transport_checks.json and slurm-39967676.out for exact results and
+execution metadata. The script rejects execution outside milano/roma allocations
+and forces the CPU backend. Submission is:
+  sbatch audit_wc_20261006/optical_transport/run_cpu.sbatch
+
+Two earlier audit runs stopped on issues in this audit, not production code:
+39967513 used a distance-threshold classifier which mislabeled legitimate scatters
+within1mm of a boundary; it is now classified using the transverse normal nudge.
+39967634 compared Labs to the rounded prose value with an overly tight tolerance;
+the final oracle instead evaluates the published equation and rounded constants.
+No production file was edited to make those checks pass.
+
+Iteration truncation is covered independently by the simulator_statistics lane,
+using actual SK_WAND DATA propagation through K=24 and two source positions. Its
+current job39967555 found no deposits beyond iteration9 for131,072 total photons.
+That is evidence against a large K=12 effect in those samples, not proof for every
+event. This lane canceled duplicate pending tail job39967607 and removed its
+unexecuted redundant script.
+
+Physical-model limitations, not demonstrated large implementation bugs
+
+1. Asymmetric-scattering law: the cited SK calibration paper p31 uses density
+   p(mu)=2mu for0<=mu<=1, hence E[mu]=2/3 and zero backward scattering. LUCiD's
+   water config uses HG g=.95. check_transport_physics.py records its mean and
+   backward fraction. A minimal diagnostic is:
+
+     u=(jnp.arange(262144)+.5)/262144
+     mu=hg_sample_cos_theta(u, .95)
+     print(mu.mean(), jnp.mean(mu<0))
+
+   This demonstrates a difference from that SK fit model, not that HG is impossible
+   physical Mie scattering. The asymmetric rate at400nm is about1e-4/m, so this
+   cannot be presented as a huge total-yield defect without event-level evidence.
+   To reproduce that specific SK model, introduce a water-specific asymmetric phase
+   sampler mu=sqrt(u), including the corresponding density where AD scores are used;
+   do not globally replace HG for media which genuinely use HG.
+
+2. Uniform water and scalar reflectance: the current reference is independent of
+   position/time and scalar_mix has angle/wavelength-independent reflection rates.
+   The SK calibration paper pp33--35 describes measured vertical absorption
+   dependence and angle/wavelength-dependent surface calibration. Exact real-SK
+   equivalence is therefore not established. These are physical calibration/model
+   gaps, not proven new production coding mistakes. The user-accepted constant
+   light speed, unpolarized scattering and endpoint PMT search are not reported
+   as bugs here.
+
+Remaining limits
+
+The 25 configured red-region Pope--Fry knots from 465 through 700 nm were also
+manually compared against the cited source's numerical table:
+  https://omlc.org/spectra/water/data/pope97.txt
+A downloaded verbatim copy is pope97_reference.txt. Every configured knot agrees
+with that table after converting inverse centimetres to inverse metres (x100).
+This is a source/table comparison, not an independent measurement of water.
+
+No live SK calibration comparison, uncertainty propagation or full campaign event
+yield comparison was performed by this lane. Surface search/assignment, actual
+PhotonSim emission, sensor response/readout and input/output integrity have their
+own audit owners. Optical coefficient/source provenance beyond the cited SK
+calibration parametrization remains an external validation requirement.

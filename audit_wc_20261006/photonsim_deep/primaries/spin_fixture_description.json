@@ -1,0 +1,5 @@
+{
+  "events": 256,
+  "polarization_rule": "mu-=-p_hat, mu+=+p_hat; nucleon unset=0",
+  "synthetic": true
+}

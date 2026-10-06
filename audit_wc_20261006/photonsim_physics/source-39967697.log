@@ -1,0 +1,157 @@
+Partition=milano Job=39967697 Host=sdfmilan271
+{
+  "photonsim_ref": "v1.0.2",
+  "photonsim_sha": "9232a7dae46ae36d9c81dd5f1b4e9f7653803514",
+  "electron": {
+    "events": 5,
+    "photons": 110423,
+    "raw_photons": 110423,
+    "segment_cherenkov_photons": 110423,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 580,
+    "wavelength_min_nm": 274.9096984863281,
+    "wavelength_max_nm": 673.82666015625,
+    "primary_kinetic_energies_MeV": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ],
+    "pion_replacements": 0,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "muon": {
+    "events": 5,
+    "photons": 1061694,
+    "raw_photons": 1061694,
+    "segment_cherenkov_photons": 1061694,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 2576,
+    "wavelength_min_nm": 274.90966796875,
+    "wavelength_max_nm": 673.82666015625,
+    "primary_kinetic_energies_MeV": [
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0
+    ],
+    "pion_replacements": 0,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "pion": {
+    "events": 20,
+    "photons": 2380274,
+    "raw_photons": 2380274,
+    "segment_cherenkov_photons": 2380274,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 11306,
+    "wavelength_min_nm": 274.9095764160156,
+    "wavelength_max_nm": 673.825927734375,
+    "primary_kinetic_energies_MeV": [
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0
+    ],
+    "pion_replacements": 40,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "gamma": {
+    "events": 10,
+    "photons": 1817,
+    "raw_photons": 1817,
+    "segment_cherenkov_photons": 1817,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 68,
+    "wavelength_min_nm": 274.9483947753906,
+    "wavelength_max_nm": 673.6383666992188,
+    "primary_kinetic_energies_MeV": [
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2
+    ],
+    "pion_replacements": 0,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "genie_isotropy": {
+    "events": 20000,
+    "mean_cos_theta": -0.0034009707234785936,
+    "mean_cos_theta_squared": 0.33338444559097463,
+    "positive_z_fraction": 0.4971
+  }
+}
+{
+  "baseline": {
+    "events": 2000,
+    "michel_count": 1975,
+    "mean_cos_mu_birth_to_positron": 0.008453437296835743,
+    "mean_cos_standard_error": 0.013055409719718346,
+    "positron_same_mu_hemisphere_fraction": 0.5093670886075949,
+    "high_energy_count": 910,
+    "high_energy_mean_cos": 0.045260819844072125,
+    "high_energy_same_hemisphere_fraction": 0.5296703296703297,
+    "positron_energy_mean_MeV": 36.69187253273237,
+    "muon_birth_kinetic_energy_mean_MeV": 4.1198126599383045,
+    "cosine_histogram_10bins": [
+      215,
+      174,
+      188,
+      197,
+      195,
+      198,
+      205,
+      195,
+      202,
+      206
+    ]
+  },
+  "spin": {
+    "events": 2000,
+    "michel_count": 1980,
+    "mean_cos_mu_birth_to_positron": -0.10154679317365853,
+    "mean_cos_standard_error": 0.012616065724464028,
+    "positron_same_mu_hemisphere_fraction": 0.42323232323232324,
+    "high_energy_count": 855,
+    "high_energy_mean_cos": -0.21980123184350053,
+    "high_energy_same_hemisphere_fraction": 0.3333333333333333,
+    "positron_energy_mean_MeV": 35.670948340999075,
+    "muon_birth_kinetic_energy_mean_MeV": 4.1198126599383045,
+    "cosine_histogram_10bins": [
+      232,
+      241,
+      242,
+      234,
+      193,
+      208,
+      172,
+      166,
+      151,
+      141
+    ]
+  }
+}

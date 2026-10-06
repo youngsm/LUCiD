@@ -1,0 +1,29 @@
+# PhotonSim macro (Monoenergetic)
+# Configuration: audit_multigun
+# Config Number: -00001
+# Material: water
+# Particles: 3
+
+# Set output filename before initialization
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/multigun.root
+
+/run/initialize
+
+/random/setSeeds 42631 98711
+
+# DISABLE individual photon storage to save space
+/photon/storeIndividual false
+
+# Decay processes ENABLED (for data production)
+
+# Clear any existing primaries and set up new ones
+/gun/clearPrimaries
+/gun/addPrimary mu- 500 MeV
+/gun/addPrimary e+ 25 MeV
+/gun/addPrimary gamma 10 MeV
+
+# Use random directions for all primaries
+/gun/randomDirection true
+
+# Run 20000 events
+/run/beamOn 20000

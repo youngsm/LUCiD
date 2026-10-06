@@ -1,0 +1,6 @@
+/random/setSeeds 42631 98711
+/gun/clearPrimaries
+/gun/addPrimary mu- 500 MeV
+/gun/addPrimary e+ 25 MeV
+/gun/addPrimary gamma 10 MeV
+/gun/randomDirection true

@@ -1,0 +1,24 @@
+# PhotonSim macro (GENIE primary source)
+# Configuration: audit GENIE input validation
+# Config Number: -00001
+# Material: water
+# Probe PDG: 14, E range [0.9, 1.1] GeV, direction: isotropic
+
+# Set output filename before initialization
+/output/filename output_job_000001.root
+
+/run/initialize
+
+/random/setSeeds 1225054164 1468605645
+
+/photon/storeIndividual true
+
+# Decays ENABLED (standard for GENIE final-state propagation)
+
+# Load final-state particles from GENIE rootracker file.
+/gun/clearPrimaries
+/gun/genieInput /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_with_marker/gntp_job_000001.gtrac.root
+/gun/genieIsotropic true
+
+# Run 2 events
+/run/beamOn 2

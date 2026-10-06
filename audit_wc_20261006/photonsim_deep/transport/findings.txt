@@ -1,0 +1,175 @@
+Deep charged/hadronic transport audit, 2026-10-06
+
+Scope/provenance
+---------------
+PhotonSim v1.0.2 source, commit9232a7dae46ae36d9c81dd5f1b4e9f7653803514,
+with Geant4 11.3.0. Exact original source remains in
+../../photonsim_physics/upstream; original PhotonSim_v102 unchanged.
+Production source/configuration untouched. All builds, simulations, Python
+imports/numerical analysis and tests ran on milano CPU allocations:
+39971259 (sdfmilan272, 7m57s, COMPLETED0),
+39971585 (sdfmilan271, 2m51s, COMPLETED0),
+39972145 (sdfmilan272,4s, COMPLETED0).
+Radiative and final fixture validation: 39973045 and 39973141, milano,
+both completed successfully. Job39973141 requires expected rowcounts and
+finite values for every transport fixture, with no silent missing-case skips.
+
+The isolated ledger subclasses original actions, counts created Cherenkov
+secondaries, and kills optical tracks only after creation. Charged/hadronic
+physics and original pion replacements stay enabled. This changes random
+number consumption versus full optical propagation: comparisons are ensemble
+statistics, not paired event identity. Quoted photons are emitted source light,
+not detected PMT photoelectrons. Accepted10us stacking cut remains active.
+Muon endpoint classification reads creator-model IDs and birth times directly
+from parent's GetSecondaryInCurrentStep BEFORE the stacking cut, so late decay
+daughters are never confused with nuclear captures. Initial transport ledger
+cannot measure mu- lifetime from its parent death clock: Geant4 delays daughters
+while killing the parent at stopping time; capture_ledger_main.cc fixes this.
+
+CONFIRMED LARGE BUG: wrong target nucleus for stopped pi- in water
+---------------------------------------------------------------
+G4ElementSelector::SelectZandA weights hydrogen byZ*n, oxygen by0.56*Z*n.
+ForH2O this assigns2/(2+0.56*8)=30.86% toH. The selected nucleus passes
+unchanged through G4HadronStoppingProcess and G4CascadeInterface.
+Measured final H nuclear-capture probability is0.00445+/-0.00024, from
+Berridge etal PRA75,034501(2007), DOI10.1103/PhysRevA.75.034501.
+This is a final nuclear-capture fraction, already Panofsky corrected, not
+merely the initial atomic-capture probability.
+
+Executed3000 cold pi-:
+baselineH880/3000=29.33%; fixedH19/3000=0.633%.
+Every H capture produced one pi0; no oxygen capture produced a pi0.
+Mean Cherenkov photons9435.45+/-243.12 ->1079.61+/-45.99 (baseline8.74x).
+Executed1000 monoenergetic pi- at200MeV (gun production config lower bound,
+not a GENIE-wide bound or weighted-distribution measurement):
+baseline497 stopped captures,162 onH; fixed502 stopped captures,2 onH.
+Mean Cherenkov24807.81+/-601.12 ->18603.74+/-515.18, a25.0% reduction.
+This is a large prompt shower/topology error, not neutron tagging or late light.
+
+Minimal target-selection fix: WaterPionElementSelector.hh, installed using
+minimal_water_capture_registration.cc, samplesH with0.00445 andO otherwise,
+retaining natural isotope selection. BOTH species(PDG-211) andG4_WATER guards
+are required: G4StoppingPhysics shares one Bertini process among pi-/K-/hyperons.
+The registration snippet compile-checks; the corresponding isolated runtime
+variant passes the measured target-fraction test. This fixes target selection
+only, not the separate missing radiative final states discussed below.
+
+CONFIRMED BUG: wrong mu- capture/decay mixture in water
+----------------------------------------------------
+The same selector leaves~31% mu- endpoints onH, despite muonic-H transfer toO
+before disappearance in water. SK PRD110,082008(2024), SecIII.2, explicitly
+states this transfer and reports water capture18.4+/-0.1%, lifetime1795.4+/-2.0ns:
+https://eprints.gla.ac.uk/340602/1/340602.pdf
+
+Executed10000 mu- at1e-6MeV, using actual positive-KE stopping:
+baseline capture12.86+/-0.335%, lifetime1926.5+/-19.4ns;
+water-only oxygen selector18.17+/-0.386%,1814.9+/-18.1ns.
+Baseline fails capture by15.86sigma and lifetime6.73sigma; fixed passes.
+Tracked Michel daughters above1MeV before10us change86.49% ->81.53%;
+this is not a PMT visibility or tagging efficiency measurement.
+Created Cherenkov6965.84 ->6638.44; neutrons/event0.2154 ->0.3150.
+Independent200MeV mu- samples2000 each also fail baseline/pass water oracle.
+The mu+ control giveszero capture and2224.6+/-22.3ns, consistent2196.9811ns.
+Stopped-only denominators exclude the rare in-flight decay at200MeV.
+
+Minimal fix: WaterMuonElementSelector.hh redirects only G4_WATER muon
+capture tooxygen, preserving natural isotopes, via the supported
+G4MuonMinusCapture::SetElementSelector hook. It represents fast transfer by
+choosing the final capture nucleus before the atomic cascade; a full atomic
+transfer model would additionally represent microscopic cascade/transfer
+details. Switching to G4MuonMinusAtomicCapture alone does not fix this: it
+uses the same generic selector.
+
+CONFIRMED BUG: omitted EM nuclear interactions
+--------------------------------------------
+PhotonSim PhysicsList registers EMoption4/QGSP_BERT hadronic constructors but
+omits G4EmExtraPhysics, which the complete Geant4QGSP_BERT reference list adds.
+Actual process dump proves GammaGeneralProc.GetGammaNuclear()==NULL and absent
+electronNuclear/positronNuclear/muonNuclear. Added constructor restores all.
+
+2000 gamma25MeV: baseline0 photonuclear events; fixed75(3.75%).
+Mean Cherenkov5287.46+/-7.55 ->5109.70+/-21.47, -3.36%,7.81sigma.
+Fixed restores a near-zero-light tail; baseline minimum3696photons.
+400 gamma2GeV:30.75% fixed showers contain photonuclear interactions;
+neutron-producing fraction4.75% versuszero; mean light-0.771%(3.05sigma).
+400 electron2GeV:28.25% fixed showers contain photonuclear interactions;
+neutron-producing fraction5.75% versuszero; mean light-0.775%(5.46sigma).
+1000 mu+2GeV:zero directmuon-nuclear interactions observed even withfix;
+mean lightdifference-0.005%,0.10sigma. No large bulkmuon lightclaim justified.
+AtGeV energies this omission primarily removes tails/secondary topology;
+it is not a giant universal PE scaleerror.
+Minimalfix is the two-line include/RegisterPhysics in minimal_em_extra_fix.diff.
+
+CONFIRMED RESIDUAL: missing radiative pion capture final states
+------------------------------------------------------------
+All880 baseline Hcaptures madepi0n, zero hardcapturegamma. Exact
+G4CascadeT31piNChannel.cc two-body table containspi-p,pi0n,K0Lambda,K0Sigma0,
+K+Sigma- andNOgamma-n; pi0n is the sole allowed inelastic state atrest.
+Panofsky ratioP=1.546 requires electromagneticcapture-family probability
+1/(1+P)~39.3% onH.
+Precision: this ratio groups the radiative family (realgamma orinternal
+conversion) againstthepi0 family. Treatingall39.3%asrealgamma is a
+leading-channel approximation; physicalcompleteness also needs conversion.
+After targetfix this affects~0.175% ofallwater pionstops, rather than the
+much larger~31% currently incorrectly assigned toH.
+Also zero directcapturegamma>10MeV in3000 stopped-pion fixedevents,
+including2981 oxygencaptures. Primary measured oxygen radiative photons
+50-160MeV exist (Bistirlich etal PRC5,1867(1972),
+DOI10.1103/PhysRevC.5.1867; Strassner etal PRC20,248(1979),
+DOI10.1103/PhysRevC.20.248).
+Bistirlich's full author manuscript gives oxygen totalbranch2.24+/-0.48%,
+including extrapolation below50MeV; it must not be described as a measured
+>50MeV branch. Independent of that extrapolation, measured128.10MeV gamma
+ground-state branch0.15+/-0.03% and giant-resonance branch0.25+/-0.06%
+(117-121MeV) together predict~12 hard photons in2981 O captures, but zero
+are generated. The rates share normalization uncertainty; using the sum
+of their quoted errors as a conservative bound, lowering by3 such bounds
+leaves approximately2.1% probability to seezero. Fullradiative continuum
+adds a larger missing contribution. Primary author manuscript:
+https://escholarship.org/content/qt5835t658/qt5835t658.pdf printedp24.
+test_radiative_oracle.py records this explicit residual physical failure.
+The target selector is therefore not a complete physicalcapturefix.
+Minimal H correction can use a dedicated pi- G4HadronStoppingProcess with
+custom G4HadronicInteraction: forA=1,Z=1 choosegamma+n with1/(1+1.546)
+orpi0+n otherwise, using exacttwo-body recoil with
+W=m_pi+m_p-projectile.GetBoundEnergy(). Remove old sharedBertini onlyfrom
+thepi- manager; do notdelete a process stillsharedbykaons/hyperons.
+Othernuclei can delegate toG4CascadeInterface. The O correction needs a
+radiativecapture final-state model with measuredline/continuumspectrum
+and consistent recoiling residualnucleus/de-excitation, for example
+pi-+16O ->gamma+16N* followedbyappropriate residualdecay.
+Adding anunbalancedgamma on top of anexistingcascade is notadequate.
+Neither radiativefinalstate fix was implemented or claimed validated.
+
+Minimal executed reproductions and verification
+----------------------------------------------
+sbatch run_transport.sbatch
+sbatch run_capture.sbatch
+sbatch run_final_checks.sbatch
+sbatch run_radiative_check.sbatch
+
+Small assertion core, using generated CSV/capture_results:
+  d=np.genfromtxt('pi_minus_cold_baseline.csv',delimiter=',',names=True)
+  p=d['pion_hydrogen'].sum()/d['pion_captures'].sum()
+  assert abs(p-0.00445)<0.02 # baselinefails,waterselectorpasses
+  c=json.load(open('capture_results.json'))
+  assert c['mu_minus_cold_baseline']['passes_water_oracle'] #fails
+  assert c['mu_minus_cold_water']['passes_water_oracle'] #passes
+Tests and fullinstrumentation: capture_regression.py,capture_ledger_main.cc,
+test_new_findings.py. Results:capture_results.json,em_results.json,
+results.json,test_results.json. Allbaselinefailures are explicit expected
+failures checked alongside the passing isolatedfixes.
+
+Additional coverage and limits
+------------------------------
+Dumped actual processes for gamma,e-/e+,mu-/mu+,p,n,pi-/pi+,K-/K+/K0L,alpha.
+Hadron elastic/inelastic,negative-hadron stopping,mu- capture,neutron capture,
+decays andion physics present. Executedp200MeV/p1GeV,K+atrest,n30MeV samples.
+Muonmeanstoppingrange agrees with independentPDGwaterCSDA to0.12%,0.19%,
+0.58%,0.65% at200/400/1000/2000MeV: no large charged-range/unit error found.
+These broad checks doNOT establishpercent-level hadronmodel truth or
+validateevery neutron/kaon/proton differentialfinalstate. No independently
+justified huge promptHPneutron omission was found; acceptedlate-light
+cuts/neutron-tagging approximation are not reportedasbugs.
+Missing spin was already established in the firstaudit and is not counted
+again here. Segmentownership is now owned/fixedprototyped byemission lane.

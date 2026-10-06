@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/geometry/repro_reflection_selfhit.py", line 51, in <module>
+    raise AssertionError("Expected current implementation to self-intersect")
+AssertionError: Expected current implementation to self-intersect

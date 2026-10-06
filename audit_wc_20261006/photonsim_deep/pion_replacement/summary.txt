@@ -1,0 +1,34 @@
+Milano job 39971593: all continuity, ancestry, resume, and terminal assertions passed.
+Differences below are replacement ON minus OFF; intervals are approximate 95% independent-ensemble intervals.
+211_2: n=500 each; replacements=765 (alive=541, stopped=224, suspended=0); no missing children.
+  photons=7780.138 vs 7979.472; change=-2.498% +/- 4.075% (z=-1.202). Largest compared |z|: end_radius_mm 2.579.
+  mean pion-chain length=0.314405 vs 0.312478 mm; terminal time=27.984 vs 26.6699 ns.
+  terminal processes: ON {'Decay': 500}; OFF {'Decay': 500}.
+211_200: n=300 each; replacements=475 (alive=229, stopped=49, suspended=197); no missing children.
+  photons=18960.497 vs 18659.643; change=1.612% +/- 9.735% (z=0.325). Largest compared |z|: pi_minus_births -1.003.
+  mean pion-chain length=398.618 vs 409.985 mm; terminal time=10.4625 vs 10.1396 ns.
+  terminal processes: ON {'pi+Inelastic': 184, 'Decay': 116}; OFF {'pi+Inelastic': 176, 'Decay': 124}.
+211_1000: n=300 each; replacements=131 (alive=9, stopped=1, suspended=121); no missing children.
+  photons=112771.873 vs 113702.450; change=-0.818% +/- 7.617% (z=-0.211). Largest compared |z|: decays -2.102.
+  mean pion-chain length=878.235 vs 904.149 mm; terminal time=3.16643 vs 3.73514 ns.
+  terminal processes: ON {'pi+Inelastic': 295, 'Decay': 5}; OFF {'pi+Inelastic': 286, 'Decay': 14}.
+211_2000: n=300 each; replacements=31 (alive=2, stopped=0, suspended=29); no missing children.
+  photons=198464.843 vs 200647.643; change=-1.088% +/- 6.199% (z=-0.344). Largest compared |z|: chain_photons 0.865.
+  mean pion-chain length=843.706 vs 787.501 mm; terminal time=2.82256 vs 2.63494 ns.
+  terminal processes: ON {'pi+Inelastic': 297, 'Decay': 3}; OFF {'pi+Inelastic': 298, 'Decay': 2}.
+-211_2: n=500 each; replacements=741 (alive=535, stopped=206, suspended=0); no missing children.
+  photons=9514.438 vs 9555.854; change=-0.433% +/- 17.326% (z=-0.049). Largest compared |z|: captures -1.000.
+  mean pion-chain length=0.313671 vs 0.313951 mm; terminal time=0.00765612 vs 0.00766423 ns.
+  terminal processes: ON {'hBertiniCaptureAtRest': 499, 'pi-Inelastic': 1}; OFF {'hBertiniCaptureAtRest': 500}.
+-211_200: n=300 each; replacements=363 (alive=192, stopped=38, suspended=133); no missing children.
+  photons=24074.323 vs 24281.470; change=-0.853% +/- 12.199% (z=-0.137). Largest compared |z|: chain_photons 1.361.
+  mean pion-chain length=403.408 vs 377.027 mm; terminal time=1.64164 vs 1.52841 ns.
+  terminal processes: ON {'pi-Inelastic': 201, 'hBertiniCaptureAtRest': 89, 'Decay': 10}; OFF {'pi-Inelastic': 210, 'hBertiniCaptureAtRest': 75, 'Decay': 15}.
+-211_1000: n=300 each; replacements=110 (alive=7, stopped=0, suspended=103); no missing children.
+  photons=123895.147 vs 116924.120; change=5.962% +/- 8.125% (z=1.438). Largest compared |z|: end_radius_mm 1.798.
+  mean pion-chain length=819.255 vs 715.897 mm; terminal time=2.77006 vs 2.42088 ns.
+  terminal processes: ON {'pi-Inelastic': 293, 'Decay': 6, 'hBertiniCaptureAtRest': 1}; OFF {'pi-Inelastic': 293, 'Decay': 5, 'hBertiniCaptureAtRest': 2}.
+-211_2000: n=300 each; replacements=29 (alive=2, stopped=0, suspended=27); no missing children.
+  photons=216315.507 vs 212388.550; change=1.849% +/- 6.586% (z=0.550). Largest compared |z|: pi_plus_births 1.497.
+  mean pion-chain length=849.933 vs 822.315 mm; terminal time=2.84258 vs 2.75008 ns.
+  terminal processes: ON {'pi-Inelastic': 299, 'Decay': 1}; OFF {'pi-Inelastic': 299, 'Decay': 1}.

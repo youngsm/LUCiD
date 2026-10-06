@@ -1,0 +1,170 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+{
+  "job_id": "39971297",
+  "partition": "milano",
+  "node": "sdfmilan272",
+  "max_abs_n_knot_minus_Sellmeier20C": 5.498546109983238e-06,
+  "beta_true_threshold": 0.7316412909078938,
+  "allowed_but_no_G4_emission_beta_range": [
+    0.73165,
+    0.7337
+  ],
+  "rows": [
+    {
+      "beta": 0.7318,
+      "electron_KE_MeV": 0.23879469184049573,
+      "muon_KE_MeV": 49.37516841842804,
+      "proton_KE_MeV": 438.46351182268705,
+      "coarse_photons_per_mm": -0.00283564059824747,
+      "exact_photons_per_mm": 0.00011824682422629578,
+      "ratio_coarse_to_exact": 0.0,
+      "exact_QEweighted_photons_per_mm": 0.0,
+      "lost_QEweighted_photons_per_mm": 0.0
+    },
+    {
+      "beta": 0.732,
+      "electron_KE_MeV": 0.23903110538387767,
+      "muon_KE_MeV": 49.42405124086815,
+      "proton_KE_MeV": 438.8976031824017,
+      "coarse_photons_per_mm": -0.00573065159510726,
+      "exact_photons_per_mm": 0.0006037168381085074,
+      "ratio_coarse_to_exact": 0.0,
+      "exact_QEweighted_photons_per_mm": 0.0,
+      "lost_QEweighted_photons_per_mm": 0.0
+    },
+    {
+      "beta": 0.733,
+      "electron_KE_MeV": 0.24021751080319378,
+      "muon_KE_MeV": 49.669362252347405,
+      "proton_KE_MeV": 441.07602466484525,
+      "coarse_photons_per_mm": -0.00891128684293529,
+      "exact_photons_per_mm": 0.008638049636784663,
+      "ratio_coarse_to_exact": 0.0,
+      "exact_QEweighted_photons_per_mm": 0.0,
+      "lost_QEweighted_photons_per_mm": 0.0
+    },
+    {
+      "beta": 0.734,
+      "electron_KE_MeV": 0.2414111953556934,
+      "muon_KE_MeV": 49.91617835769665,
+      "proton_KE_MeV": 443.2678117471438,
+      "coarse_photons_per_mm": 0.00659140583114381,
+      "exact_photons_per_mm": 0.025961353085820652,
+      "ratio_coarse_to_exact": 0.2538930004670614,
+      "exact_QEweighted_photons_per_mm": 0.0,
+      "lost_QEweighted_photons_per_mm": 0.0
+    },
+    {
+      "beta": 0.735,
+      "electron_KE_MeV": 0.242612227435487,
+      "muon_KE_MeV": 50.164513698648676,
+      "proton_KE_MeV": 445.4730900113263,
+      "coarse_photons_per_mm": 0.0405870572001655,
+      "exact_photons_per_mm": 0.05249776120409087,
+      "ratio_coarse_to_exact": 0.7731197725247522,
+      "exact_QEweighted_photons_per_mm": 1.0652661978492805e-07,
+      "lost_QEweighted_photons_per_mm": 2.416878372897371e-08
+    },
+    {
+      "beta": 0.736,
+      "electron_KE_MeV": 0.2438206763470051,
+      "muon_KE_MeV": 50.41438260516159,
+      "proton_KE_MeV": 447.6919867109081,
+      "coarse_photons_per_mm": 0.0843432140642331,
+      "exact_photons_per_mm": 0.08821650812233132,
+      "ratio_coarse_to_exact": 0.9560933192603015,
+      "exact_QEweighted_photons_per_mm": 1.733214064808666e-05,
+      "lost_QEweighted_photons_per_mm": 7.60996765971092e-07
+    },
+    {
+      "beta": 0.737,
+      "electron_KE_MeV": 0.24503661232058438,
+      "muon_KE_MeV": 50.66579959864151,
+      "proton_KE_MeV": 449.92463079950966,
+      "coarse_photons_per_mm": 0.122035646480691,
+      "exact_photons_per_mm": 0.1340473153789645,
+      "ratio_coarse_to_exact": 0.9103923203212584,
+      "exact_QEweighted_photons_per_mm": 0.00012150887188631891,
+      "lost_QEweighted_photons_per_mm": 1.0888128070114518e-05
+    },
+    {
+      "beta": 0.738,
+      "electron_KE_MeV": 0.24626010652838376,
+      "muon_KE_MeV": 50.91877939523355,
+      "proton_KE_MeV": 452.1711529600808,
+      "coarse_photons_per_mm": 0.180848707801177,
+      "exact_photons_per_mm": 0.19032309285499707,
+      "ratio_coarse_to_exact": 0.9502194667410203,
+      "exact_QEweighted_photons_per_mm": 0.000465539332113189,
+      "lost_QEweighted_photons_per_mm": 2.3174796205623797e-05
+    },
+    {
+      "beta": 0.74,
+      "electron_KE_MeV": 0.24873005914222932,
+      "muon_KE_MeV": 51.429487256259286,
+      "proton_KE_MeV": 456.70636305522703,
+      "coarse_photons_per_mm": 0.326897393091338,
+      "exact_photons_per_mm": 0.3348702680683799,
+      "ratio_coarse_to_exact": 0.976191153000738,
+      "exact_QEweighted_photons_per_mm": 0.0037307403815632955,
+      "lost_QEweighted_photons_per_mm": 8.882462693860884e-05
+    },
+    {
+      "beta": 0.745,
+      "electron_KE_MeV": 0.25504238045435157,
+      "muon_KE_MeV": 52.73467509563326,
+      "proton_KE_MeV": 468.29674870799954,
+      "coarse_photons_per_mm": 0.899502237452627,
+      "exact_photons_per_mm": 0.907973528878553,
+      "ratio_coarse_to_exact": 0.9906701118958954,
+      "exact_QEweighted_photons_per_mm": 0.052313444652210564,
+      "lost_QEweighted_photons_per_mm": 0.0004880785849453949
+    },
+    {
+      "beta": 0.75,
+      "electron_KE_MeV": 0.26155884538007373,
+      "muon_KE_MeV": 54.08207335947417,
+      "proton_KE_MeV": 480.26197320264623,
+      "coarse_photons_per_mm": 1.84827327156691,
+      "exact_photons_per_mm": 1.8516701096665378,
+      "ratio_coarse_to_exact": 0.9981655273896279,
+      "exact_QEweighted_photons_per_mm": 0.17389354455577785,
+      "lost_QEweighted_photons_per_mm": 0.0003190029446080883
+    },
+    {
+      "beta": 0.8,
+      "electron_KE_MeV": 0.34066596666666676,
+      "muon_KE_MeV": 70.43891700000003,
+      "proton_KE_MeV": 625.5147254400002,
+      "coarse_photons_per_mm": 13.5694038298699,
+      "exact_photons_per_mm": 13.569875093425576,
+      "ratio_coarse_to_exact": 0.9999652713416718,
+      "exact_QEweighted_photons_per_mm": 1.4720910836410126,
+      "lost_QEweighted_photons_per_mm": 5.112374827177189e-05
+    },
+    {
+      "beta": 0.9,
+      "electron_KE_MeV": 0.6613130412133651,
+      "muon_KE_MeV": 136.73856204903888,
+      "proton_KE_MeV": 1214.2717085949084,
+      "coarse_photons_per_mm": 31.4445609273046,
+      "exact_photons_per_mm": 31.44493328369427,
+      "ratio_coarse_to_exact": 0.9999881584614504,
+      "exact_QEweighted_photons_per_mm": 3.449687990352415,
+      "lost_QEweighted_photons_per_mm": 4.084961332187178e-05
+    },
+    {
+      "beta": 0.99,
+      "electron_KE_MeV": 3.111376564339941,
+      "muon_KE_MeV": 643.3339899366318,
+      "proton_KE_MeV": 5712.962396645479,
+      "coarse_photons_per_mm": 43.1238079564501,
+      "exact_photons_per_mm": 43.124115689003524,
+      "ratio_coarse_to_exact": 0.9999928640263457,
+      "exact_QEweighted_photons_per_mm": 4.741807699939253,
+      "lost_QEweighted_photons_per_mm": 3.383741482059587e-05
+    }
+  ],
+  "dense_exact_comparison_pass": true,
+  "interpretation": "No total-event bias implied; GEANT near-threshold rate uses negative/coarse integral; dense_linear preserves exact same n(E)."
+}

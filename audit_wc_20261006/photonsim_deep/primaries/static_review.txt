@@ -1,0 +1,123 @@
+PhotonSim primary/configuration static review
+Reviewed 2026-10-06 (client date). No executable simulation, numerical test,
+Python import, or build was run for these notes. Parent harness job 39971299
+was running when these notes were written; its results are separate evidence.
+No production source was changed.
+
+Scope
+  Source snapshot: audit_wc_20261006/photonsim_physics/upstream/.
+  LUCiD callers: lucid/production/generate_macro.py, run_job.py,
+  run_genie.py, verify_output.py, and lucid/sources/seed_utils.py.
+  Findings below are conditional failure paths, not evidence that valid
+  supplied SK_WAND configurations currently suffer these failures.
+
+1. Two-element seed-array suspicion rejected for inspected CVMFS runtime
+
+  Exact inspected library:
+    /cvmfs/sft.cern.ch/lcg/releases/clhep/2.4.7.1-b7a7d/x86_64-el8-gcc11-opt/lib/libCLHEP.so
+  Headers were read under the corresponding include/CLHEP/Random directory.
+  Note lowercase package directory 'clhep'; the uppercase CLHEP directory
+  contains an older, unrelated installation.
+
+  Read-only nm -D -C and objdump -d -C inspection established:
+    CLHEP::(anonymous namespace)::theDefaults(), address 0xe45d0:
+      calls CLHEP::MixMaxRng::MixMaxRng() at 0xe468d.
+    CLHEP::MixMaxRng::setSeeds(long const*, int), address 0xcdcb0:
+      reads seeds[0] at 0xcdcb0;
+      for seedNum <= 0 branches to 0xcdd00, reads seeds[1] at +8 bytes,
+      zeroes the remaining two seed components, and calls seed_uniquestream.
+      There is no terminator scan and no access beyond these two elements
+      in this branch. Positive explicit counts select up to four elements.
+    CLHEP::HepRandom::setTheSeeds(long const*, int), symbol 0xe49e0.
+      Random.h declares default aux=-1.
+
+  PhotonSim.cc:78 and src/RandomSeedMessenger.cc:84 pass allocated long[2]
+  arrays with no explicit aux. The inspected default MixMax engine therefore
+  accepts these arrays. Do not report a missing-zero-terminator/OOB bug.
+  Random.h's old introductory HepJamesRandom comment is inconsistent with
+  its later MixMax comment and the actual library; the binary resolves this.
+
+  Production generate_macro.py:114,254,355 uses plural /random/setSeeds.
+  PhotonSim's custom RandomSeedMessenger registers singular /random/setSeed.
+  Geant4 11.3.0 built-in G4RunMessenger.cc:519-535 tokenizes the plural command
+  into an array, appends zero, and calls G4Random::setTheSeeds(seeds).
+  Primary reference:
+    https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/run/src/G4RunMessenger.cc
+  This confirms the plural command exists and receives the production seeds.
+
+  Limit: direct binary inspection covers CVMFS CLHEP 2.4.7.1 used by the audit
+  harness, not every possible conda/container CLHEP build. No RNG output or
+  distribution test was run by this reviewer.
+
+2. Failed GENIE input loading falls through to the default gun
+
+  src/RooTrackerReader.cc:35-48 returns false for an unreadable ROOT file or
+  a missing gRooTracker tree. SetGenieInput in PrimaryGeneratorAction.cc:
+  381-390 logs the failure, resets fGenieReader, and returns normally.
+  GeneratePrimaries enters GENIE mode only if that reader exists and is open.
+  With the generated macro's cleared primary list, it instead uses the
+  constructor's electron gun (PDG 11, 5 MeV), through the fallback at 282-298.
+
+  Minimal proposed reproduction (not executed by this reviewer):
+    /output/filename failed_genie.root
+    /run/initialize
+    /photon/storeIndividual true
+    /gun/clearPrimaries
+    /gun/genieInput /nonexistent.root
+    /run/beamOn 1
+  Inspect primary TrackInfo_PDG/TrackInfo_Energy and process exit status.
+  Source predicts an ordinary 5 MeV electron event instead of an input error.
+
+  Production reachability is conditional: run_job.py's --skip-genie branch
+  checks gtrac_path.is_file() but not its tree/schema. An existing invalid
+  ROOT file can therefore reach this behavior. Normal run_genie.py calls
+  _count_rootracker_entries, which would reject a missing gRooTracker tree
+  before PhotonSim; do not claim normal successful fresh GENIE generation
+  necessarily reaches this path. RooTrackerReader also ignores return values
+  from required SetBranchAddress calls at 51-54; malformed-schema outcomes
+  need separate reproduction and must not be assumed to match open failure.
+
+  Minimal fix: fail the run when explicitly requested GENIE input cannot
+  open/validate. A fatal G4Exception in SetGenieInput's failure branch avoids
+  accidental fallback; validate required branch bindings in Open as well.
+
+3. Original main reports command failure as success; stale output can survive
+
+  PhotonSim.cc:108 ignores UImanager->ApplyCommand('/control/execute ...').
+  PhotonSim.cc:136 unconditionally calls std::quick_exit(0).
+  In contrast, the audit headless_main.cc captures the status and returns
+  nonzero for a command failure. Tests of that replacement do not directly
+  demonstrate original-main exit behavior.
+
+  RunAction.cc:72-82 initializes the output only at BeginOfRunAction.
+  DataManager.cc:70-78 then opens the configured output with RECREATE.
+  Consequently, a macro failure before beamOn does not recreate an old ROOT.
+  run_job.py:241-251 trusts the process return code; 595-602 checks only that
+  the expected ROOT path is a file. A rerun with an old output and a macro
+  error before beamOn can accept stale events. A fresh output directory
+  usually rejects this via the missing ROOT check.
+
+  Minimal proposed reproduction (not executed by this reviewer): first create
+  an output ROOT, then run original PhotonSim with the same output filename
+  and an invalid command before beamOn. Check exit status and unchanged ROOT
+  content/mtime. To demonstrate downstream acceptance, run the wrapper with
+  that output and a generated malformed configuration that aborts the macro.
+  No claim is made that a canonical supplied valid macro triggers the error.
+
+  Minimal fix: capture ApplyCommand's status and use a nonzero process exit
+  on failure. Validate generated configurations before execution. Invalid
+  input fallbacks in item 2 require their own explicit fatal error because
+  those handlers currently do not mark the UI command failed.
+
+4. Empty primary list is another conditional default-gun fallback
+
+  run_job.py:_load_config checks that 'particles' exists, not that it is
+  nonempty. generate_macro.py clears primaries and emits no add commands for
+  particles=[]. PhotonSim then fires its default 5 MeV electron gun.
+  Minimal proposed reproduction: use a normal particle-source JSON config
+  with particles=[] and generate/run its macro. Reject empty primary lists
+  at configuration validation. Supplied valid GeV configs are nonempty.
+
+Excluded from this review's findings: accepted direct-CLI position/direction
+behavior, supernova chunks, EventID, input-vertex truth, and any unexecuted
+claim about an actual SK_WAND event-distribution bias.

@@ -1,0 +1,33 @@
+Pinned core-JAX audit runtime
+
+Successful dependency setup and optics execution: milano job 39970012,
+host sdfmilan271, Python 3.12.8, JAX 0.4.38, jaxlib 0.4.38, flax 0.10.2,
+optax 0.2.4 and numpy 1.26.4. The complete dependency set is recorded in
+requirements-resolved.txt. environment.json verifies current HEAD 20df309
+and the imported current-checkout source path/SHA256. No production edits.
+
+All 27 optical-transport checks passed. See transport_checks.json and
+transport.log. These results are separate from the original JAX 0.11 results.
+
+Geometry version crosscheck: the original JAX 0.11 hardcoded one-ray example
+does NOT self-intersect in 32 seeds on JAX 0.4.38. Its baseline reproducer
+therefore deliberately raises its missing-reproduction assertion (exit code 1).
+The fixed control reports no self-hit and passes.
+
+The subsequent fused 200,000-ray population diagnostic CONFIRMS the geometry
+defect on JAX 0.4.38. Job 39970105 completed on milano with exit code 0:0:
+baseline 1,780 false same-PMT encounters among 44,896 sampled PMT reflections
+(3.9647%); stable-discriminant replacement 0 among 44,906 reflections. See
+fused_results_jax0.4.38.json and fused-39970105.out. A different single-ray example
+is being extracted by the geometry audit owner; the original minimal ray should
+not be advertised as reproducing on both JAX versions. The full DATA charge-bias
+comparison was not repeated in this pinned runtime.
+
+Initial setup job 39969898 successfully installed the pinned runtime but
+numerical scripts stopped during a missing IPython import. The subsequent job
+added notebook dependencies without changing the core pins. Initial logs are
+preserved in setup_attempt_39969898/.
+
+This environment checks the pinned JAX compiler version; it is not the full
+production container environment. The separate attempted SIF execution failed
+before Python in job 39969694; see ../optical_transport/pinned_container/.

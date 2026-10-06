@@ -1,0 +1,48 @@
+SK WAND data mode physics audit
+
+Repository: CIDER-ML/LUCID
+Audited commit: 20df3094bd563162d40c6ca34c5ad25e1e1d3656
+Primary geometry: config/SK_WAND_geom_config.json
+Primary physics: config/SK_WAND_physics_config.json
+Upstream PhotonSim: v1.0.2, 9232a7dae46ae36d9c81dd5f1b4e9f7653803514
+
+Production path traced:
+  production.run_job -> generate_macro -> PhotonSim/Geant4 ->
+  root_reader._read_event_raw -> event_generation -> bucketed DATA transport ->
+  per_segment hit output -> SK-I digitization -> trigger -> sparse HDF5 writers.
+
+Production settings checked from code: temperature=0, K=12,
+deposit_leg_bound=True, hit_mode=per_segment, charge_resolution=None,
+wavelength-dependent water/QE, scalar_mix reflection, ski digitizer,
+25-hit trigger in 200 ns with 300 ns pre/post padding, vertex translation.
+
+The supplied GeV configurations inherit SK_WAND. Solar/01_e_low_energy.json
+explicitly selects HK and its own digitizer; its embedded detector takes
+precedence over the command-line detector fallback. It is not an SK_WAND
+sample merely because -D SK_WAND appears on the command line.
+
+All numerical tests, package imports, builds and simulations for this audit
+run in Slurm milano CPU allocations. No GPU is used. Source inspection,
+file editing, reference access and scheduler commands may run on the login
+host. No production source or configuration has been changed.
+
+Accepted approximations excluded from bug counts:
+- endpoint PMT search and spherical PMTs;
+- clamped wavelength QE over PhotonSim's emission band;
+- 10 us source and 100 us readout cuts for WAND without neutron tagging;
+- c/1.33 propagation speed, unpolarized optical scattering, SPE charge shape;
+- supernova chunks, direct CLI, EventID, input-vertex truth, and realistic-mode
+  TTS as off the production path specified by the user.
+
+Evidence rules:
+- A passing existing suite is not evidence of physical correctness by itself.
+- Numerical oracles use independent geometry, physical equations, scalar
+  reference algorithms, and primary detector/Geant4 references where possible.
+- Separate confirmed physical/implementation errors, calibration uncertainties,
+  diagnostic-only failures, and off-path bookkeeping findings.
+- Ensemble rates and controlled-source results are not production-wide biases.
+- No finite code audit can establish exact identity with a real detector.
+  Absolute PMT response and detector-level calibration remain empirical inputs.
+
+Each lane preserves executable scripts, Slurm launch scripts, raw output,
+results and scope limitations. REPORT.txt provides the consolidated findings.

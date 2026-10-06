@@ -1,0 +1,14 @@
+/random/setSeeds 42631 98711
+/gun/clearPrimaries
+/gun/bombClearCandidates
+/gun/bombMinParticles 1
+/gun/bombMaxParticles 5
+/gun/bombAddCandidate e- 1 2000 MeV
+/gun/bombAddCandidate e+ 1 2000 MeV
+/gun/bombAddCandidate mu- 200 2000 MeV
+/gun/bombAddCandidate mu+ 200 2000 MeV
+/gun/bombAddCandidate pi+ 200 2000 MeV
+/gun/bombAddCandidate pi- 200 2000 MeV
+/gun/bombAddCandidate pi0 200 2000 MeV
+/gun/bombAddCandidate gamma 1 2130 MeV
+/gun/bombMode true

@@ -1,0 +1,370 @@
+Partition=milano Job=39972145 Host=sdfmilan272
+{
+  "mu_minus_cold_baseline": {
+    "n": 10000,
+    "n_stopped": 10000,
+    "capture_fraction": 0.1286,
+    "capture_fraction_se": 0.0033477342684976124,
+    "endpoint_lifetime_mean_ns": 1926.5168369184871,
+    "endpoint_lifetime_se_ns": 19.393170458866287,
+    "oxygen_target_fraction": 0.6863,
+    "mean_created_cherenkov": 6965.8376,
+    "mean_created_cherenkov_se": 34.64422112515103,
+    "visible_michel_fraction_before_10us": 0.8649,
+    "endpoint_fraction_after_10us": 0.0066,
+    "mean_neutrons": 0.2154,
+    "target_1_capture_fraction": 0.001275103602167676,
+    "target_1_lifetime_ns": 2190.3187364156397,
+    "target_8_capture_fraction": 0.18679877604546116,
+    "target_8_lifetime_ns": 1805.9359599372006,
+    "capture_z_from_water": -15.856214634968413,
+    "lifetime_z_from_water": 6.725310667482746,
+    "passes_water_oracle": false
+  },
+  "mu_minus_cold_water": {
+    "n": 10000,
+    "n_stopped": 10000,
+    "capture_fraction": 0.1817,
+    "capture_fraction_se": 0.0038561636375807474,
+    "endpoint_lifetime_mean_ns": 1814.8904030165854,
+    "endpoint_lifetime_se_ns": 18.137536267069695,
+    "oxygen_target_fraction": 1.0,
+    "mean_created_cherenkov": 6638.4385,
+    "mean_created_cherenkov_se": 36.93313548497406,
+    "visible_michel_fraction_before_10us": 0.8153,
+    "endpoint_fraction_after_10us": 0.0041,
+    "mean_neutrons": 0.315,
+    "target_8_capture_fraction": 0.1817,
+    "target_8_lifetime_ns": 1814.8904030165854,
+    "capture_z_from_water": -0.5773503055732458,
+    "lifetime_z_from_water": 1.068115264620581,
+    "passes_water_oracle": true
+  },
+  "mu_plus_cold": {
+    "n": 10000,
+    "n_stopped": 10000,
+    "capture_fraction": 0.0,
+    "capture_fraction_se": 0.0,
+    "endpoint_lifetime_mean_ns": 2224.589627263503,
+    "endpoint_lifetime_se_ns": 22.30259754801671,
+    "oxygen_target_fraction": 0.0,
+    "mean_created_cherenkov": 8058.9364,
+    "mean_created_cherenkov_se": 25.76184389626638,
+    "visible_michel_fraction_before_10us": 0.9898,
+    "endpoint_fraction_after_10us": 0.0102,
+    "mean_neutrons": 0.0
+  },
+  "mu_minus200_baseline": {
+    "n": 2000,
+    "n_stopped": 1999,
+    "capture_fraction": 0.11855927963981991,
+    "capture_fraction_se": 0.007232136075722802,
+    "endpoint_lifetime_mean_ns": 1945.9059471762864,
+    "endpoint_lifetime_se_ns": 43.013626272145444,
+    "oxygen_target_fraction": 0.69,
+    "mean_created_cherenkov": 26846.793,
+    "mean_created_cherenkov_se": 76.59817921533809,
+    "visible_michel_fraction_before_10us": 0.876,
+    "endpoint_fraction_after_10us": 0.0055,
+    "mean_neutrons": 0.2105,
+    "target_1_capture_fraction": 0.0,
+    "target_1_lifetime_ns": 2173.06214059602,
+    "target_8_capture_fraction": 0.17173913043478262,
+    "target_8_lifetime_ns": 1844.0148720119278,
+    "capture_z_from_water": -8.963322397842491,
+    "lifetime_z_from_water": 3.4952532379459047,
+    "passes_water_oracle": false
+  },
+  "mu_minus200_water": {
+    "n": 2000,
+    "n_stopped": 1999,
+    "capture_fraction": 0.20410205102551277,
+    "capture_fraction_se": 0.009016845645886793,
+    "endpoint_lifetime_mean_ns": 1865.0984983320868,
+    "endpoint_lifetime_se_ns": 42.46459014867304,
+    "oxygen_target_fraction": 0.9995,
+    "mean_created_cherenkov": 26159.5815,
+    "mean_created_cherenkov_se": 85.10427887492077,
+    "visible_michel_fraction_before_10us": 0.7925,
+    "endpoint_fraction_after_10us": 0.005,
+    "mean_neutrons": 0.3555,
+    "target_8_capture_fraction": 0.20410205102551277,
+    "target_8_lifetime_ns": 1865.0984983320868,
+    "capture_z_from_water": 2.2158032992181713,
+    "lifetime_z_from_water": 1.6395147790212936,
+    "passes_water_oracle": true
+  },
+  "pi_minus_cold_baseline": {
+    "n": 3000,
+    "pion_captures": 3000,
+    "pion_hydrogen": 880,
+    "hydrogen_capture_fraction": 0.29333333333333333,
+    "hydrogen_fraction_se": 0.00831241819787096,
+    "pi0_from_stopped_capture": 880,
+    "hard_gamma_from_stopped_capture": 0,
+    "mean_created_cherenkov": 9435.452333333333,
+    "mean_created_cherenkov_se": 243.11706097479384,
+    "cherenkov_quantiles": [
+      0.0,
+      0.0,
+      1288.0,
+      30438.0,
+      32795.0
+    ],
+    "zero_light_fraction": 0.20066666666666666,
+    "hydrogen_z_from_water": 34.738747779616666,
+    "passes_water_oracle": false
+  },
+  "pi_minus_cold_water": {
+    "n": 3000,
+    "pion_captures": 3000,
+    "pion_hydrogen": 19,
+    "hydrogen_capture_fraction": 0.006333333333333333,
+    "hydrogen_fraction_se": 0.001448357946345012,
+    "pi0_from_stopped_capture": 19,
+    "hard_gamma_from_stopped_capture": 0,
+    "mean_created_cherenkov": 1079.6126666666667,
+    "mean_created_cherenkov_se": 45.98976115556363,
+    "cherenkov_quantiles": [
+      0.0,
+      0.0,
+      586.5,
+      2367.6999999999994,
+      31263.0
+    ],
+    "zero_light_fraction": 0.25633333333333336,
+    "hydrogen_z_from_water": 1.2828303436440747,
+    "passes_water_oracle": true
+  },
+  "pi_minus200_baseline": {
+    "n": 1000,
+    "pion_captures": 497,
+    "pion_hydrogen": 162,
+    "hydrogen_capture_fraction": 0.32595573440643866,
+    "hydrogen_fraction_se": 0.02102545135917749,
+    "pi0_from_stopped_capture": 162,
+    "hard_gamma_from_stopped_capture": 0,
+    "mean_created_cherenkov": 24807.806,
+    "mean_created_cherenkov_se": 601.1150143465366,
+    "cherenkov_quantiles": [
+      734.0,
+      7103.500000000001,
+      15015.0,
+      56010.1,
+      73396.0
+    ],
+    "zero_light_fraction": 0.0,
+    "hydrogen_z_from_water": 15.290268231089794,
+    "passes_water_oracle": false
+  },
+  "pi_minus200_water": {
+    "n": 1000,
+    "pion_captures": 502,
+    "pion_hydrogen": 2,
+    "hydrogen_capture_fraction": 0.00398406374501992,
+    "hydrogen_fraction_se": 0.0028115410206057605,
+    "pi0_from_stopped_capture": 2,
+    "hard_gamma_from_stopped_capture": 0,
+    "mean_created_cherenkov": 18603.744,
+    "mean_created_cherenkov_se": 515.1807044763311,
+    "cherenkov_quantiles": [
+      246.0,
+      6059.8,
+      14274.5,
+      52459.80000000001,
+      73000.0
+    ],
+    "zero_light_fraction": 0.0,
+    "hydrogen_z_from_water": -0.16512222065685903,
+    "passes_water_oracle": true
+  }
+}
+{
+  "gamma25": {
+    "baseline": {
+      "n": 2000,
+      "mean_photons": 5287.4555,
+      "mean_photons_se": 7.549134236701376,
+      "min_photons": 3696.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 25.000000000337852,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 2000,
+      "mean_photons": 5109.7025,
+      "mean_photons_se": 21.46622620375063,
+      "min_photons": 0.0,
+      "mean_neutrons": 0.004,
+      "fraction_with_neutrons": 0.004,
+      "mean_edep_MeV": 24.509126608140516,
+      "gamma_nuclear_count": 75,
+      "gamma_nuclear_event_fraction": 0.0375,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 75,
+      "primary_nuclear_event_fraction": 0.0375
+    },
+    "comparison": {
+      "relative_photon_change": -0.033617871583032644,
+      "mean_photon_difference_sigmas": -7.811614894376824
+    }
+  },
+  "gamma2000": {
+    "baseline": {
+      "n": 400,
+      "mean_photons": 435624.6225,
+      "mean_photons_se": 160.05483905131933,
+      "min_photons": 425809.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 1999.9783679529635,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 400,
+      "mean_photons": 432267.8825,
+      "mean_photons_se": 1089.1936476078106,
+      "min_photons": 52973.0,
+      "mean_neutrons": 0.1325,
+      "fraction_with_neutrons": 0.0475,
+      "mean_edep_MeV": 1992.2708634649932,
+      "gamma_nuclear_count": 146,
+      "gamma_nuclear_event_fraction": 0.3075,
+      "electron_nuclear_count": 1,
+      "electron_nuclear_event_fraction": 0.0025,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 1,
+      "primary_nuclear_event_fraction": 0.0025
+    },
+    "comparison": {
+      "relative_photon_change": -0.007705579130803164,
+      "mean_photon_difference_sigmas": -3.049112842991938
+    }
+  },
+  "electron2000": {
+    "baseline": {
+      "n": 400,
+      "mean_photons": 436331.7,
+      "mean_photons_se": 174.8617220967373,
+      "min_photons": 425548.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 1999.9836496240925,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 400,
+      "mean_photons": 432951.36,
+      "mean_photons_se": 594.3396627141655,
+      "min_photons": 275380.0,
+      "mean_neutrons": 0.16,
+      "fraction_with_neutrons": 0.0575,
+      "mean_edep_MeV": 1993.0348839831072,
+      "gamma_nuclear_count": 132,
+      "gamma_nuclear_event_fraction": 0.2825,
+      "electron_nuclear_count": 1,
+      "electron_nuclear_event_fraction": 0.0025,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "comparison": {
+      "relative_photon_change": -0.007747179496699452,
+      "mean_photon_difference_sigmas": -5.456305792143609
+    }
+  },
+  "muon2000": {
+    "baseline": {
+      "n": 1000,
+      "mean_photons": 451608.03,
+      "mean_photons_se": 146.07045664817167,
+      "min_photons": 367511.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 2036.6442031992267,
+      "gamma_nuclear_count": 0,
+      "gamma_nuclear_event_fraction": 0.0,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "extra": {
+      "n": 1000,
+      "mean_photons": 451585.436,
+      "mean_photons_se": 166.19897650013883,
+      "min_photons": 329806.0,
+      "mean_neutrons": 0.0,
+      "fraction_with_neutrons": 0.0,
+      "mean_edep_MeV": 2036.5348121890845,
+      "gamma_nuclear_count": 12,
+      "gamma_nuclear_event_fraction": 0.012,
+      "electron_nuclear_count": 0,
+      "electron_nuclear_event_fraction": 0.0,
+      "muon_nuclear_count": 0,
+      "muon_nuclear_event_fraction": 0.0,
+      "primary_nuclear_count": 0,
+      "primary_nuclear_event_fraction": 0.0
+    },
+    "comparison": {
+      "relative_photon_change": -5.0030111289345314e-05,
+      "mean_photon_difference_sigmas": -0.10211235275956342
+    }
+  }
+}
+{
+  "negative_muon_water_oracle": "baseline fails / water selector passes",
+  "negative_pion_water_oracle": "baseline fails / measured water selector passes",
+  "em_nuclear_processes": "baseline missing / G4EmExtraPhysics present",
+  "muon_csda_range_checks": {
+    "200": {
+      "measured_cm": 79.03270342534648,
+      "pdg_csda_cm": 78.94,
+      "ratio": 1.0011743529940016
+    },
+    "400": {
+      "measured_cm": 179.2632304807478,
+      "pdg_csda_cm": 179.6,
+      "ratio": 0.9981248913181949
+    },
+    "1000": {
+      "measured_cm": 470.4475493175767,
+      "pdg_csda_cm": 473.2,
+      "ratio": 0.9941833248469499
+    },
+    "2000": {
+      "measured_cm": 929.2547492208936,
+      "pdg_csda_cm": 935.3,
+      "ratio": 0.9935365649747606
+    }
+  }
+}

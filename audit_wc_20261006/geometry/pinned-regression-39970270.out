@@ -1,0 +1,2 @@
+{'jax': '0.4.38', 'fixed': False, 'sensor': 1027, 'false_self_hit': True, 'next_leg_m': 0.00028541841311380267}
+{'jax': '0.4.38', 'fixed': True, 'sensor': 1027, 'false_self_hit': False, 'next_leg_m': 0.7034927010536194}

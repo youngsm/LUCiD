@@ -1,0 +1,16 @@
+Partition=milano Job=39973045 Host=sdfmilan269
+{
+  "oxygen_captures_after_target_fix": 2981,
+  "hard_capture_gamma_observed": 0,
+  "zero_count_95pct_upper_probability": 0.001004437272387082,
+  "measured_hard_lines_probability": 0.004,
+  "measured_hard_lines_uncertainty_upper_bound": 0.0009,
+  "expected_hard_line_events_only": 11.924,
+  "zero_probability_at_3sigma_low_measured_lines": 0.02069586969595443,
+  "hydrogen_baseline_captures": 880,
+  "hydrogen_em_capture_family_probability_expected": 0.39277297721916726,
+  "hydrogen_em_capture_family_events_expected_for_baseline_H_choices": 345.6402199528672,
+  "hydrogen_em_capture_family_probability_per_real_water_stop": 0.0017478397486252943,
+  "panofsky_convention": "Radiative family includes small internal-conversion channel; real-gamma-only branching is slightly lower.",
+  "target_only_fix_still_fails_radiative_oracle": true
+}

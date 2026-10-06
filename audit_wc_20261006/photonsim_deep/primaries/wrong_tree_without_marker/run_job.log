@@ -1,0 +1,53 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== lucid-run-job ===
+    config:       /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/production_genie_config.json
+    dataset_name: audit GENIE input validation
+    config_number:?
+    job_id:       1 (file_index=0)
+    n_events:     2
+    output_dir:   /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker
+
+=== Step 1: Generating Geant4 macro ===
+Wrote /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker/job_000001.mac
+=== Step 2: Running PhotonSim ===
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Accumulable registered as "accumulable_0"
+Accumulable registered as "accumulable_1"
+Output filename set to: output_job_000001.root
+Checking overlaps for volume Detector:0 (G4Box) ... OK! 
+### Birks coefficients used in run time
+Individual photon storage: enabled
+RooTrackerReader: TTree 'gRooTracker' not found in /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker/gntp_job_000001.gtrac.root
+PrimaryGeneratorAction: failed to open GENIE input /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker/gntp_job_000001.gtrac.root
+ROOT file output_job_000001.root created for optical photon data
+1D wavelength histogram created: 800 bins from 0-800 nm
+
+### Starting run with 2 events ###
+
+Progress: [>                                       ] 0.0% (0/2) Elapsed: 0s     
+Progress: [====================>                   ] 50.0% (1/2) Elapsed: 0s ETA: 0s     
+
+--------------------End of Global Run-----------------------
+ The run consists of 2 e- of 5 MeV
+------------------------------------------------------------
+
+OpticalPhotonsRaw written with 2 chunk entries
+Photon wavelength histogram written with 2181.0 entries
+Photon distance (s) histogram written with 2181.0 entries
+ROOT file closed with 2 events
+    binary: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/photonsim_wrapper.sh
+    macro:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker/job_000001.mac
+    cwd:    /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker
+PhotonSim exit code: 0 (elapsed 2.8s)
+
+--skip-lucid: stopping after PhotonSim. ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/wrong_tree_without_marker/output_job_000001.root

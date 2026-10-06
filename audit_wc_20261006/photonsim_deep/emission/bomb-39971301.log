@@ -1,0 +1,22 @@
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+{
+  "slurm_job": "39971301",
+  "partition": "milano",
+  "chunking_AB_bitwise_equal": true,
+  "total_photons_checked": 4262268
+}
+electron_stream 65423 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1368683772161603e-13, 0.0]
+electron_buffer 65423 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1368683772161603e-13, 0.0]
+muon_stream 432577 6 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8189894035458565e-12, 0.0]
+muon_buffer 432577 2 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8189894035458565e-12, 0.0]
+pion_stream 267967 4 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.547473508864641e-13, 0.0]
+pion_buffer 267967 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.547473508864641e-13, 0.0]
+positron_stream 923 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.391117661821212e-14, 0.0]
+positron_buffer 923 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.391117661821212e-14, 0.0]
+gamma_stream 460 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.684341886080802e-14, 0.0]
+gamma_buffer 460 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.684341886080802e-14, 0.0]
+dark_stream 0 0 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+dark_buffer 0 0 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+bomb_stream 1363784 15 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.6342482922482304e-13, 0.0]
+bomb_buffer 1363784 3 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.6342482922482304e-13, 0.0]

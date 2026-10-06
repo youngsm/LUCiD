@@ -1,0 +1,143 @@
+GENIE final-state status and nuclear-remnant review
+2026-10-06, client date. Read-only source/binary/header/config inspection.
+No GENIE event generation, executable tests, imports, or builds performed.
+
+Conclusion
+  Reject the broad claim that PhotonSim's status==1 selection discards
+  GENIE's explicitly generated oxygen nuclear-deexcitation photons.
+  GENIE creates those photons as status 1, retains them through intranuclear
+  transport, and ordinary rootracker exports their status unchanged.
+
+  Distinguish this from two other cases:
+  (a) Status 15 is normally an aggregate residual hadronic-state entry for
+      the configured HAIntranuke2018 chain, not a ready-to-propagate ion.
+      Its unresolved recoil/excitation is a generator/interface modelling
+      limitation; accepting status 15 as a Geant4 particle is not a fix.
+  (b) Real status-1 ions do occur in coherent-pion production. PhotonSim's
+      FindParticle-only lookup can skip them. This establishes source
+      reachability of omitted nuclear recoil, not its production frequency,
+      detector light yield, or a large missing-deexcitation signal.
+
+Versions and evidence provenance
+  container/Dockerfile derives from nuisancemc/tutorial:nuint2024 and its
+  comments/documentation identify GENIE 3.04. The actual currently used
+  production container image was not executed or version-inspected here.
+  lucid/production/run_genie.py resolves gevgen/gntpc from PATH, falling back
+  to GENIE_PREFIX; it does not enforce a GENIE version. Its default tune is
+  G18_10a_02_11b. It invokes gntpc with '-f rootracker' at line 170.
+
+  Accessible installed GENIE was located at:
+    /cvmfs/larsoft.opensciencegrid.org/spack-fnal-v1.1.0/spack_env/opt/spack/linux-x86_64_v2/genie-3.06.02-y7h2qnoz2ubymyzchdekvhubp5s7figs
+  Its VERSION file says 3.06.02. Read GHepStatus.h, PDGCodes.h and the
+  installed EventGenerator.xml/G18_10a/ModelConfiguration.xml directly.
+  Existence of this installation does not prove production uses it.
+
+  Primary upstream files were fetched through the GitHub repository
+  connector at pinned refs R-3_04_00 and R-3_06_02. Full files with original
+  line numbering are in reference/; blob SHAs and original URLs are in
+  reference/GENIE_deexcitation_sources_manifest.json.
+
+1. Export semantics: source, not merely enum comments
+  R-3_04_00 gNtpConv.cxx:2011 sets hide_truth only for rootracker_mock_data.
+  Lines 2367-2398 iterate event particles. Line 2374 filters non-status-1
+  particles only if hide_truth; line 2377 directly assigns p->Status() to
+  StdHepStatus. Pdg, P4, X4, polarization and ancestry are copied as well.
+  Ordinary '-f rootracker' therefore retains status 15 and intermediate
+  entries in the exported record; the later PhotonSim reader applies the
+  status-1 filter. R-3_06_02 retains this behavior (status assignment 2369).
+
+  PhotonSim RooTrackerReader.cc:99 selects status==1, after converting
+  momenta/energy GeV to MeV. PrimaryGeneratorAction.cc then resolves each
+  particle using G4ParticleTable::FindParticle(p.pdg); unresolved PDGs are
+  skipped. It supplies the three-momentum to G4PrimaryParticle.
+
+  Source:
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Apps/gNtpConv.cxx#L2374
+
+2. Explicit oxygen deexcitation photons survive the status filter
+  R-3_04_00 NucDeExcitationSim.cxx:76 dispatches oxygen targets to its oxygen
+  model. AddPhoton at 486-514 creates a gamma with kIStStableFinalState
+  (line 506), appends it (507), and subtracts its four-momentum from the
+  remnant (510-513). Thus its photon and residual-state energy are already
+  distinct contributions, not two independent copies of excitation energy.
+  R-3_06_02 has the same relevant construction/subtraction.
+
+  Active R-3_04_00 QE CC EventGenerator.xml:154-165 runs NucDeExcitationSim
+  at 161, then HadronTransporter at 162; QE NC does so at 221-222. Do not
+  mistake earlier commented alternative module lists for the active list.
+  G18_10a/ModelConfiguration.xml:59-60 enables HAIntranuke2018. That class
+  inherits Intranuke2018 (HAIntranuke2018.h:51). In neutrino mode,
+  Intranuke2018::NeedsRescattering (217-233) processes only status 14, so it
+  leaves explicit status-1 deexcitation gammas alone.
+
+  This verifies the routing of photons the generator actually emits. It
+  does not establish that the generator emits every physically required
+  transition, has accurate branching ratios, or fully models post-FSI
+  excitation and fragmentation.
+
+  Sources:
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/NuclearDeExcitation/NucDeExcitationSim.cxx#L486
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/config/EventGenerator.xml#L154
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/config/G18_10a/ModelConfiguration.xml#L59
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/HadronTransport/Intranuke2018.cxx#L217
+
+3. Status-15 remnant is not an ordinary status-1 isotope
+  Intranuke2018.cxx:381-383 constructs its residual entry using
+  kPdgHadronicBlob, kIStFinalStateNuclearRemnant, and fRemnP4. It then marks
+  the prior remnant ion kIStIntermediateState for neutrino interactions
+  (387-389). PDGCodes.h defines kPdgHadronicBlob as 2000000002, and GHepStatus.h
+  defines nuclear-remnant status as 15 and intermediate status as 2.
+  The same operations appear in the preserved R-3_06_02 source.
+
+  The source preserves leftover four-momentum as a pseudo-particle rather
+  than exporting a complete residual-isotope/excitation/fragment state that
+  PhotonSim can hand directly to Geant4. Simply importing the prior ion or
+  treating all blob energy as photons risks inconsistency or double counting
+  the already emitted particles. Further residual deexcitation would require
+  an explicit, validated generator-to-detector model and suitable state
+  information. No such model or physical yield was validated here.
+
+  Source:
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/HadronTransport/Intranuke2018.cxx#L378
+
+4. Narrow source-reachable ion omission: coherent nuclear recoil
+  R-3_04_00 COHHadronicSystemGenerator.cxx explicitly appends the recoil
+  nucleus with the target's ion PDG and kIStStableFinalState. Examples:
+    BergerSehgalFM: recoil four-vector at 197-200, AddParticle at 207.
+    ReinSehgal: recoil four-vector at 306-309, AddParticle at 315.
+    AlvarezRuso: recoil four-vector at 355-358, AddParticle at 366.
+  Thus a real status-1 oxygen ion is possible in upstream output. This is
+  distinct from the post-intranuclear-cascade status-15 blob described above.
+
+  PhotonSim's unknown-PDG skip can omit this recoil if the ion has not been
+  registered in G4ParticleTable. Registration can depend on process history:
+  earlier hadronic interactions can create ion definitions. A primary-only
+  fresh-process fixture cannot establish omission frequency in a full run.
+  A narrow integration improvement is to
+  resolve supported nuclear PDGs through G4IonTable, with explicit validation
+  of the incoming ion state, and to diagnose unsupported status-1 particles
+  instead of silently skipping them. This does not fix unresolved blob
+  excitation or demonstrate a large Cherenkov-light change.
+
+  A synthetic status-1 oxygen fixture tests the lookup/fallback mechanism.
+  It does not establish that its energy/momentum, rate, or excitation state
+  represents this coherent channel or normal GENIE production. No actual
+  GENIE event sample was available to this reviewer. Do not infer physical
+  representativeness or quantitative missing light from that fixture.
+
+  Source:
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Coherent/EventGen/COHHadronicSystemGenerator.cxx#L197
+
+Recommended next validation, not executed here
+  Generate a small real sample using the actual production version and tune;
+  retain GHEP as well as rootracker. Classify status-1 ion entries, status-15
+  blobs, and explicit deexcitation gamma entries by their creator/ancestry.
+  Confirm the exported/injected status-1 gamma four-vectors agree, and measure
+  actual coherent-ion kinematics before assigning detector-level severity.
+  CPU generation/analysis must run on milano or roma per the user constraint.
+
+Scope limits
+  No measured high-impact GENIE physics bug is established by this status
+  review. The separately reproduced invalid-input/default-electron issue is
+  not evidence about valid-event nuclear physics and belongs to its own test.
+  The review also does not certify all GENIE nuclear physics as exact.

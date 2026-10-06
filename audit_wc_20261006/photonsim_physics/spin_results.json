@@ -1,0 +1,92 @@
+{
+  "baseline": {
+    "events": 2000,
+    "michel_count": 1975,
+    "mean_cos_mu_birth_to_positron": 0.008453437296835743,
+    "mean_cos_standard_error": 0.013055409719718346,
+    "positron_same_mu_hemisphere_fraction": 0.5093670886075949,
+    "high_energy_count": 910,
+    "high_energy_mean_cos": 0.045260819844072125,
+    "high_energy_same_hemisphere_fraction": 0.5296703296703297,
+    "positron_energy_mean_MeV": 36.69187253273237,
+    "muon_birth_kinetic_energy_mean_MeV": 4.1198126599383045,
+    "positron_creator_processes": {
+      "Decay": 1975
+    },
+    "muon_creator_processes": {
+      "Decay": 1975
+    },
+    "cosine_histogram_10bins": [
+      215,
+      174,
+      188,
+      197,
+      195,
+      198,
+      205,
+      195,
+      202,
+      206
+    ]
+  },
+  "spin": {
+    "events": 2000,
+    "michel_count": 1980,
+    "mean_cos_mu_birth_to_positron": -0.10154679317365853,
+    "mean_cos_standard_error": 0.012616065724464028,
+    "positron_same_mu_hemisphere_fraction": 0.42323232323232324,
+    "high_energy_count": 855,
+    "high_energy_mean_cos": -0.21980123184350053,
+    "high_energy_same_hemisphere_fraction": 0.3333333333333333,
+    "positron_energy_mean_MeV": 35.670948340999075,
+    "muon_birth_kinetic_energy_mean_MeV": 4.1198126599383045,
+    "positron_creator_processes": {
+      "DecayWithSpin": 1980
+    },
+    "muon_creator_processes": {
+      "Decay": 1980
+    },
+    "cosine_histogram_10bins": [
+      232,
+      241,
+      242,
+      234,
+      193,
+      208,
+      172,
+      166,
+      151,
+      141
+    ]
+  },
+  "water": {
+    "events": 2000,
+    "michel_count": 1973,
+    "mean_cos_mu_birth_to_positron": -0.05746935113136529,
+    "mean_cos_standard_error": 0.013115693558259913,
+    "positron_same_mu_hemisphere_fraction": 0.4546376077040041,
+    "high_energy_count": 827,
+    "high_energy_mean_cos": -0.1381641782818287,
+    "high_energy_same_hemisphere_fraction": 0.3845223700120919,
+    "positron_energy_mean_MeV": 36.04854824693424,
+    "muon_birth_kinetic_energy_mean_MeV": 4.1198126599383045,
+    "positron_creator_processes": {
+      "DecayWithSpin": 1973
+    },
+    "muon_creator_processes": {
+      "Decay": 1973
+    },
+    "cosine_histogram_10bins": [
+      230,
+      216,
+      228,
+      208,
+      194,
+      210,
+      144,
+      175,
+      183,
+      185
+    ]
+  }
+}

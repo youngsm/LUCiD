@@ -1,0 +1,4 @@
+/random/setSeeds 42631 98711
+/gun/clearPrimaries
+/gun/genieInput /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/primaries/does_not_exist.gtrac.root
+/gun/genieIsotropic true

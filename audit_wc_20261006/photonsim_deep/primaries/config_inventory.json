@@ -1,0 +1,302 @@
+{
+  "lucid/production/configs/GeV/01_pbomb.json": {
+    "source": "bomb",
+    "particle_count": 0,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/02_mu.json": {
+    "source": "bomb",
+    "particle_count": 0,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/02_mu_fast.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/02_mu_metrics.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/02_mu_smoke.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/03_pi.json": {
+    "source": "bomb",
+    "particle_count": 0,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/04_e.json": {
+    "source": "bomb",
+    "particle_count": 0,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/06_pi0.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/07_gamma.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/01_tpdf_13_p130_190.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/02_tpdf_13_p150_170.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/03_tpdf_13_p210_230.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/04_tpdf_13_p250_400.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/05_tpdf_13_p300_350.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/06_tpdf_13_p450_500.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/07_tpdf_13_p600.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/08_tpdf_13_p700.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/09_tpdf_13_p800.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/10_tpdf_13_p900.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/11_tpdf_13_p1000.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/12_tpdf_13_p1200.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/13_tpdf_13_p1400.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/14_tpdf_13_p1600.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/15_tpdf_13_p1800.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/16_tpdf_13_p2000.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/17_tpdf_13_p2250.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/18_tpdf_13_p2500.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/19_tpdf_13_p2750.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/20_tpdf_13_p3000.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/40_tpdf_11_p20_80.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/41_tpdf_11_p40_60.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/42_tpdf_11_p100_120.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/43_tpdf_11_p160_300.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/44_tpdf_11_p200_250.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/45_tpdf_11_p350_400.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/46_tpdf_11_p500.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/47_tpdf_11_p600.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/48_tpdf_11_p700.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/49_tpdf_11_p800.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/50_tpdf_11_p900.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/51_tpdf_11_p1000.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/52_tpdf_11_p1200.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/53_tpdf_11_p1400.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/54_tpdf_11_p1600.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/55_tpdf_11_p1800.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/56_tpdf_11_p2000.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/57_tpdf_11_p2250.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/58_tpdf_11_p2500.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/59_tpdf_11_p2750.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  },
+  "lucid/production/configs/GeV/tpdf/60_tpdf_11_p3000.json": {
+    "source": "particles",
+    "particle_count": 1,
+    "decays_disabled": false,
+    "store_photons": true
+  }
+}

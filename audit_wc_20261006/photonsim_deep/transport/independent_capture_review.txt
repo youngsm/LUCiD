@@ -1,0 +1,189 @@
+Independent review: negative-particle stopping targets in water
+Reviewed 2026-10-06 by the production-integrity lane.
+
+Conclusion
+The proposed water-target defect is supported independently by the experimental
+definition and the exact Geant4 11.3.0 stopping-process code. The default element
+selector's hydrogen choice is not merely an innocuous initial atomic-capture
+choice: the inspected stopping process carries that same nucleus through its
+EM cascade and terminal bound decay/nuclear interaction. Use separate physical
+endpoint prescriptions for negative pions and negative muons. The current
+WaterPionElementSelector.hh correctly preserves the measured finite hydrogen
+fraction and guards both particle identity and water material.
+
+This is a read-only source/literature review. I ran no duplicate simulation,
+import, build, or numerical program. Runtime rates and photon effects must be
+taken from the transport agent's allowed-partition ledger/A-B experiments.
+
+Experimental definition: pions
+Berridge et al., Phys. Rev. A 75, 034501 (2007), DOI:
+https://doi.org/10.1103/PhysRevA.75.034501
+Publisher abstract:
+https://journals.aps.org/pra/abstract/10.1103/PhysRevA.75.034501
+Author-posted full text, including definition and methods:
+https://www.researchgate.net/publication/242310160_Study_ofNuclear_Capture_Ratio_on_Hydrogen_and_Oxygen_in_Water
+
+The full text defines the quantity as the fraction of stopped negative pions
+captured on hydrogen nuclei in a compound. Thus W_H2O=(4.45 +/- 0.24)*10^-3 is
+a final nuclear-capture probability, not the probability of initially forming
+pionic hydrogen, not a per-hydrogen-atom probability, and not the radiative
+branching fraction. Their pi0 method counts pi0->gamma gamma, corrects for the
+competing radiative hydrogen channel using the Panofsky ratio, and normalizes
+to pion stops. Their independent gamma-spectrum method separates hydrogen and
+oxygen contributions. In-flight charge exchange backgrounds were subtracted.
+The stated consistency across several beam momenta concerns pions stopping in
+the water target. This supports a stopping-target oracle; it does not set the
+fraction of all incident GeV pions interacting on hydrogen while moving.
+
+Keep the nonzero hydrogen branch. An oxygen-only pion prescription is a useful
+diagnostic but removes a measured physical channel. The measurement does not
+establish a complete molecular-transfer model; this fix is an empirical final-
+target distribution for liquid water.
+
+Experimental applicability: muons
+Kitagawa et al. (Super-Kamiokande), Phys. Rev. D 110, 082008 (2024), printed p.9:
+https://doi.org/10.1103/PhysRevD.110.082008
+https://eprints.gla.ac.uk/340602/1/340602.pdf
+The paper explicitly describes muonic hydrogen diffusing in water and moving
+its muon to oxygen much faster than muon decay. It consequently models water
+decay-in-orbit as oxygen-bound. Printed p.12 cites measured water nuclear
+capture probability 0.184 +/- 0.001. This supports an oxygen endpoint for a
+minimal rapid-transfer muon approximation. Do not apply the pion's 0.00445
+hydrogen probability to muons. Conversely, forcing pion endpoints to oxygen
+because the muon approximation uses oxygen is unjustified.
+
+Exact implementation chain and absence of an intervening transfer stage
+Local preserved files below are under this directory's reference/.
+
+1. PhotonSim upstream/src/PhysicsList.cc registers G4StoppingPhysics(0).
+   upstream/src/DetectorConstruction.cc constructs actual G4_WATER through the
+   NIST material manager; this is the material targeted by the audit selectors.
+
+2. G4StoppingPhysics.cc constructs a G4MuonMinusCapture and registers it on mu-.
+   It constructs one G4HadronicAbsorptionBertini object and registers that same
+   object on pi-, K-, Sigma-, Xi-, and Omega- when applicable. This shared object
+   is why a pion-only selector must check the current track's PDG. Merely finding
+   the process via the pion process manager does not make it pion-exclusive.
+   Official pinned source:
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/physics_lists/constructors/stopping/src/G4StoppingPhysics.cc
+
+3. G4HadronStoppingProcess.cc constructs its default G4ElementSelector and
+   G4EmCaptureCascade. In AtRestDoIt it calls SelectZandA once, invokes the EM
+   cascade with that nucleus, invokes any bound-decay handler with that nucleus,
+   and passes the same nucleus to ChooseHadronicInteraction and ApplyYourself.
+   It then kills the original track and creates daughters. There is no atomic
+   track handed to another transport process between selection and terminal
+   interaction. At-rest interaction length is zero; muon disappearance time is
+   sampled internally by its bound-decay model.
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4HadronStoppingProcess.cc
+
+4. G4ElementSelector.cc weights element number densities by Z, except oxygen's
+   0.56*Z multiplier and a separate halogen multiplier. H2O therefore has H:O
+   weights 2:4.48, so the selected hydrogen probability is about 0.309. This is
+   a source-derived probability, not a runtime measurement in this review.
+   The chosen element's isotope is then sampled and written to the nucleus.
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4ElementSelector.cc
+
+5. Exact G4HadronicAbsorptionBertini.cc calls the base stopping constructor,
+   registers a G4CascadeInterface, enables its zero-energy range and precompound
+   deexcitation, and does not replace the selector or EM cascade. Its installed
+   header has no AtRestDoIt override. The preserved source arrived through the
+   transport lane and was independently read here.
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4HadronicAbsorptionBertini.cc
+
+6. Exact G4EmCaptureCascade::ApplyYourself reads target Z/A, calculates atomic
+   level transitions, emits Auger electrons/photons, and returns. It never
+   updates target Z/A or chooses another element. Reading the entire function
+   rules out transfer hidden inside the EM cascade.
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4EmCaptureCascade.cc
+
+7. G4MuonMinusCapture.cc registers G4MuonMinusBoundDecay; the latter reads Z/A
+   from the selected target and immediately samples its capture/decay rates and
+   lifetime. It does not change target before that choice. Thus later nuclear
+   final-state modeling cannot rescue the muon capture/decay branching ratio.
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4MuonMinusCapture.cc
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/stopping/src/G4MuonMinusBoundDecay.cc
+
+8. The subsequently provided exact G4CascadeInterface.cc closes the target-
+   reselection question at the Bertini interface: ApplyYourself calls
+   createTarget(theNucleus), branches on target A==1, and retries collisions
+   against the same target. createTarget extracts precisely the supplied A/Z.
+   There is no material-dependent replacement with an oxygen nucleus. The
+   transport agent's target ledger plus pi0/hard-gamma counts supplies the
+   runtime check of the corresponding hydrogen-like final states. This review
+   does not claim validation of every Bertini nuclear final-state model or any
+   measured photon-yield number.
+   https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/source/processes/hadronic/models/cascade/cascade/src/G4CascadeInterface.cc
+
+Minimal material-aware correction
+Use G4HadronStoppingProcess::SetElementSelector, which is an exposed supported
+hook in the installed 11.3.0 header. Retain default behavior outside the known
+pure-water material, and preserve conditional isotope selection.
+
+For pi- in pure water, select desired Z once with Bernoulli(0.00445): H if true,
+otherwise O. Then sample the isotope conditional on the selected element. The
+current audit implementation does this by repeatedly calling the base selector
+until it returns the already chosen Z. This preserves the base isotope law.
+Do not redraw the desired element in the rejection loop. Check PDG -211 because
+the Bertini stopping process is shared with other particles. The existing
+WaterPionElementSelector.hh satisfies both conditions.
+
+For mu- in pure water, choose O, preserving oxygen isotope abundances. Attach
+only to G4MuonMinusCapture, or also guard PDG 13 inside a reusable selector.
+The existing WaterMuonElementSelector.hh is safe under its present attachment
+to the exclusively-muon G4MuonMinusCapture. A production implementation should
+prefer known material identity/composition over an unconstrained material-name
+string, and verify the requested elements are present before rejection loops.
+Do not apply either fix globally to all H/O mixtures, heavy water, loaded water,
+other hydrides, or other stopped particle species without the relevant data.
+
+These are minimal phenomenological endpoint corrections. They do not reproduce
+the microscopic atomic/molecular cascade, transfer delay, or initial-H x-ray
+history, nor validate all oxygen nuclear final-state spectra. State those limits
+instead of calling the resulting simulation exactly physical in every detail.
+
+Interpretation cautions for the final report
+* Compare pion hydrogen fraction per stopped capture, not per generated GeV
+  pion. In-flight interactions/decays dilute effects in the incident sample.
+* Report selected-target discrepancy separately from measured created photons,
+  transported detector photons and digitized PE. Their percentages are different.
+* Negative-muon nuclear capture and DIO share muMinusCaptureAtRest as creator
+  process. Classify daughters with creator-model identity/ancestry, not a simple
+  creator-process-name == Decay requirement; avoid counting atomic Auger e- as
+  Michel electrons.
+* The 10 us/100 us accepted late cuts do not remove this physical target issue:
+  pion capture changes prompt products, and muon decay/capture probability is
+  wrong before any late-light selection.
+
+Residual radiative-capture validation required after the target correction
+Spuller et al., Phys. Lett. B 67 (1977) 479-482, measured stopped-pion hydrogen
+charge-exchange/radiative ratio P=1.546 +/- 0.009:
+https://doi.org/10.1016/0370-2693(77)90449-X
+Primary-paper copy:
+https://muon.npl.washington.edu/exp/WildIdeas/DarkLiterature/piHe/spuller77.pdf
+Neglecting much smaller branches, P(pi0 n | H)=P/(1+P) and
+P(gamma n | H)=1/(1+P), approximately 61% and 39%. The transport agent reports
+pi0 daughters in every simulated H capture and no direct hard gamma. Thus
+correcting H/O selection alone does not validate the conditional H final state.
+After imposing the small measured hydrogen probability, this residual affects
+only that small fraction of water stops; do not confuse it with the much larger
+original H/O target mistake. A suitable additional H fix must sample both
+channels with two-body kinematics and energy conservation, not append a gamma
+to an already generated pi0 event.
+
+Bistirlich et al., Phys. Rev. C 5, 1867 (1972), measured radiative stopped-pion
+photon spectra on O16 (and other nuclei) in the 50-160 MeV range:
+https://journals.aps.org/prc/abstract/10.1103/PhysRevC.5.1867
+Berridge's gamma-fit method uses an oxygen radiative-capture normalization of
+2.27 +/- 0.24%. Its fit begins at 50 MeV. I have not independently resolved
+the original normalization's integration threshold, so do not promote 2.27%
+to an all-energy branching oracle from this review alone. The primary measured
+spectrum does establish that a zero hard-gamma channel is not physically exact.
+Oxygen capture spectral/channel validation remains with the transport lane.
+
+Access note
+Automatic approval review rejected one read-only curl source download because
+it required network escalation. No alternative shell/network workaround was
+used. Existing local pinned source and permitted browser results were sufficient
+for this review; the transport lane supplied its already available Bertini
+constructor source. No remaining task step requires that rejected action.

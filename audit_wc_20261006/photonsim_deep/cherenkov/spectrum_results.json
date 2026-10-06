@@ -1,0 +1,38 @@
+{
+  "job_id": "39972392",
+  "partition": "milano",
+  "node": "sdfmilan270",
+  "interpretation": "Energy conditional on G4 step-mean beta follows the exact dispersive Frank-Tamm spectrum; this does not validate its within-step beta averaging.",
+  "rows": [
+    {
+      "sample": "conv_default",
+      "photon_rows": 8881,
+      "conditional_CDF_uniform_KS_statistic": 0.008747566553338415,
+      "pvalue": 0.5022808714781608
+    },
+    {
+      "sample": "conv_small",
+      "photon_rows": 9863,
+      "conditional_CDF_uniform_KS_statistic": 0.009542679652713382,
+      "pvalue": 0.3282425130863805
+    },
+    {
+      "sample": "conv_smaller",
+      "photon_rows": 10095,
+      "conditional_CDF_uniform_KS_statistic": 0.01137415068145159,
+      "pvalue": 0.14560670206987547
+    },
+    {
+      "sample": "coarse_e100",
+      "photon_rows": 200000,
+      "conditional_CDF_uniform_KS_statistic": 0.0024049806761925474,
+      "pvalue": 0.197307328924491
+    },
+    {
+      "sample": "coarse_mu1000",
+      "photon_rows": 200000,
+      "conditional_CDF_uniform_KS_statistic": 0.001295739589960987,
+      "pvalue": 0.8897930678539815
+    }
+  ]
+}

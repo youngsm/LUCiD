@@ -1,0 +1,187 @@
+PhotonSim pion kill/replacement: Geant4 11.3.0 static semantics review
+==================================================================
+
+Scope: upstream/src/SteppingAction.cc lines 106-174. Read-only source audit;
+no tests, builds, imports, or numerical scripts executed by this reviewer.
+No production changes. Population A/B tests belong to the parent audit.
+
+Disposition
+-----------
+No large physical failure is established by resetting the track alone.
+Do not report a pion lifetime-extension bug, a fSuspend lost-track bug, or
+an Urban multiple-scattering restart bug based only on this code. These
+specific hypotheses are contradicted by the actual production model and
+Geant4 lifecycle. Distribution-level A/B evidence could reveal another
+mechanism; different individual seeded histories are expected and are
+not themselves evidence of physical bias.
+
+1. Status, geometry, and already-produced secondaries
+---------------------------------------------------
+G4TrackingManager::ProcessOneTrack calls SetInitialStep before its tracking
+loop and StartTracking before stepping. G4SteppingManager::SetInitialStep
+turns fSuspend/fPostponeToNextEvent into fAlive, overrides zero KE to
+fStopButAlive, and locates tracks whose touchable handle is empty. Thus
+ordinary moving replacements resume and stopped replacements invoke the
+at-rest process machinery. A missing touchable does not by itself lose a
+track inside homogeneous water. Boundary relocation remains an empirical
+edge check, not a confirmed bug; the replacement trigger excludes steps
+whose defining process is Transportation.
+
+Sources:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/tracking/src/G4TrackingManager.cc#L54
+https://github.com/Geant4/geant4/blob/v11.3.0/source/tracking/src/G4SteppingManager.cc#L248
+
+G4EventManager retains and stacks secondaries for fStopAndKill. Only
+fKillTrackAndSecondaries destroys the secondary list. PhotonSim uses
+fStopAndKill, so already-produced Cerenkov photons, recoil nuclei, and
+delta electrons survive replacement. The manually appended pion is
+assigned a new track ID when the secondaries are stacked.
+
+Source:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/event/src/G4EventManager.cc#L231
+
+G4Cerenkov::PostStepDoIt proposes fSuspend, and only when its incoming
+status is fAlive. It does not produce fSuspendAndWait. The latter status
+exists in 11.3 and is normally converted to fSuspend when placed into a
+waiting stack. PhotonSim's unconditional urgent stacking would deserve
+attention if another process generated fSuspendAndWait; no such producer
+was found in PhotonSim. Do not present that hypothetical as production.
+
+Sources:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/electromagnetic/xrays/src/G4Cerenkov.cc#L281
+https://github.com/Geant4/geant4/blob/v11.3.0/source/event/src/G4StackManager.cc#L113
+
+2. Decay and interaction clocks: memorylessness matters
+-----------------------------------------------------
+G4Decay::StartTracking resets the sampled remaining interaction length.
+For ordinary pions (no preassigned decay time), subsequent decay GPIL uses
+the remaining exponential clock and current momentum/mass; it does not
+decay them by comparing accumulated track proper time to their lifetime.
+G4VProcess::ResetNumberOfInteractionLengthLeft samples -log(U).
+
+The residual of a surviving exponential clock has exactly the same law
+as a fresh exponential clock: P(T>s+t | T>s)=exp(-t/tau). Resampling after
+an independently generated deflection therefore does not automatically
+extend the physical lifetime distribution. The same argument applies to
+other Poisson interactions using integrated interaction length, including
+energy-dependent cross sections when expressed in that hazard coordinate.
+
+For a suspended ordinary track, ProcessOneTrack is called again on resume,
+so the original unreplaced track would already call StartTracking again.
+This substantially weakens any attribution of a new clock reset to the
+replacement specifically in the fSuspend population.
+
+Sources:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/decay/src/G4Decay.cc#L393
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/management/src/G4VProcess.cc#L80
+https://geant4.web.cern.ch/documentation/pipelines/master/prm_html/PhysicsReferenceManual/generalities/particletransport/occurence.html
+
+3. Actual pion multiple-scattering model
+--------------------------------------
+G4EmStandardPhysics_option4 delegates charged hadrons to
+G4EmBuilder::ConstructCharged(hmsc,pnuc). Its default isWVI=true and
+ConstructLightHadrons installs G4WentzelVIModel for pi+/pi-. Wentzel's
+StartTracking only sets up the particle; it has no Urban-style firstStep
+or initial-range reset. Energy, material, range, lambda, and the
+single-scattering-mode choice are recomputed for each step.
+
+Urban has additional first-step state, but that model is not the pion
+model in this production physics list. Do not generalize its behavior.
+The energy-loss process resets caches/discrete clocks; its continuous
+step limit uses current energy and range, not elapsed track age.
+
+Sources (reviewed independently by msc_reset agent):
+https://github.com/Geant4/geant4/blob/v11.3.0/source/physics_lists/constructors/electromagnetic/src/G4EmStandardPhysics_option4.cc#L302
+https://github.com/Geant4/geant4/blob/v11.3.0/source/physics_lists/constructors/electromagnetic/include/G4EmBuilder.hh
+https://github.com/Geant4/geant4/blob/v11.3.0/source/physics_lists/constructors/electromagnetic/src/G4EmBuilder.cc
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/electromagnetic/standard/src/G4WentzelVIModel.cc#L243
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/electromagnetic/utils/src/G4VEnergyLossProcess.cc#L509
+
+4. Real state loss, but no demonstrated production physics consequence
+--------------------------------------------------------------------
+Fresh G4Track/G4DynamicParticle construction resets local/proper time,
+weight, user information, original touchable, preassigned decay data,
+and dynamic particle properties to constructor defaults. Position,
+global time, pion identity, and post-step three-momentum are retained.
+Charged pions have spin zero, so polarization reset is immaterial here.
+
+Preassigned decay time/products would be a real hazard: such a pion's
+decay must honor that assignment rather than draw a fresh exponential.
+No PhotonSim primary-generation path sets such assignments, custom
+track weights, custom pion masses, or user track information. GENIE
+primaries are constructed from particle definition and three-momentum;
+other modes use G4ParticleGun. Therefore these are extension hazards,
+not demonstrated production findings.
+
+Sources:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/track/src/G4Track.cc#L43
+https://github.com/Geant4/geant4/blob/v11.3.0/source/particles/management/src/G4DynamicParticle.cc#L84
+Local: upstream/src/PrimaryGeneratorAction.cc, upstream/src/PhysicsList.cc
+
+5. Concrete first-step labeling issue, separate from physical transport
+---------------------------------------------------------------------
+In PhotonSim, step 1 registers preMomentumDir from the vertex direction,
+then bypasses BOTH the deflection check and UpdatePionMomentum. Therefore
+step 2 compares its post-step direction against the original vertex
+direction, not necessarily the immediately preceding step direction.
+A first-step deflection can be missed or credited to a later hIoni/
+hadElastic step; the first step after each replacement has the same blind
+spot. This changes split labels and initial track summaries. It does not
+remove the already-simulated physical deflection or emitted photons.
+
+Minimal correction to investigate if label fidelity is in scope: use
+step->GetPreStepPoint()->GetMomentumDirection() for the per-step angle,
+and permit a split on step 1 after registration. A broader cleaner
+architecture records kinks as metadata without replacing physical tracks.
+Do not fold this bookkeeping issue into a claim of lost pion light.
+
+Recommended instrumentation for parent A/B
+----------------------------------------
+Record replacement status, KE, global/proper/local time, preassigned decay
+time presence, dynamic-vs-PDG mass, weight, and volume; count which fresh
+tracks reach their first step. Compare total pion-chain light, decay vs
+absorption frequencies, stopping times, range, and daughter light across
+ensembles. Treat changed RNG consumption as expected. No new population
+tests were run by this reviewer.
+
+Addendum: G4VMultipleScattering wrapper checked directly
+------------------------------------------------------
+The exact v11.3.0 wrapper has no per-track first-step flag, age counter,
+or accumulated range state. StartTracking (actual source lines 199-214)
+updates the particle-species/ionisation-process cache and calls each
+model's StartTracking. AlongStepGetPhysicalInteractionLength ignores its
+previousStepSize argument and overwrites physStepLimit, gPathLength and
+tPathLength from the current proposed step. It selects the model from
+current KE/material and assigns isActive on both branches. AlongStepDoIt
+initializes from the current step, resets fPositionChanged, and computes
+the true step and displacement anew. Its class members were also checked;
+firstParticle names a table-initialization species, not a first-step flag.
+G4ParticleChangeForMSC::InitialiseMSC copies the current status, post-step
+position/direction, and track pointer; no hidden first-step branch exists.
+
+Sources:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/electromagnetic/utils/src/G4VMultipleScattering.cc#L199
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/electromagnetic/utils/include/G4VMultipleScattering.hh
+https://github.com/Geant4/geant4/blob/v11.3.0/source/track/include/G4ParticleChangeForMSC.hh#L101
+
+One numerical distinction remains outside wrapper track-history state:
+G4Step::InitializeStep sets pre-step safety=0 and status=fUndefined. A
+continuing unsuspended track can instead carry a conservative positive
+safety from the previous step. Wentzel recomputes a small safety when the
+step is not fGeomBoundary; its range<safety early exit means a different
+safety cache can change finite-step partitioning. G4SafetyHelper caches by
+position, not by track identity, and recomputes via the navigator when the
+position differs. Therefore exact next-step equality is NOT established
+solely by memorylessness. No resulting distribution bias is demonstrated.
+For fSuspend, ordinary resumption already calls InitializeStep, so this
+fresh-step initialization is not introduced uniquely by replacement.
+
+Sources:
+https://github.com/Geant4/geant4/blob/v11.3.0/source/track/include/G4Step.icc#L179
+https://github.com/Geant4/geant4/blob/v11.3.0/source/processes/electromagnetic/standard/src/G4WentzelVIModel.cc#L255
+https://github.com/Geant4/geant4/blob/v11.3.0/source/geometry/navigation/src/G4SafetyHelper.cc#L97
+
+Addendum disposition: no non-Markov wrapper-reset mechanism found. Keep
+the ensemble A/B test as the check for any aggregate effect of changed
+finite-step partitioning and RNG consumption. All follow-up work was
+static source reading; no executable test or production edit.

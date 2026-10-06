@@ -1,0 +1,1 @@
+/var/spool/slurmd/job39971153/slurm_script: line 15: 3994490 Segmentation fault      (core dumped) ./mean_yield

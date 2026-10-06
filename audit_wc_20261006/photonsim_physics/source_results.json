@@ -1,0 +1,112 @@
+{
+  "photonsim_ref": "v1.0.2",
+  "photonsim_sha": "9232a7dae46ae36d9c81dd5f1b4e9f7653803514",
+  "electron": {
+    "events": 5,
+    "photons": 110423,
+    "raw_photons": 110423,
+    "segment_cherenkov_photons": 110423,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 580,
+    "wavelength_min_nm": 274.9096984863281,
+    "wavelength_max_nm": 673.82666015625,
+    "primary_kinetic_energies_MeV": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ],
+    "pion_replacements": 0,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "muon": {
+    "events": 5,
+    "photons": 1061694,
+    "raw_photons": 1061694,
+    "segment_cherenkov_photons": 1061694,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 2576,
+    "wavelength_min_nm": 274.90966796875,
+    "wavelength_max_nm": 673.82666015625,
+    "primary_kinetic_energies_MeV": [
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0
+    ],
+    "pion_replacements": 0,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "pion": {
+    "events": 20,
+    "photons": 2380274,
+    "raw_photons": 2380274,
+    "segment_cherenkov_photons": 2380274,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 11306,
+    "wavelength_min_nm": 274.9095764160156,
+    "wavelength_max_nm": 673.825927734375,
+    "primary_kinetic_energies_MeV": [
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0,
+      1000.0
+    ],
+    "pion_replacements": 40,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "gamma": {
+    "events": 10,
+    "photons": 1817,
+    "raw_photons": 1817,
+    "segment_cherenkov_photons": 1817,
+    "invalid_segment_indices": 0,
+    "absolute_segment_count_mismatch": 68,
+    "wavelength_min_nm": 274.9483947753906,
+    "wavelength_max_nm": 673.6383666992188,
+    "primary_kinetic_energies_MeV": [
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2,
+      2.2
+    ],
+    "pion_replacements": 0,
+    "max_pion_endpoint_gap_mm": 0.0
+  },
+  "genie_isotropy": {
+    "events": 20000,
+    "mean_cos_theta": -0.0034009707234785936,
+    "mean_cos_theta_squared": 0.33338444559097463,
+    "positive_z_fraction": 0.4971
+  },
+  "frank_tamm": {
+    "selected_primary_muon_chord_m": 8.962875074415654,
+    "observed_photons": 389279,
+    "expected_using_pre_step_beta": 389806.02678798564,
+    "observed_over_expected": 0.9986479768095728
+  }
+}

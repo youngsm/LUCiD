@@ -1,0 +1,40 @@
+{
+  "slurm_job": "39967547",
+  "partition": "milano",
+  "root_chunks": {
+    "photons": 7,
+    "noncontiguous_reverse_chunks": "pass",
+    "mm_to_m": "pass",
+    "directions_ns_nm_unchanged": "pass",
+    "missing_event_empty": "pass"
+  },
+  "flat_handoff": {
+    "photons": 523,
+    "chunks": 3,
+    "later_step_slab_preserved": "pass",
+    "m_to_cm_boundary": "pass",
+    "padding_omitted": "pass",
+    "orphan_pe_retained": "pass"
+  },
+  "rotation": {
+    "coherent_photon_segment_track_transform": "pass",
+    "SO3_axis_mean": [
+      -0.002899784859716682,
+      0.003336135700441205,
+      -0.0017915894003565224
+    ],
+    "SO3_axis_second_moment": [
+      0.33881707249776216,
+      0.33191156799147853,
+      0.32927135951075515
+    ]
+  },
+  "actual_data_transport": {
+    "photons": 513,
+    "distinct_target_pmts": 513,
+    "observed_PE": 512.9994506835938,
+    "one_detected_record_per_input": "pass",
+    "max_independent_arrival_residual_ns": 0.006281855428824201,
+    "external_sources_detected": 0
+  }
+}

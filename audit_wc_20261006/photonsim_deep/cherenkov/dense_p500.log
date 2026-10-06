@@ -1,0 +1,30 @@
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Accumulable registered as "accumulable_0"
+Accumulable registered as "accumulable_1"
+Output filename set to: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_p500.root
+Checking overlaps for volume Detector:0 (G4Box) ... OK! 
+### Birks coefficients used in run time
+Individual photon storage: disabled
+ROOT file /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/cherenkov/dense_p500.root created for optical photon data
+1D wavelength histogram created: 800 bins from 0-800 nm
+
+### Starting run with 20 events ###
+Progress: [>                                       ] 0.0% (0/20) Elapsed: 0s     Progress: [==>                                     ] 5.0% (1/20) Elapsed: 0s ETA: 0s     Progress: [====>                                   ] 10.0% (2/20) Elapsed: 0s ETA: 0s     Progress: [======>                                 ] 15.0% (3/20) Elapsed: 0s ETA: 0s     Progress: [========>                               ] 20.0% (4/20) Elapsed: 0s ETA: 0s     Progress: [==========>                             ] 25.0% (5/20) Elapsed: 0s ETA: 0s     Progress: [============>                           ] 30.0% (6/20) Elapsed: 0s ETA: 0s     Progress: [==============>                         ] 35.0% (7/20) Elapsed: 0s ETA: 0s     Progress: [================>                       ] 40.0% (8/20) Elapsed: 0s ETA: 0s     Progress: [==================>                     ] 45.0% (9/20) Elapsed: 0s ETA: 0s     Progress: [====================>                   ] 50.0% (10/20) Elapsed: 0s ETA: 0s     Progress: [======================>                 ] 55.0% (11/20) Elapsed: 0s ETA: 0s     Progress: [========================>               ] 60.0% (12/20) Elapsed: 1s ETA: 0s     Progress: [==========================>             ] 65.0% (13/20) Elapsed: 1s ETA: 0s     Progress: [============================>           ] 70.0% (14/20) Elapsed: 1s ETA: 0s     Progress: [==============================>         ] 75.0% (15/20) Elapsed: 1s ETA: 0s     Progress: [================================>       ] 80.0% (16/20) Elapsed: 1s ETA: 0s     Progress: [==================================>     ] 85.0% (17/20) Elapsed: 1s ETA: 0s     Progress: [====================================>   ] 90.0% (18/20) Elapsed: 1s ETA: 0s     Progress: [======================================> ] 95.0% (19/20) Elapsed: 1s ETA: 0s     
+
+--------------------End of Global Run-----------------------
+ The run consists of 20 proton of 500 MeV
+------------------------------------------------------------
+
+OpticalPhotonsRaw written with 0 chunk entries
+Photon wavelength histogram written with 50754.0 entries
+Photon distance (s) histogram written with 50754.0 entries
+ROOT file closed with 20 events

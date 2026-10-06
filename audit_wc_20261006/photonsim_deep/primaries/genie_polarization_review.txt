@@ -1,0 +1,112 @@
+GENIE production polarization: source review
+2026-10-06. Static inspection only; no imports, builds, or executable tests.
+
+Conclusion
+  GENIE 3.04 explicitly fills nonzero outgoing muon polarization on active
+  G18_10a production paths. Ordinary gntpc rootracker exports it in StdHepPolz.
+  PhotonSim never reads or assigns this field, so the Geant4 primary starts
+  with polarization (0,0,0). This is a real generator-to-transport information
+  loss, distinct from spin assignment to pion-decay daughters.
+
+  Restoring the field must accompany suitable spin-aware Geant4 decay and
+  transport. It does not by itself establish exact physical CC muon spin:
+  the inspected GENIE utility applies unit longitudinal helicity, without
+  finite-mass/energy-dependent polarization magnitude or transverse spin.
+  Detector-level angular/light impact requires the parent's transport test.
+
+Source chain, all pinned R-3_04_00 unless specified otherwise
+  Active EventGenerator.xml:154-165 selects QELEventGenerator for QE CC.
+  QELEventGenerator.cxx:259-260 adds the status-1 outgoing lepton and :263
+  calls utils::SetPrimaryLeptonPolarization(evrec).
+
+  G18_10a/ModelConfiguration.xml:134 selects NievesSimoVacasMECPXSec2016.
+  MECGenerator.cxx:87-88 dispatches its NSV lepton-kinematics branch; that
+  branch adds the status-1 lepton at :836-838 and sets polarization at :840.
+
+  RESPrimaryLeptonGenerator.cxx:42 and DISPrimaryLeptonGenerator.cxx:45
+  delegate ProcessEventRecord to common PrimaryLeptonGenerator.
+  PrimaryLeptonGenerator.cxx:119 adds the lepton, :122 calls SetPolarization,
+  and :217 delegates to the same utils::SetPrimaryLeptonPolarization.
+
+  PrimaryLeptonUtils.cxx:44 constructs plab from the outgoing lepton's lab
+  three-momentum. Lines 49-53 negate it for neutrinos, electrons, muons, and
+  taus (not their antiparticles); :58 calls fsl->SetPolarization(plab).
+  PDGUtils.cxx:198-205 makes the charge convention explicit: IsMuon accepts
+  PDG 13, IsAntiMuon accepts -13. Thus nonzero-momentum mu- has P=-p_hat;
+  mu+ has P=+p_hat. Source behavior, not comments, establishes this rule.
+
+  GHepParticle.cxx:344-358 converts that vector to polar/azimuthal angles
+  using its magnitude, retaining direction only. The magnitude of exported
+  nonzero polarization is therefore 1; it is not |momentum|, velocity, or
+  the particle's spin quantum number 1/2. A zero-norm input is ignored.
+  GHepParticle::GetPolarization at :315-326 explicitly returns the unit
+  vector reconstructed from those angles, or zero if unset.
+
+  GHepParticle's unset internal angle values are -999 (:73-74 etc).
+  PolzIsSet at :308-312 checks both angles > -999. gNtpConv.cxx:2287 zeroes
+  all StdHepPolz components before each event; :2387-2390 overwrites them
+  only if PolzIsSet, using (sin(theta)cos(phi), sin(theta)sin(phi), cos(theta)).
+  Consequently ordinary exported unset polarization is (0,0,0), NOT -999.
+  The branch is double StdHepPolz[StdHepN][3], created at :2033.
+
+  R-3_06_02 QELEventGenerator and PrimaryLeptonUtils retain the inspected
+  QE assignment and helicity convention. Production's actual executable
+  version was not run/version-verified here; see genie_status_review.txt.
+
+PhotonSim loss
+  photonsim_physics/upstream/include/RooTrackerReader.hh: GenieParticle
+  contains only pdg, px, py, pz, E. RooTrackerReader.cc:51-54 binds N/Pdg/
+  Status/P4 only; :99-100 appends the status-1 momentum/energy record.
+  PrimaryGeneratorAction.cc:148-154 optionally rotates momentum, :156
+  constructs G4PrimaryParticle, and :157 adds it to the vertex. It never
+  calls SetPolarization. Thus spin cannot survive the interface.
+
+  Inspected Geant4 11.3.0 installed header:
+    /cvmfs/sft.cern.ch/lcg/releases/Geant4/11.3.0-3cd7f/x86_64-el8-gcc11-opt/include/Geant4/G4PrimaryParticle.hh
+  Lines 163-165 initialize polX/polY/polZ to 0. GetPolarization :295-298
+  returns these values. Ordinary momentum initialization cannot recover
+  the lost sign or restore polarization.
+
+Minimal fix suggestion
+  Add a three-component polarization field to GenieParticle and an optional
+  StdHepPolz branch buffer to RooTrackerReader. Use zero if the branch is
+  absent, explicitly diagnose malformed/nonfinite values, and avoid carrying
+  stale values between files/events. The valid GENIE convention is a unit
+  direction or zero; do not rescale by MeV/GeV or by 1/2.
+
+  During primary injection construct pol from those dimensionless components.
+  Apply exactly the same per-entry rotation matrix to both mom and pol:
+
+    G4ThreeVector pol(p.polx, p.poly, p.polz);
+    if (fGenieIsotropic) { mom = rot * mom; pol = rot * pol; }
+    auto* primary = new G4PrimaryParticle(pdef, mom.x(), mom.y(), mom.z());
+    primary->SetPolarization(pol);
+
+  Keep zero polarization when the upstream field is genuinely absent/unset.
+  Assuming generic spin from charge/momentum would erase future upstream
+  corrections and cannot describe transverse or partially polarized states.
+
+Minimal reproducer specification (parent owns executable Slurm test)
+  Create an ordinary gRooTracker fixture with status-1 PDG13, nonzero p,
+  physically on-shell E, and StdHepPolz=-p_hat; include the ordinary incoming
+  neutrino record. Run the real RooTrackerReader+PrimaryGeneratorAction and
+  inspect the event primary GetPolarization before tracking.
+  Expected from source: original gives zero; patched gives -p_hat with
+  isotropic mode off. With isotropic mode on, require |P|=1 and
+  P dot p_hat=-1; for PDG-13 plus-helicity fixture require +1. Check unset
+  StdHepPolz (zero) and a file without the optional branch stay zero.
+  These checks establish exact interface loss and rotation preservation.
+  Quantitative decay-angle/light claims require spin-aware transport with
+  explicit comparison; no such results are asserted in this static note.
+
+References and reproducibility
+  Full pinned source files are in reference/, with source URLs and GitHub
+  blob SHAs in reference/GENIE_deexcitation_sources_manifest.json.
+  Key URLs:
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/QuasiElastic/EventGen/QELEventGenerator.cxx#L259
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Physics/Common/PrimaryLeptonUtils.cxx#L44
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Framework/GHEP/GHepParticle.cxx#L344
+    https://github.com/GENIE-MC/Generator/blob/R-3_04_00/src/Apps/gNtpConv.cxx#L2387
+
+  No tests were run by this reviewer. All CPU executable validation must
+  use milano or roma Slurm partitions, per the user instruction.

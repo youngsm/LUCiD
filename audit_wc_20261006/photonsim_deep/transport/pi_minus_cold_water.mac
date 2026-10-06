@@ -1,0 +1,8 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/transport/pi_minus_cold_water.root
+/random/setSeeds 314159 271828
+/photon/storeIndividual false
+/gun/clearPrimaries
+/gun/particle pi-
+/gun/energy 1e-06 MeV
+/gun/direction 0 0 1
+/run/beamOn 3000

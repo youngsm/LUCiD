@@ -1,0 +1,301 @@
+Expanded PhotonSim physical audit for SK_WAND DATA mode
+6 October 2026
+
+The expanded audit confirms substantial source-physics errors. The strongest
+new result is wrong stopped-pion capture targets in water: an isolated target
+correction reduces emitted light by 25.0% for 200 MeV pi-. Negative-muon capture
+and lifetime are also wrong, EM nuclear processes are absent, and radiative
+pion capture is missing. An invalid GENIE input can silently become an entire
+sample of default 5 MeV electrons through the actual production runner.
+
+Both particle-bomb/single-particle configurations and GENIE are in scope, as
+explicitly confirmed by the user. This report supplements ../REPORT.txt and
+supersedes its original first-pass priority assessment. Earlier spin, geometry,
+PMT response and truth findings remain relevant. Accepted approximations in
+SCOPE.txt are excluded; prompt capture light is not a neutron-tagging issue.
+
+Provenance and interpretation
+
+LUCiD: 20df3094bd563162d40c6ca34c5ad25e1e1d3656.
+PhotonSim: v1.0.2, 9232a7dae46ae36d9c81dd5f1b4e9f7653803514.
+Exact upstream source: ../photonsim_physics/upstream/.
+Runtime: Geant4 11.3.0, ROOT 6.34.02; this is not the production container's
+ROOT 6.30 build. Physics constructors and source are pinned. The headless main
+removes GUI startup and checks macro status; it is not evidence about the
+original main's ignored macro-error exit status.
+
+All builds, scientific imports, tests, simulations and numerical analysis used
+milano CPU allocations. Zero GPUs. Production code/configurations unchanged.
+Fixes below are isolated prototypes or proposals, explicitly distinguished.
+Source-light comparisons count created Cherenkov photons, not detected PE or
+the aggregate bias of a particular training campaign. Transport instrumentation
+kills optical tracks after counting creation; this changes random consumption,
+so corrected and baseline samples are ensemble comparisons, not identical events.
+
+1. HIGH PRIORITY: stopped pi- captures on the wrong element in water
+
+Cause: G4StoppingPhysics uses G4ElementSelector. Its H:O weights for water are
+2:4.48, assigning 30.86% of stopped pion captures to hydrogen. Source inspection
+traces that selected nucleus unchanged into the capture cascade; no molecular
+transfer corrects it. The measured final hydrogen nuclear-capture fraction in
+water is 0.445 +/- 0.024%, not approximately 31%. This measurement already
+accounts for the Panofsky branching ratio; it is not an initial atomic fraction.
+Reference: https://doi.org/10.1103/PhysRevA.75.034501
+
+Executed observations:
+  3,000 cold pi-: baseline 880 H captures (29.33%); corrected 19 (0.633%).
+  Every baseline H capture made a pi0, creating a large prompt photon shower.
+  Mean photons: 9,435.45 +/- 243.12 -> 1,079.61 +/- 45.99.
+  1,000 pi- at 200 MeV per variant: mean 24,807.81 +/- 601.12 ->
+  18,603.74 +/- 515.18 photons, a 25.0% reduction.
+  Baseline had 162 H captures among 497 stops; corrected had 2 among 502.
+  These are per-injected-pion means, with ordinary in-flight physics retained.
+
+Minimal physical regression, after fixture generation:
+  d = np.genfromtxt('pi_minus_cold_baseline.csv', delimiter=',', names=True)
+  p_H = d['pion_hydrogen'].sum() / d['pion_captures'].sum()
+  assert abs(p_H - 0.00445) < 0.02
+The same assertion fails baseline and passes pi_minus_cold_water.csv. The full
+regression also uses measurement and sampling uncertainties.
+
+Minimal tested target fix: install WaterPionElementSelector.hh after process
+construction, sampling final H with probability 0.00445 and O otherwise while
+preserving isotope selection. Guard BOTH pi- and the actual water material:
+the Bertini stopping process is shared with other negative hadrons. Do not
+silently alter kaon/hyperon capture. This is a measured effective water target
+model, not a microscopic atomic-transfer simulation or a final-state fix.
+
+Files: transport/capture_regression.py, capture_ledger_main.cc,
+WaterPionElementSelector.hh, minimal_water_capture_registration.cc,
+capture_results.json, findings.txt. Build/generate: run_capture.sbatch.
+Runtime variant executed; standalone registration snippet compile-checked.
+
+2. HIGH PRIORITY: negative-muon capture fraction and lifetime are wrong
+
+Cause: the generic selector leaves about 31% of stopped mu- on H, instead of
+representing rapid muonic-H to O transfer in water. Independent water values
+are capture fraction 18.4 +/- 0.1% and disappearance lifetime 1795.4 +/- 2.0 ns.
+Reference: https://arxiv.org/html/2403.08619v2, Sec. III.2/III.4 and Table 12.
+
+10,000 genuinely stopping low-KE mu- per variant:
+                       Baseline                 Water target correction
+  Capture fraction     12.86 +/- 0.335%          18.17 +/- 0.386%
+  Lifetime             1926.5 +/- 19.4 ns        1814.9 +/- 18.1 ns
+  Tracked Michel       86.49%                    81.53% (before 10 us, KE>1 MeV)
+The original capture discrepancy is 15.9 sigma. Independent 200 MeV samples
+also fail baseline/pass the water oracle. A mu+ control agrees with free decay.
+This changes the Michel population and timing as well as capture products.
+The tracked-daughter fraction is not a detector selection efficiency.
+
+Minimal test (test_new_findings.py contains the executable assertion):
+  c = json.load(open('capture_results.json'))
+  assert c['mu_minus_cold_baseline']['passes_water_oracle']  # fails
+  assert c['mu_minus_cold_water']['passes_water_oracle']     # passes
+capture_regression.py calculates the oracle from actual creator-model IDs and
+daughter birth times before the accepted late cut. It conditions on actual
+stops, avoids in-flight decays, and does not mistake the parent's kill clock
+for its physical disappearance time.
+
+Minimal tested fix: attach WaterMuonElementSelector.hh to G4MuonMinusCapture;
+select oxygen for the water material, preserving isotopes. This approximates
+fast transfer at the final-target level. It corrects the tested rate/lifetime,
+not microscopic cascade details or the entire bound-decay spectrum.
+
+Residual limit: pinned G4MuonMinusBoundDecay samples a free Michel energy law,
+adds a bound-energy-dependent random boost and subtracts binding energy, with
+isotropic directions. It lacks the oxygen-specific Coulomb/finite-size/recoil
+and spin-asymmetry kernels used in the SK reference. It can already emit above
+the free endpoint; a strict 52.8 MeV cutoff claim would be false. No independent
+spectral/PE bias is quantified here, so this remains an unvalidated model
+approximation, not another measured large-error finding. The water selector
+and earlier positive-muon spin prototype do not establish this response.
+
+3. HIGH PRIORITY INPUT FAILURE: bad GENIE source becomes 5 MeV electrons
+
+Cause: PrimaryGeneratorAction::SetGenieInput resets the reader after Open
+fails, then GeneratePrimaries falls through to its default electron gun.
+The existing-file guard in run_job does not prevent an invalid ROOT tree.
+
+Minimal fixture and macro:
+  with uproot.recreate('wrong_tree.gtrac.root') as f:
+      f['unrelated_tree'] = {'x': np.array([1], dtype=np.int32)}
+  /gun/clearPrimaries
+  /gun/genieInput /absolute/path/to/wrong_tree.gtrac.root
+GeneratePrimaries then injects an unrequested PDG 11 particle with KE 5 MeV.
+
+Executed through the real production runner with --skip-genie --skip-lucid,
+SK_WAND detector, a GENIE configuration, and real PhotonSim transport:
+runner exit 0; two persisted 5 MeV electron events; 1,021 and 1,160 photons;
+RooTrackerEntryID=-1 and IncomingNuPdg=0. Reproduced both with and without the
+cached count marker. Optical digitization was deliberately skipped; the
+requested neutrino physics is already replaced in the produced ROOT file.
+This is a conditional input-integrity catastrophe, not an observed failure
+frequency for the user's valid GENIE files.
+
+Minimal proposed fix:
+  if (!fGenieReader->Open(path))
+      G4Exception("PrimaryGeneratorAction::SetGenieInput", "BadGenieInput",
+                  FatalException, "Cannot load requested rooTracker input");
+Validate required branch binding before reporting Open success as well.
+Do not allow an explicitly requested bad source to activate another source.
+The fatal-exception patch is proposed, not applied/compiled.
+
+Reproducer: primaries/repro_run_job_wrong_tree.py;
+launch: primaries/run_production_validation.sbatch;
+evidence: primaries/production_wrong_tree_results.json and REPORT.txt.
+
+4. MISSING PHYSICS: EM nuclear interactions
+
+PhysicsList.cc registers EM option 4 and hadronic constructors but omits
+G4EmExtraPhysics. Actual process inspection finds gamma nuclear=NULL and no
+electronNuclear/positronNuclear/muonNuclear. These channels are part of the
+complete reference physics list; their absence is not a neutron-tagging cut.
+Reference: Geant4 QGSP_BERT Physics List Guide, and pinned constructors under
+transport/reference/. The complete-list comparison diagnoses process absence;
+it does not independently calibrate every restored cross section.
+
+Executed 2,000 gamma events at 25 MeV per variant:
+baseline 0 nuclear events; added constructor 75 (3.75%). Mean light falls
+5,287.46 -> 5,109.70 photons (-3.36%, 7.81 sigma), restoring a low-light tail.
+At 2 GeV, 400 events each: 30.75% of gamma showers and 28.25% of electron
+showers contain photonuclear interactions with the constructor. Mean light
+changes -0.771% and -0.775%. These are interactions anywhere in the shower,
+not primary photon interaction probabilities. A 2 GeV mu+ sample shows no
+significant bulk light difference; do not claim a large universal yield loss.
+
+Minimal test: inspect the actual gamma process and demand a non-null nuclear
+process; transport/test_new_findings.py checks baseline/fixed process dumps
+and the generated 25 MeV physical tail. Reproduce via run_transport.sbatch.
+Minimal two-line fix, executed in the isolated variant:
+  #include "G4EmExtraPhysics.hh"
+  RegisterPhysics(new G4EmExtraPhysics(0));
+Patch: transport/minimal_em_extra_fix.diff; data: em_results.json.
+
+5. MISSING PHYSICS: radiative pion capture remains absent after target fixes
+
+Hydrogen: the pinned cascade table has no gamma+n final state. All 880 baseline
+H captures produced pi0+n. Physical radiative capture has a substantial branch;
+the Panofsky ratio approximately 1.546 implies about 39.3% radiative-family
+versus 60.7% charge-exchange branching. After the water target correction, H is
+rare, so the remaining H omission is about 0.175% of all water pion stops.
+
+Oxygen: zero direct capture gammas above 10 MeV among 2,981 corrected O stops.
+Measured hard radiative lines alone have branches 0.15 +/- 0.03% at 128.10 MeV
+and 0.25 +/- 0.06% near 117-121 MeV, before the additional continuum. Their
+central expectation is about 12 such gammas in this sample. The reported
+2.24 +/- 0.48% total branch includes extrapolation below 50 MeV; it is not a
+measured above-50-MeV rate. Shared normalization uncertainty must be retained.
+Reference: Bistirlich et al., Phys. Rev. C 5, 1867 (1972), printed p. 24:
+https://escholarship.org/content/qt5835t658/qt5835t658.pdf
+
+Minimal witness: count direct gamma daughters above 10 MeV in the preserved
+cold pion capture ledger; transport/test_radiative_oracle.py tests the physical
+omission. The exact H channel table provides independent source confirmation.
+
+Minimal adequate fix proposal: a dedicated pi- stopping interaction can sample
+the measured H branching and use energy-conserving two-body gamma+n/pi0+n
+kinematics. Preserve shared kaon/hyperon processes. Oxygen needs a measured
+radiative line/continuum spectrum and consistent recoiling excited residual
+nucleus, not an extra gamma on top of an unchanged cascade. The small internal-
+conversion branch also prevents treating the entire radiative family as exactly
+one real photon. No radiative final-state fix was implemented or validated.
+
+6. Lower-impact findings and retained earlier defects
+
+* GENIE dynamic ions: FindParticle alone can return null for a supported
+  status-1 nuclear PDG, silently dropping that primary. A fixture loses O16
+  KE 1.3426646 MeV; GetIon(1000080160) materializes it and restores injection.
+  Resolve supported ion PDGs through G4IonTable and reject unknown required
+  primaries with entry/PDG context. The example ion is below Cherenkov threshold;
+  no large detector-light impact or campaign incidence is established. Standard
+  GENIE oxygen-deexcitation gammas have status 1 and survive this reader; the
+  status-15 remnant must not simply be relabeled as a missing final-state ion.
+  Sources/reproducer/fix: primaries/REPORT.txt, prepare.py, primary_probe.cc.
+
+* Near-threshold Cerenkov discretization: unchanged-source 10,000-electron
+  samples at 0.3 MeV produce 8,891 photons with the default maximum beta change
+  and 9,767 at 0.1%. Dense-index independent controls show convergence at 0.1%
+  versus 0.01%; default expected yield is 9.45% low, but the absolute difference
+  is only about 0.093 photons per electron. No large normal-event bias shown.
+  Minimal macro mitigation: /process/optical/cerenkov/setMaxBetaChange 0.1
+  Values are percent; check convergence/performance for the intended energies.
+  Minimal unchanged-source test: cherenkov/run_minimal.sbatch and min_*.mac.
+
+* Sparse RINDEX quadrature gives a false threshold gap and negative G4 emission
+  means immediately above threshold. Analytic integration of the existing
+  piecewise-linear n(E) proves it: integral dE/n^2 = deltaE/(n_a*n_b).
+  Densifying the same material curve mitigates it. Whole-track light error is
+  only 0.0843% for 0.3 MeV electrons and about 0.0009% for 10 MeV e-/1 GeV mu-.
+  Test: cherenkov/mean_yield.cc and run_mean.sbatch; full findings.txt there.
+
+* Photon step truth: exact creation tags find 1,206 wrong emitting-step indices
+  among 766,427 photons. The isolated step-tag fix reduces this to zero while
+  photon coordinates, directions, wavelengths and times remain bitwise equal.
+  Minimal count test and executed patch: emission/findings.md,
+  step_tag_prototype.diff, analyze_step_tag.py, run_step_tag.sbatch.
+
+* Earlier missing pion/muon spin correlations, float32 reflected-PMT self-hits,
+  uncalibrated high-charge PMT compression, and diagnostic scat10x iteration
+  truncation remain in ../REPORT.txt, each with a reproducer and minimal fix.
+  The high-charge response and absolute QE/collection-efficiency convention
+  need calibration data; arbitrary scaling is not an established correction.
+
+Coverage that passed, and what it establishes
+
+* Primary generation: 20,000 actual-config bomb events, 59,806 primaries;
+  multiplicity, species, KE bounds, directions, common vertex/time and energy
+  sums checked. Repeated seeds reproduce; altered seed changes events.
+* GENIE: 20,000 injected correlated fixtures preserve all final-state momenta,
+  pairwise angles/chirality, entry order, GeV-to-MeV conversion and kinetic
+  energies under the common random rotation. This is not a test of GENIE's
+  neutrino cross sections or nuclear model.
+* Emission/storage: 4,262,268 records (2,131,134 distinct histories executed in
+  two storage modes) preserve creation counts/positions/directions/wavelengths,
+  with maximum time rewind error 1.819e-12 ns. No lost or duplicate photons.
+  Streaming/buffering agree bitwise; exact production bombs cross many chunks;
+  zero-light events and ancestor registration pass. G4 optical absorption on
+  the throwaway first step does not thin the saved source a second time.
+* Material/emission oracles: ten water-index knots match their stated physical
+  dispersion model; conditional emission spectra, angle and time checks pass
+  within the stated model. Near-threshold numerical limits are listed above.
+* Charged transport: muon mean ranges at 200/400/1000/2000 MeV agree with PDG
+  water CSDA within 0.65%. Actual process lists and selected p/K/n samples were
+  inspected; this does not validate all differential hadronic final states.
+* Pion replacement: 5,600 A/B events, all 2,645 replacements resumed, exact
+  endpoint position/time, one terminal chain outcome. Production light changes
+  are within 1.44 sigma, but confidence widths are 6-12 percentage points;
+  no percent-level equivalence claim. Source state review found no lifetime
+  reset/lost-secondary mechanism. See pion_replacement/findings.txt.
+* Boundary census: ten actual bomb showers at 17 placements have zero returning
+  full-tank-crossing ancestry among 90,420,856 inside-ID prompt photons. These
+  are 170 placements of ten showers, not 170 independent showers. Crossing the
+  ID into outer-detector water is not a bug. No explicit steel/concrete/rock
+  transport variant was built, so new secondaries from those materials remain
+  unvalidated. See boundary/findings.txt.
+
+The audit establishes the failures above and bounds the tested cases. It cannot
+certify 100% agreement with a real detector. Remaining physical limits include
+absolute QE/collection efficiency, calibrated angular/reflection/bright-pulse
+response, bound-muon spectra/spin, nuclear differential final states, exterior
+materials and untested energies/mixtures. These are explicit gaps, not passing
+tests inferred from docstrings or from Geant4 being a standard package.
+
+Reproduction and artifacts
+
+Run sbatch scripts from the repository as documented by each lane; all scripts
+request milano. Python/C++ commands in this report must only be run within an
+allowed milano/roma CPU allocation. No tests on the login node. Dependencies
+and exact CVMFS/Apptainer paths are retained in the scripts, so these files are
+reproducible in this workspace but do not bundle a portable Geant4 installation.
+
+Key completed jobs:
+transport 39971259; capture 39971585; final physical checks 39972145;
+primary generation 39971299; production GENIE invalid-input 39972545;
+emission 39971140/39971237/39971301; exact step fix 39971599;
+pion replacement 39971593; boundary census 39971218;
+Cerenkov 39971297/39971407/39971598/39971973/39972343/39972392.
+
+An assertion testing physical correctness may intentionally fail on baseline;
+comparison drivers instead assert baseline failure and isolated-fix success.
+Raw logs, CSV/ROOT fixtures, sources, macros, JSON results, minimal corrections
+and primary-reference provenance are retained in the six lane directories.

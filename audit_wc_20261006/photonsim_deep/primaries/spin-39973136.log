@@ -1,0 +1,16 @@
+{
+  "events": 256,
+  "muon_primaries": 256,
+  "baseline_muon_spin_norm_min_max": [
+    0.0,
+    0.0
+  ],
+  "repaired_muon_spin_norm_min_max": [
+    0.9999999999999999,
+    1.0000000000000007
+  ],
+  "max_repaired_helicity_error": 6.661338147750939e-16,
+  "same_momenta_before_after": true,
+  "nonrandom_direction_preserved": true,
+  "missing_optional_branch_keeps_zero_spin": true
+}

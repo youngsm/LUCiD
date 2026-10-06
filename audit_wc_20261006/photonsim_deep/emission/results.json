@@ -1,0 +1,1240 @@
+{
+  "slurm_job": "39971301",
+  "partition": "milano",
+  "chunking_AB_bitwise_equal": true,
+  "total_photons_checked": 4262268,
+  "scenarios": [
+    {
+      "scenario": "electron_stream",
+      "n_events": 3,
+      "photons": 65423,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.1368683772161603e-13,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 22420,
+          "recorded": 22420,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1246559239452836e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 22420
+          },
+          "creator_processes": {
+            "Cerenkov": 22420
+          }
+        },
+        {
+          "event": 1,
+          "created": 21140,
+          "recorded": 21140,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.127986593019159e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 21140
+          },
+          "creator_processes": {
+            "Cerenkov": 21140
+          }
+        },
+        {
+          "event": 2,
+          "created": 21863,
+          "recorded": 21863,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1368683772161603e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 21863
+          },
+          "creator_processes": {
+            "Cerenkov": 21863
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "electron_buffer",
+      "n_events": 3,
+      "photons": 65423,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.1368683772161603e-13,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 22420,
+          "recorded": 22420,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1246559239452836e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 22420
+          },
+          "creator_processes": {
+            "Cerenkov": 22420
+          }
+        },
+        {
+          "event": 1,
+          "created": 21140,
+          "recorded": 21140,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.127986593019159e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 21140
+          },
+          "creator_processes": {
+            "Cerenkov": 21140
+          }
+        },
+        {
+          "event": 2,
+          "created": 21863,
+          "recorded": 21863,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1368683772161603e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 21863
+          },
+          "creator_processes": {
+            "Cerenkov": 21863
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "muon_stream",
+      "n_events": 2,
+      "photons": 432577,
+      "raw_chunks": 6,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.8189894035458565e-12,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 215387,
+          "recorded": 215387,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1368683772161603e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 215387
+          },
+          "creator_processes": {
+            "Cerenkov": 215387
+          }
+        },
+        {
+          "event": 1,
+          "created": 217190,
+          "recorded": 217190,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.8189894035458565e-12,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 217190
+          },
+          "creator_processes": {
+            "Cerenkov": 217190
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "muon_buffer",
+      "n_events": 2,
+      "photons": 432577,
+      "raw_chunks": 2,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.8189894035458565e-12,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 215387,
+          "recorded": 215387,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1368683772161603e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 215387
+          },
+          "creator_processes": {
+            "Cerenkov": 215387
+          }
+        },
+        {
+          "event": 1,
+          "created": 217190,
+          "recorded": 217190,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.8189894035458565e-12,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 217190
+          },
+          "creator_processes": {
+            "Cerenkov": 217190
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "pion_stream",
+      "n_events": 3,
+      "photons": 267967,
+      "raw_chunks": 4,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.547473508864641e-13,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 17,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 83983,
+          "recorded": 83983,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1146639167236572e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 83983
+          },
+          "creator_processes": {
+            "Cerenkov": 83983
+          }
+        },
+        {
+          "event": 1,
+          "created": 105666,
+          "recorded": 105666,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4.547473508864641e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 105666
+          },
+          "creator_processes": {
+            "Cerenkov": 105666
+          }
+        },
+        {
+          "event": 2,
+          "created": 78318,
+          "recorded": 78318,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2.2737367544323206e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 78318
+          },
+          "creator_processes": {
+            "Cerenkov": 78318
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "pion_buffer",
+      "n_events": 3,
+      "photons": 267967,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.547473508864641e-13,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 17,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 83983,
+          "recorded": 83983,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1146639167236572e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 83983
+          },
+          "creator_processes": {
+            "Cerenkov": 83983
+          }
+        },
+        {
+          "event": 1,
+          "created": 105666,
+          "recorded": 105666,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4.547473508864641e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 105666
+          },
+          "creator_processes": {
+            "Cerenkov": 105666
+          }
+        },
+        {
+          "event": 2,
+          "created": 78318,
+          "recorded": 78318,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2.2737367544323206e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 78318
+          },
+          "creator_processes": {
+            "Cerenkov": 78318
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "positron_stream",
+      "n_events": 3,
+      "photons": 923,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        8.391117661821212e-14,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 190,
+          "recorded": 190,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4.6629367034256575e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 190
+          },
+          "creator_processes": {
+            "Cerenkov": 190
+          }
+        },
+        {
+          "event": 1,
+          "created": 369,
+          "recorded": 369,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            6.085063009031444e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 369
+          },
+          "creator_processes": {
+            "Cerenkov": 369
+          }
+        },
+        {
+          "event": 2,
+          "created": 364,
+          "recorded": 364,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            8.391117661821212e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 364
+          },
+          "creator_processes": {
+            "Cerenkov": 364
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "positron_buffer",
+      "n_events": 3,
+      "photons": 923,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        8.391117661821212e-14,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 190,
+          "recorded": 190,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4.6629367034256575e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 190
+          },
+          "creator_processes": {
+            "Cerenkov": 190
+          }
+        },
+        {
+          "event": 1,
+          "created": 369,
+          "recorded": 369,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            6.085063009031444e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 369
+          },
+          "creator_processes": {
+            "Cerenkov": 369
+          }
+        },
+        {
+          "event": 2,
+          "created": 364,
+          "recorded": 364,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            8.391117661821212e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 364
+          },
+          "creator_processes": {
+            "Cerenkov": 364
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "gamma_stream",
+      "n_events": 3,
+      "photons": 460,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        5.684341886080802e-14,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 144,
+          "recorded": 144,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5.639932965095795e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 144
+          },
+          "creator_processes": {
+            "Cerenkov": 144
+          }
+        },
+        {
+          "event": 1,
+          "created": 199,
+          "recorded": 199,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5.0182080713057076e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 199
+          },
+          "creator_processes": {
+            "Cerenkov": 199
+          }
+        },
+        {
+          "event": 2,
+          "created": 117,
+          "recorded": 117,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5.684341886080802e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 117
+          },
+          "creator_processes": {
+            "Cerenkov": 117
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "gamma_buffer",
+      "n_events": 3,
+      "photons": 460,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        5.684341886080802e-14,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 144,
+          "recorded": 144,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5.639932965095795e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 144
+          },
+          "creator_processes": {
+            "Cerenkov": 144
+          }
+        },
+        {
+          "event": 1,
+          "created": 199,
+          "recorded": 199,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5.0182080713057076e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 199
+          },
+          "creator_processes": {
+            "Cerenkov": 199
+          }
+        },
+        {
+          "event": 2,
+          "created": 117,
+          "recorded": 117,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5.684341886080802e-14,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 117
+          },
+          "creator_processes": {
+            "Cerenkov": 117
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "dark_stream",
+      "n_events": 2,
+      "photons": 0,
+      "raw_chunks": 0,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 0,
+          "recorded": 0,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {},
+          "creator_processes": {}
+        },
+        {
+          "event": 1,
+          "created": 0,
+          "recorded": 0,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {},
+          "creator_processes": {}
+        }
+      ]
+    },
+    {
+      "scenario": "dark_buffer",
+      "n_events": 2,
+      "photons": 0,
+      "raw_chunks": 0,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 0,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 0,
+          "recorded": 0,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {},
+          "creator_processes": {}
+        },
+        {
+          "event": 1,
+          "created": 0,
+          "recorded": 0,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {},
+          "creator_processes": {}
+        }
+      ]
+    },
+    {
+      "scenario": "bomb_stream",
+      "n_events": 3,
+      "photons": 1363784,
+      "raw_chunks": 15,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.6342482922482304e-13,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 3,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 62451,
+          "recorded": 62451,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1324274851176597e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 62451
+          },
+          "creator_processes": {
+            "Cerenkov": 62451
+          }
+        },
+        {
+          "event": 1,
+          "created": 1072761,
+          "recorded": 1072761,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.6342482922482304e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 1072761
+          },
+          "creator_processes": {
+            "Cerenkov": 1072761
+          }
+        },
+        {
+          "event": 2,
+          "created": 228572,
+          "recorded": 228572,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1368683772161603e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 228572
+          },
+          "creator_processes": {
+            "Cerenkov": 228572
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "bomb_buffer",
+      "n_events": 3,
+      "photons": 1363784,
+      "raw_chunks": 3,
+      "creation_to_first_step_max_delta": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.6342482922482304e-13,
+        0.0
+      ],
+      "root_exactly_equals_float32_record_payload": true,
+      "root_reader_units_verified": true,
+      "all_emitting_parents_registered": true,
+      "all_track_ancestry_edges_registered": true,
+      "assigned_segment_parent_matches_actual_parent": true,
+      "deflection_children_checked": 3,
+      "event_observers": [
+        {
+          "event": 0,
+          "created": 62451,
+          "recorded": 62451,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1324274851176597e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 62451
+          },
+          "creator_processes": {
+            "Cerenkov": 62451
+          }
+        },
+        {
+          "event": 1,
+          "created": 1072761,
+          "recorded": 1072761,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.6342482922482304e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 1072761
+          },
+          "creator_processes": {
+            "Cerenkov": 1072761
+          }
+        },
+        {
+          "event": 2,
+          "created": 228572,
+          "recorded": 228572,
+          "unrecorded": 0,
+          "duplicate_classifications": 0,
+          "max_creation_vs_record_delta": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.1368683772161603e-13,
+            0
+          ],
+          "max_polarization_change": 0,
+          "first_step_processes": {
+            "OpAbsorption": 228572
+          },
+          "creator_processes": {
+            "Cerenkov": 228572
+          }
+        }
+      ]
+    }
+  ]
+}

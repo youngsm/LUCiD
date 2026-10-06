@@ -1,0 +1,9 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_deep/pion_replacement/on_211_2000.root
+/run/initialize
+/random/setSeeds 516231 272391
+/photon/storeIndividual false
+/gun/clearPrimaries
+/gun/addPrimary pi+ 2000 MeV
+/gun/position 0 0 0 m
+/gun/direction 0 0 1
+/run/beamOn 300

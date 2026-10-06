@@ -1,0 +1,77 @@
+Production integrity audit, HEAD 20df3094bd563162d40c6ca34c5ad25e1e1d3656
+
+Result: no new high-impact SK_WAND single-vertex GeV physics corruption found
+in configuration forwarding, event frame transforms, seed routing, ancestry /
+containment bookkeeping, or sparse output writers. This is bounded evidence,
+not proof of complete physical accuracy.
+
+Executed on Slurm job 39967641, partition milano, sdfmilan271, 2 CPUs, 8 GB,
+elapsed 9 s, exit 0. No GPU used. Log: job-39967641.log.
+
+Independent checks in check_production.py:
+- Calls the real run_job._run_lucid with the real GeV/01_pbomb.json and
+  SK_WAND physics JSON; intercepts the expensive simulator and event generator
+  to verify actual forwarding. Confirms is_data=True, temperature=0, K=12,
+  hit_mode=per_segment, deposit_leg_bound=True, charge_resolution=None,
+  digitizer ski, trigger threshold25, translation+smearing on, rotation off,
+  no min_physics_hits selection override. This is wiring validation, not a
+  complete optical simulation.
+- Builds independent muon->decay-electron and pi0->gamma->conversion-electron
+  ancestry, then runs real categorization, ancestry, containment and writers.
+  Correct root ancestors and particle ownership; an escaping decay electron
+  correctly makes its particle/interaction/event uncontained.
+- Production sparse writers preserve repeated sensors, PMT11095, PE and
+  exact negative/zero/positive times. Segment mm->m conversion and parent /
+  track relationships survive output. Checks run after HEAD's memory cleanup.
+- Eight (job,event,interaction) combinations generate eight distinct sim
+  keys; subprocess seeds differ across jobs.
+- 30000 fiducial cylinder vertices: mean(r^2/Rfid^2)=0.5013051 (uniform-volume
+  expectation0.5), mean(z^2/Zfid^2)=0.3328307 (expectation1/3). All in bounds.
+
+Code inspection accompanying the probes:
+- Single-vertex generation adds the same float64 t0 exactly once to digit,
+  hit, segment-hit and segment times before triggering; sparse writers add
+  no further shift or QE / charge / threshold operation.
+- Pileup applies each vertex t0 to deposits before common digitization and
+  uses cumulative particle/segment offsets consistently.
+- SK has11096 sensors, safely below sparse writer uint16 sensor-index limit.
+- GeV train/test fanout seeds use disjoint10M/20M bases and job folding.
+- run_job GENIE comments still describe per-primary events, but actual
+  run_genie._count_rootracker_entries returns tree.num_entries, correctly
+  supplying one G4 event per GENIE interaction. Rejected stale-comment lead.
+- Solar/01 embeds HK + hk digitizer. Both fanout and run_job prioritize the
+  embedded detector over -D. Therefore -D SK_WAND does not make a mixed
+  SK/HK response; the supplied Solar config remains an HK dataset. GeV
+  configs inherit SK_WAND's ski digitizer and threshold25 as intended.
+
+Supplemental confirmed bug: pileup loses segment group_id (lower impact,
+outside the supplied single-vertex SK_WAND GeV production path).
+
+Location: lucid/sources/event_generation.py:1233,1271,1300 omits group_id from
+the merged segment payload. lucid/sources/writer.py:672 falls back to arange
+when it is absent. Thus two input streams with group_id[0,0] each become
+persisted[0,1,2,3], rather than[0,0,1,1]. This silently changes downstream
+coarse-segment grouping and any labels/counts derived from those groups.
+It does not change photon tracing, sensor charge, timing or raw segment rows.
+The supplied Test/01_pile_up_bombs.json defaults to HK, further limiting
+relevance to the user's current SK_WAND target. Do not present this as a
+large photon-yield bug.
+
+Minimal executed reproducer: repro_pileup_group_ids.py, included by
+check_production.py. The diagnostic asserts the mismatch to prove current
+behavior; after fixing, make that assertion equality for a regression test.
+
+Minimal suggested fix (not applied): preserve group_id while merging, adding
+a cumulative number-of-groups offset per stream so group IDs remain unique:
+
+    group_chunks, group_offset = [], 0
+    # Inside the existing n_seg_v > 0 branch:
+    gid = np.asarray(segs['group_id'], dtype=np.int32)
+    group_chunks.append(gid + group_offset)
+    group_offset += int(gid.max()) + 1
+    # After constructing nonempty seg_merged:
+    seg_merged['group_id'] = np.concatenate(group_chunks)
+
+For legacy streams without group_id, use np.arange(n_seg_v) as an explicit
+fallback before applying the same offset. Keep photon segment_idx offsets
+unchanged; they refer to raw rows, not coarse groups.

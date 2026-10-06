@@ -1,0 +1,16 @@
+{
+  "name": "audit GENIE input validation",
+  "material": "water",
+  "primary_source": "genie",
+  "genie": {
+    "probe_pdg": 14,
+    "energy_min_GeV": 0.9,
+    "energy_max_GeV": 1.1,
+    "target": "water",
+    "tune": "G18_10a_02_11b",
+    "direction": "isotropic"
+  },
+  "store_individual_photons": true,
+  "disable_decays": false,
+  "cleanup_root_files": false
+}

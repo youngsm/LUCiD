@@ -1,0 +1,8 @@
+--- a/src/PhysicsList.cc
++++ b/src/PhysicsList.cc
+@@
+ #include "G4EmStandardPhysics_option4.hh"
++#include "G4EmExtraPhysics.hh"
+@@
+   RegisterPhysics(new G4EmStandardPhysics_option4(0));
++  RegisterPhysics(new G4EmExtraPhysics(0));

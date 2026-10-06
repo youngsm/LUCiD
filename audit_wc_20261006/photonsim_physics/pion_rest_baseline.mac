@@ -1,0 +1,9 @@
+/output/filename /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/photonsim_physics/pion_rest_baseline.root
+/run/initialize
+/random/setSeeds 314159 271828
+/photon/storeIndividual true
+/process/inactivate Cerenkov
+/gun/particle pi+
+/gun/energy 0.000001 MeV
+/gun/direction 0 0 1
+/run/beamOn 2000

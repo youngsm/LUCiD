@@ -1,0 +1,52 @@
+{
+  "partition": "milano",
+  "job": "39967640",
+  "source": [
+    16.45867347717285,
+    -0.3445759117603302,
+    -0.0
+  ],
+  "target_sensor": 4105,
+  "surface_distance_m": 0.24600078165531158,
+  "maximum_valid_hits_per_photon": 1,
+  "finite_detected_rows": 13017,
+  "positive_nonfinite_ghost_rows": 6,
+  "records": [
+    {
+      "wavelength_nm": 325.0,
+      "photons": 16384,
+      "direct_detected": 1599,
+      "expected_probability": 0.09699687361717224,
+      "rate": 0.09759521484375,
+      "z": 0.25878279660398273,
+      "block_variance_ratio": 0.9733527447317786
+    },
+    {
+      "wavelength_nm": 350.0,
+      "photons": 16384,
+      "direct_detected": 3166,
+      "expected_probability": 0.1977284997701645,
+      "rate": 0.1932373046875,
+      "z": -1.443366334552335,
+      "block_variance_ratio": 0.8755173359828547
+    },
+    {
+      "wavelength_nm": 400.0,
+      "photons": 16384,
+      "direct_detected": 3719,
+      "expected_probability": 0.225729838013649,
+      "rate": 0.22698974609375,
+      "z": 0.38575190926558817,
+      "block_variance_ratio": 0.9508472723490251
+    },
+    {
+      "wavelength_nm": 500.0,
+      "photons": 16384,
+      "direct_detected": 2184,
+      "expected_probability": 0.13128599524497986,
+      "rate": 0.13330078125,
+      "z": 0.7636445969358938,
+      "block_variance_ratio": 0.9791246275027271
+    }
+  ]
+}

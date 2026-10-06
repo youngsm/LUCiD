@@ -1,0 +1,22 @@
+--- a/PhotonSim/src/PhysicsList.cc
++++ b/PhotonSim/src/PhysicsList.cc
+@@
+ #include "G4DecayPhysics.hh"
++#include "G4SpinDecayPhysics.hh"
+@@
+   RegisterPhysics(new G4DecayPhysics(0));
++  RegisterPhysics(new G4SpinDecayPhysics(0));
+
+--- a/LUCID/lucid/sources/particle_categorization.py
++++ b/LUCID/lucid/sources/particle_categorization.py
+@@
+-DECAY_PROCESSES = ("Decay", "muMinusCaptureAtRest")
++DECAY_PROCESSES = ("Decay", "DecayWithSpin", "muMinusCaptureAtRest")
+
+The physics constructor-only change was executed as PhotonSim_spin.
+For stopped positive muons in water also use the once-per-stop stochastic
+retention block in SteppingAction_spin_water.cc:82-92. It was executed as
+PhotonSim_spin_water. Do not scale the spin-vector magnitude: the Geant4
+11.3 spin-decay channel expects a unit rotation axis.
+The LUCiD categorization tuple change above is a necessary integration
+suggestion; production files were not edited.

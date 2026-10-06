@@ -1,0 +1,39 @@
+{
+  "job": "39970669",
+  "partition": "milano",
+  "response": [
+    {
+      "true_pe": 30,
+      "mean_digit_pe": 30.007075722430546,
+      "mean_response_per_pe": 1.0002358574143515,
+      "standard_error_per_pe": 0.0002506588466362911,
+      "relative_to_30pe": 1.0
+    },
+    {
+      "true_pe": 200,
+      "mean_digit_pe": 200.04463887349448,
+      "mean_response_per_pe": 1.0002231943674724,
+      "standard_error_per_pe": 9.733224393855822e-05,
+      "relative_to_30pe": 0.9999873399390902
+    },
+    {
+      "true_pe": 1190,
+      "mean_digit_pe": 1190.3914722440593,
+      "mean_response_per_pe": 1.0003289682723187,
+      "standard_error_per_pe": 3.9904282937351895e-05,
+      "relative_to_30pe": 1.0000930889022595
+    },
+    {
+      "true_pe": 5000,
+      "mean_digit_pe": 5001.795671124674,
+      "mean_response_per_pe": 1.000359134224935,
+      "standard_error_per_pe": 1.9473982818641654e-05,
+      "relative_to_30pe": 1.0001232477416897
+    }
+  ],
+  "full_digitizer_1190pe_flash": {
+    "true_pe": 1189.998779296875,
+    "recorded_pe": 1207.0382080078125
+  }
+}
+PASS current SK_WAND remains linear at1190PE and5000PE; no calibrated compression applied

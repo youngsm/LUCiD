@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "host": "sdfmilan271",
+    "partition": "milano",
+    "job_id": "39970012",
+    "jax": "0.4.38",
+    "backend": "cpu",
+    "samples": 262144
+  },
+  "checks": [
+    {
+      "name": "surface_probability",
+      "observed": 0.3444175720214844,
+      "expected": 0.34415378686541237,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "deposit_and_survive",
+      "observed": 0.15604400634765625,
+      "expected": 0.15655486754255968,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "reflection_and_survive",
+      "observed": 0.05290985107421875,
+      "expected": 0.05218495584751989,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "scatter_and_survive",
+      "observed": 0.5380973815917969,
+      "expected": 0.5387303330110096,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "continuation_probability",
+      "observed": 0.5910072326660156,
+      "expected": 0.5909152888585295,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "conditional_scatter_distance",
+      "observed": 8.244782447814941,
+      "expected": 8.255046153410118,
+      "tolerance": 0.06,
+      "passed": true
+    },
+    {
+      "name": "mixed_scatter_mean_cos",
+      "observed": 0.3544805943965912,
+      "expected": 0.35625,
+      "tolerance": 0.007,
+      "passed": true
+    },
+    {
+      "name": "mixed_scatter_second_moment",
+      "observed": 0.6006199717521667,
+      "expected": 0.600625,
+      "tolerance": 0.007,
+      "passed": true
+    },
+    {
+      "name": "surviving_scatter_mean_cos",
+      "observed": 0.3553435206413269,
+      "expected": 0.35625,
+      "tolerance": 0.008,
+      "passed": true
+    },
+    {
+      "name": "absorbed_scatter_mean_cos",
+      "observed": 0.35052791237831116,
+      "expected": 0.35625,
+      "tolerance": 0.012,
+      "passed": true
+    },
+    {
+      "name": "flight_time_distance",
+      "observed": 3.814697265625e-06,
+      "expected": 0.0,
+      "tolerance": 2e-05,
+      "passed": true
+    },
+    {
+      "name": "rayleigh_inverse_cdf_max_error",
+      "observed": 2.523884177207947e-07,
+      "expected": 0.0,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "name": "rayleigh_z_mean_cos",
+      "observed": -0.00033283591619692743,
+      "expected": 0.0,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "rayleigh_z_second_moment",
+      "observed": 0.399789959192276,
+      "expected": 0.4,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "mie_z_mean_cos",
+      "observed": 0.9499698877334595,
+      "expected": 0.95,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "lambertian_z_mean_cos",
+      "observed": 0.6668256521224976,
+      "expected": 0.6666666666666666,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "lambertian_z_second_moment",
+      "observed": 0.5001542568206787,
+      "expected": 0.5,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "lambertian_z_wrong_hemisphere",
+      "observed": 0.0,
+      "expected": 0.0,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "name": "rayleigh_oblique_mean_cos",
+      "observed": -0.00033283577067777514,
+      "expected": 0.0,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "rayleigh_oblique_second_moment",
+      "observed": 0.3997899889945984,
+      "expected": 0.4,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "mie_oblique_mean_cos",
+      "observed": 0.9499698877334595,
+      "expected": 0.95,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "lambertian_oblique_mean_cos",
+      "observed": 0.6668256521224976,
+      "expected": 0.6666666666666666,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "lambertian_oblique_second_moment",
+      "observed": 0.5001543164253235,
+      "expected": 0.5,
+      "tolerance": 0.004,
+      "passed": true
+    },
+    {
+      "name": "lambertian_oblique_wrong_hemisphere",
+      "observed": 0.0,
+      "expected": 0.0,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "name": "SK_400nm_absorption_length_m",
+      "observed": 400.421630859375,
+      "expected": 400.4217103551242,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "name": "SK_400nm_symmetric_length_m",
+      "observed": 175.66281127929688,
+      "expected": 175.66280974722739,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "name": "SK_400nm_asymmetric_length_m",
+      "observed": 9885.8193359375,
+      "expected": 9885.818792941525,
+      "tolerance": 0.01,
+      "passed": true
+    }
+  ],
+  "model_difference": {
+    "SK_asymmetric_mean_cos": 0.6666666666666666,
+    "LUCiD_HG_mean_cos": 0.9499999284744263,
+    "SK_backward_probability": 0.0,
+    "LUCiD_HG_backward_probability": 0.01088714599609375,
+    "source": "https://arxiv.org/pdf/1307.0162 p.31"
+  }
+}

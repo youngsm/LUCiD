@@ -1,0 +1,48 @@
+LUCiD SK_WAND audit package: third-party source acknowledgments
+=============================================================
+
+This product includes software developed by Members of the Geant4
+Collaboration ( http://cern.ch/geant4 ).
+
+Geant4 reference sources and Geant4-derived source retain their original
+copyright and license headers. The complete Geant4 Software License is
+included alongside this notice as Geant4-LICENSE-11.3.0.txt.
+Source: https://raw.githubusercontent.com/Geant4/geant4/v11.3.0/LICENSE
+Retrieved: 2026-10-06
+SHA256: e2e3b456d6f939a98438eb22c6b7ac6ad4306321010493ac6e014980dfca567f
+
+Instrumented/generated PhotonSim source copies and proposed corrections in
+this package are audit variants prepared for the 2026-10-06 review. Their
+purpose is described in REPORT.md, lane notes, and accompanying scripts and
+patches. They are not official Geant4 releases and imply no endorsement by
+Geant4. The preserved PhotonSim baseline is v1.0.2, commit
+9232a7dae46ae36d9c81dd5f1b4e9f7653803514, from
+https://github.com/cesarjesusvalls/PhotonSim . Its pinned README states that
+the project follows the Geant4 license terms; that README is preserved with
+the baseline source under photonsim_physics/upstream/README.md.
+
+GENIE reference provenance is supplied as links, release tags and immutable
+blob hashes in GENIE_deexcitation_sources_manifest.json. The publication
+package omits the review-only copied GENIE_R-* source/XML files. Relevant
+upstream notices (provided as provenance, not relabeled as this package's
+license) are:
+  https://genie-mc.github.io/copyright.html
+  https://www.gnu.org/licenses/gpl-3.0.txt
+  https://genie-mc.github.io/MCNET_GUIDELINES.txt
+Historical copyright notices associated with the inspected release eras:
+  R-3_04_00:
+  https://github.com/GENIE-MC/GENIE-MC.github.io/blob/5720988b22ee7624828dbf8a26f5cd0709f74651/copyright.html
+  R-3_06_02:
+  https://github.com/GENIE-MC/GENIE-MC.github.io/blob/31210997e62567cc649a54bbc2ef01a4efd088fa/copyright.html
+
+The SK calibration article PDF/HTML and figure/page SVG/PNG copies are also
+omitted from publication. The audit preserves its citations and source links:
+  K. Abe et al., Calibration of the Super-Kamiokande Detector,
+  Nuclear Instruments and Methods A 737 (2014), 253-272.
+  https://doi.org/10.1016/j.nima.2013.11.081
+  https://arxiv.org/abs/1307.0162v2
+  https://arxiv.org/pdf/1307.0162v2
+  https://arxiv.org/html/1307.0162v2/nonlin02-2.svg
+
+Third-party works retain their own applicable terms. This notice does not
+assign a new blanket license to them or to the host repository.

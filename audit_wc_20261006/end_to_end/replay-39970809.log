@@ -1,0 +1,109 @@
+warning: `--no-sync` has no effect when used alongside `--no-project`
+/sdf/group/neutrino/youngsam/sim/LUCiD/audit/wc_data_20261004/env_system/lib/python3.12/site-packages/jaxlib/plugin_support.py:92: RuntimeWarning: JAX plugin jax_cuda12_plugin version 0.9.2 is installed, but it is not compatible with the installed jaxlib version 0.11.0, so it will not be used.
+  warnings.warn(
+=== Step 3: Running LUCiD writer ===
+    ROOT file:  /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/bomb_source/bomb.root
+    Output dir: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/replay_only
+    Dataset:    particle bomb (single vertex)
+    file_index: 0
+    n_events:   1
+    geometry:   cylinder / water, 11096 sensors
+Using provided master seed: 918273
+Run id: 25c42ae9-0ce7-4d35-b307-2f41ec6c186b
+Loading ROOT file: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/bomb_source/bomb.root
+  Found 10 entries
+  Using rays buckets: [256, 2048, 8192, 32768]
+
+Generating 1 events using VMAP-OPTIMIZED particle-based processing...
+Using batch size of 1 events for multithreaded I/O
+Apply smearing: True
+Apply translation: True
+Digitizer model: ski (dark_rate_khz=4.2)
+Trigger: W=200.0ns N_thr=25 pad=300.0/300.0ns (non-triggering events dropped)
+Apply rotation: False
+Saving events to directory: /sdf/group/neutrino/youngsam/sim/lucid-data/LUCID/audit_wc_20261006/end_to_end/replay_only
+Detector bounds: {'type': 'cylinder', 'radius': 16.96228024518598, 'height': 36.37842222222, 'sensor_radius': 0.25}
+Warming up JIT cache for 4 rays bucket(s)...
+  rays=   256: 4.44s
+  rays= 2,048: 4.30s
+  rays= 8,192: 4.47s
+  rays=32,768: 5.06s
+Processing batch 1/1 (events 0 to 0)
+
+  Event 1/1 (index 0):
+    Reading raw event from ROOT file...
+    [timing] root_read 0.533s
+    Raw: photons=778,797  segments=97,919
+    [timing] preprocess 0.008s
+    Running per-process pipeline (1 process(es), rays_buckets=[256, 2048, 8192, 32768])...
+    Simulation completed in 14.43s
+    [timing] simulate 14.426s
+{
+  "job": "39970809",
+  "partition": "milano",
+  "source_event_idx": 5,
+  "saved_event_group": "event_005",
+  "digit_idx": 2333,
+  "pmt_idx": 4625,
+  "master_seed": 918273,
+  "production_job_id": 2718,
+  "replay_total_detected_pe": 38808.960675656796,
+  "original_total_detected_pe": 38808.960675656796,
+  "exact_total_detected_match": true,
+  "replay_physical_photoelectrons_on_pmt": 1190,
+  "replay_physics_charge_on_pmt": 1189.9987941980362,
+  "saved_digit_truth_pe": 1189.9987691640854,
+  "saved_digit_reconstructed_charge_pe": 1154.0390625,
+  "dark_pe_in_saved_digit": 0.0,
+  "same_pmt_saved_digit_count": 1,
+  "arrival_quantiles_ns_in_g4_frame": {
+    "min": 16.322845458984375,
+    "p05": 16.34477777481079,
+    "p25": 16.430626392364502,
+    "p50": 16.562274932861328,
+    "p75": 16.733827590942383,
+    "p95": 17.110848331451415,
+    "max": 148.54942321777344
+  },
+  "full_true_arrival_span_ns": 132.22657775878906,
+  "central_90_percent_true_arrival_span_ns": 0.7660705566406243,
+  "max_sliding_window_counts_ns": {
+    "1": {
+      "max_physical_photoelectrons": 1152,
+      "fraction_of_digit_physics_pe": 0.9680672268907563,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "5": {
+      "max_physical_photoelectrons": 1173,
+      "fraction_of_digit_physics_pe": 0.9857142857142858,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "10": {
+      "max_physical_photoelectrons": 1179,
+      "fraction_of_digit_physics_pe": 0.9907563025210084,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "20": {
+      "max_physical_photoelectrons": 1183,
+      "fraction_of_digit_physics_pe": 0.9941176470588236,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "50": {
+      "max_physical_photoelectrons": 1189,
+      "fraction_of_digit_physics_pe": 0.9991596638655462,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "100": {
+      "max_physical_photoelectrons": 1189,
+      "fraction_of_digit_physics_pe": 0.9991596638655462,
+      "start_ns_in_g4_frame": 16.322845458984375
+    },
+    "200": {
+      "max_physical_photoelectrons": 1190,
+      "fraction_of_digit_physics_pe": 1.0,
+      "start_ns_in_g4_frame": 16.322845458984375
+    }
+  },
+  "timing_scope": "Optical arrival times at the PMT from identical source event and optical random keys, before PMT transit-time spread or electronics response. This is not an anode-current waveform or a calibrated nonlinear-charge correction."
+}
+MATCHED_SAVED_EVENT_AND_CAPTURED_RAW_DEPOSITS

@@ -1,0 +1,29 @@
+{
+  "photon_draws": 6000000,
+  "job": "39969707",
+  "source": "isotropic uniform fiducial volume, 1/lambda^2 300-650nm",
+  "total_pe": {
+    "baseline": 396553.58984375,
+    "fixed": 396258.58984375,
+    "delta": -294.9996542930603,
+    "paired_sigma": 72.2979184795376,
+    "relative_delta": -0.0007439086717366398,
+    "significance": -4.080333991587237
+  },
+  "pe_after150ns": {
+    "baseline": 35898.97058105469,
+    "fixed": 35814.970703125,
+    "delta": -83.99989128112793,
+    "paired_sigma": 63.937403166455375,
+    "relative_delta": -0.0023398969363611225,
+    "significance": -1.3137832805383358
+  },
+  "pe_after300ns": {
+    "baseline": 2129.0043449401855,
+    "fixed": 2145.0043563842773,
+    "delta": 16.000020027160645,
+    "paired_sigma": 34.029363895918074,
+    "relative_delta": 0.00751525945223478,
+    "significance": 0.4701827538151513
+  }
+}
